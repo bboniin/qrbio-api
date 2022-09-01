@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// criar migrate yarn prisma migrate dev
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  phone_number String    @default("")
+  password     String    @default("")
+  create_at    DateTime? @default(now())
+  update_at    DateTime? @default(now())
+
+  profiles Profile[]
+
+  @@map("users")
+}
+
+model Profile {
+  id                 String    @id @default(uuid())
+  name               String
+  category           String?
+  nickname           String    @unique
+  photo              String?
+  description        String?
+  background         String?
+  button_color       String?
+  font_button_color  String?
+  font_color         String?
+  font               String?
+  button_style       String?
+  background_image   String?   @default("")
+  background_blur    Float?    @default(0)
+  button_opacity     Float?    @default(100)
+  background_visible Boolean?  @default(true)
+  create_at          DateTime? @default(now())
+  update_at          DateTime? @default(now())
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  tags    Tag[]
+  links   Link[]
+  sociais Social[]
+
+  @@map("profiles")
+}
+
+model Tag {
+  id         String    @id @default(uuid())
+  name       String?
+  create_at  DateTime? @default(now())
+  update_at  DateTime? @default(now())
+  profile    Profile?  @relation(fields: [profile_id], references: [id])
+  profile_id String?
+
+  @@map("tags")
+}
+
+model Link {
+  id        String    @id @default(uuid())
+  name      String
+  order     Int
+  url       String
+  user_id   String
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  profile    Profile @relation(fields: [profile_id], references: [id])
+  profile_id String
+
+  @@map("links")
+}
+
+model Social {
+  id        String    @id @default(uuid())
+  name      String
+  url       String
+  order     Int
+  user_id   String
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  profile    Profile @relation(fields: [profile_id], references: [id])
+  profile_id String
+
+  @@map("sociais")
+}
