@@ -15,7 +15,7 @@ class DeleteProfileService {
             },
         })
 
-        if (profileImage) {
+        if (profileImage["photo"]) {
             const s3Storage = new S3Storage()
             await s3Storage.deleteFile(profileImage["photo"])
         }

@@ -45,7 +45,9 @@ class EditProfileService {
                 },
             })
 
-            await s3Storage.deleteFile(profileImage["photo"])
+            if (profileImage["photo"]) {
+                await s3Storage.deleteFile(profileImage["photo"])
+            }
             const upload = await s3Storage.saveFile(photo)
 
             data["photo"] = upload
