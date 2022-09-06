@@ -34,6 +34,9 @@ class ViewProfilePublicService {
             where: filter,
             include: {
                 links: {
+                    where: {
+                        visible: true,
+                    },
                     orderBy: {
                         order: 'asc',
                     },

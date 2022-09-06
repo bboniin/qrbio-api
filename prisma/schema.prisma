@@ -73,6 +73,7 @@ model Link {
   order     Int
   url       String
   user_id   String
+  visible   Boolean   @default(true)
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 

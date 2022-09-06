@@ -20,6 +20,7 @@ import { ListLinksController } from './controllers/Link/ListLinksController'
 import { EditLinkController } from './controllers/Link/EditLinkController'
 import { OrderLinksController } from './controllers/Link/OrderLinksController'
 import { DeleteLinkController } from './controllers/Link/DeleteLinkController'
+import { VisibleLinkController } from './controllers/Link/VisibleLinkController'
 
 import { CreateSocialController } from './controllers/Social/CreateSocialController'
 import { ListSociaisController } from './controllers/Social/ListSociaisController'
@@ -31,10 +32,10 @@ import { CreateTagController } from './controllers/Tag/CreateTagController'
 import { ListTagsController } from './controllers/Tag/ListTagsController'
 import { EditTagController } from './controllers/Tag/EditTagController'
 import { DeleteTagController } from './controllers/Tag/DeleteTagController'
+import { LinkTagController } from './controllers/Tag/LinkTagController'
 
 
 import uploadConfig from './config/multer'
-import { LinkTagController } from './controllers/Tag/LinkTagController'
 
 const upload = multer(uploadConfig)
 
@@ -54,6 +55,7 @@ router.use(isAuthenticated)
 router.get('/links/:id', new ListLinksController().handle)
 router.post('/link', new CreateLinkController().handle)
 router.put('/link/:id', new EditLinkController().handle)
+router.put('/visible/:id', new VisibleLinkController().handle)
 router.put('/order-links/:id', new OrderLinksController().handle)
 router.delete('/link/:id', new DeleteLinkController().handle)
 

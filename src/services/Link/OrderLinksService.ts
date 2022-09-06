@@ -25,6 +25,7 @@ class OrderLinksService {
                 },
                 data: {
                     order: index,
+                    visible: item.visible,
                 }
             })
         })
