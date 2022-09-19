@@ -26,10 +26,6 @@ class ViewProfilePublicService {
             filter = { nickname: id }
         }
 
-
-
-
-
         const viewProfilePublic = await prismaClient.profile.findUnique({
             where: filter,
             include: {

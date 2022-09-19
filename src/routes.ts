@@ -36,6 +36,7 @@ import { LinkTagController } from './controllers/Tag/LinkTagController'
 
 
 import uploadConfig from './config/multer'
+import { ShowCountViewController } from './controllers/Profile/ShowCountViewController'
 
 const upload = multer(uploadConfig)
 
@@ -67,6 +68,7 @@ router.put('/order-sociais/:id', new OrderSociaisController().handle)
 router.delete('/social/:id', new DeleteSocialController().handle)
 
 
+router.get('/profile-views/:profile_id', new ShowCountViewController().handle)
 router.get('/profiles', new ListProfilesController().handle)
 router.post('/profile', upload.single("file"), new CreateProfileController().handle)
 router.put('/profile/:id', upload.single("file"), new EditProfileController().handle)

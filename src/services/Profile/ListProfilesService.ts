@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import prismaClient from '../../prisma'
 
 interface ProfileRequest {
@@ -24,8 +25,20 @@ class ListProfilesService {
                     orderBy: {
                         order: 'asc',
                     },
+                },
+                viewsProfiles: {
+                    where: {
+                        date: format(new Date(), "dd/MM/yyyy")
+                    },
                 }
             }
+        })
+
+        await listProfiles.map(async (item) => {
+            item["viewsDay"] = item["viewsProfiles"].length
+            item["viewsProfiles"] = undefined
+            item["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.photo
+            item["background_image"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.background_image
         })
 
         return (listProfiles)

@@ -49,9 +49,10 @@ model Profile {
   user    User   @relation(fields: [user_id], references: [id])
   user_id String
 
-  tags    Tag[]
-  links   Link[]
-  sociais Social[]
+  tags          Tag[]
+  links         Link[]
+  sociais       Social[]
+  viewsProfiles ViewProfile[]
 
   @@map("profiles")
 }
@@ -96,4 +97,19 @@ model Social {
   profile_id String
 
   @@map("sociais")
+}
+
+model ViewProfile {
+  id        String    @id @default(uuid())
+  ip        String
+  date      String
+  month     String
+  year      String
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  profile    Profile @relation(fields: [profile_id], references: [id])
+  profile_id String
+
+  @@map("viewProfiles")
 }

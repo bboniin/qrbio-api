@@ -11,11 +11,6 @@ class ListProfilesController {
         const profiles = await listProfilesService.execute({
             userId
         })
-        profiles.map((item) => {
-            item["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.photo
-            item["background_image"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.background_image
-        })
-
 
         return res.json(profiles)
     }
