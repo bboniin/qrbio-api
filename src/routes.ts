@@ -52,14 +52,15 @@ const router = Router()
 
 router.post('/user', new CreateUserController().handle)
 router.post('/session', new AuthUserController().handle)
-router.get('/profile/:id', new ViewProfilePublicController().handle)
-router.post('/tag', new CreateTagController().handle)
 router.post('/session-admin', new AuthAdminController().handle)
-router.post('/admin', new CreateAdminController().handle)
+
+router.get('/profile/:id', new ViewProfilePublicController().handle)
 
 router.use(isAuthenticated)
 
 // Routes Users
+// router.post('/admin', new CreateAdminController().handle)
+//router.post('/tag', new CreateTagController().handle)
 
 router.get('/links/:id', new ListLinksController().handle)
 router.post('/link', new CreateLinkController().handle)
