@@ -6,12 +6,11 @@ class CreateProfileController {
         const { name, description, nickname, category } = req.body
 
         let userId = req.userId
+
         let photo = ""
         if (req.file) {
             photo = req.file.filename
         }
-
-        console.log(userId)
 
         const createProfileService = new CreateProfileService
 

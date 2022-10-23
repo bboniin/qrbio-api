@@ -27,7 +27,7 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
 
     return next();
   } catch (error) {
-    return res.status(401).json({ message: 'Internal server Error' });
+    return res.status(401).json({ message: 'Internal server Errorrr' });
   }
 
   return next();

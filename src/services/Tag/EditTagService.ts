@@ -12,8 +12,6 @@ class EditTagService {
             throw new Error("Nome é obrigátorio")
         }
 
-        console.log(name)
-
         const tagEdited = await prismaClient.tag.update({
             where: {
                 id: id

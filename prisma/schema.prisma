@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,49 +7,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// criar migrate yarn prisma migrate dev
-
 model User {
   id           String    @id @default(uuid())
   name         String
   email        String    @unique
   phone_number String    @default("")
-  password     String    @default("")
+  password     String
   create_at    DateTime? @default(now())
   update_at    DateTime? @default(now())
-
-  profiles Profile[]
+  profiles     Profile[]
 
   @@map("users")
 }
 
 model Profile {
-  id                 String    @id @default(uuid())
+  id                 String        @id @default(uuid())
   name               String
-  category           String?
-  nickname           String    @unique
+  nickname           String        @unique
   photo              String?
   description        String?
+  create_at          DateTime?     @default(now())
+  update_at          DateTime?     @default(now())
+  user_id            String
   background         String?
   button_color       String?
+  button_style       String?
+  font               String?
   font_button_color  String?
   font_color         String?
-  font               String?
-  button_style       String?
-  background_image   String?   @default("")
-  background_blur    Float?    @default(0)
-  button_opacity     Float?    @default(100)
-  background_visible Boolean?  @default(true)
-  create_at          DateTime? @default(now())
-  update_at          DateTime? @default(now())
-
-  user    User   @relation(fields: [user_id], references: [id])
-  user_id String
-
-  tags          Tag[]
-  links         Link[]
-  sociais       Social[]
-  viewsProfiles ViewProfile[]
+  category           String?
+  background_blur    Float?        @default(0)
+  background_image   String?       @default("")
+  background_visible Boolean?      @default(true)
+  button_opacity     Float?        @default(100)
+  redirect           String?
+  user               User          @relation(fields: [user_id], references: [id])
+  links              Link[]
+  sociais            Social[]
+  tags               Tag[]
+  viewsProfiles      ViewProfile[]
 
   @@map("profiles")
 }
@@ -62,54 +55,75 @@ model Tag {
   name       String?
   create_at  DateTime? @default(now())
   update_at  DateTime? @default(now())
-  profile    Profile?  @relation(fields: [profile_id], references: [id])
   profile_id String?
+  profile    Profile?  @relation(fields: [profile_id], references: [id])
+  batch      Batch?    @relation(fields: [batch_id], references: [id])
+  batch_id   String?
 
   @@map("tags")
 }
 
 model Link {
-  id        String    @id @default(uuid())
-  name      String
-  order     Int
-  url       String
-  user_id   String
-  visible   Boolean   @default(true)
-  create_at DateTime? @default(now())
-  update_at DateTime? @default(now())
-
-  profile    Profile @relation(fields: [profile_id], references: [id])
+  id         String    @id @default(uuid())
+  name       String
+  order      Int
+  url        String
+  user_id    String
+  create_at  DateTime? @default(now())
+  update_at  DateTime? @default(now())
   profile_id String
+  visible    Boolean   @default(true)
+  profile    Profile   @relation(fields: [profile_id], references: [id])
 
   @@map("links")
 }
 
 model Social {
-  id        String    @id @default(uuid())
-  name      String
-  url       String
-  order     Int
-  user_id   String
-  create_at DateTime? @default(now())
-  update_at DateTime? @default(now())
-
-  profile    Profile @relation(fields: [profile_id], references: [id])
+  id         String    @id @default(uuid())
+  name       String
+  url        String
+  order      Int
+  user_id    String
+  create_at  DateTime? @default(now())
+  update_at  DateTime? @default(now())
   profile_id String
+  profile    Profile   @relation(fields: [profile_id], references: [id])
 
   @@map("sociais")
 }
 
 model ViewProfile {
+  id         String    @id @default(uuid())
+  profile_id String
+  ip         String
+  date       String
+  month      String
+  year       String
+  create_at  DateTime? @default(now())
+  update_at  DateTime? @default(now())
+  profile    Profile   @relation(fields: [profile_id], references: [id])
+
+  @@map("viewProfiles")
+}
+
+model Batch {
   id        String    @id @default(uuid())
-  ip        String
-  date      String
-  month     String
-  year      String
+  name      String?
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 
-  profile    Profile @relation(fields: [profile_id], references: [id])
-  profile_id String
+  tags Tag[]
 
-  @@map("viewProfiles")
+  @@map("batchs")
+}
+
+model Admin {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  password  String
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  @@map("admins")
 }

@@ -7,11 +7,12 @@ interface ProfileRequest {
     description: string;
     photo: string;
     id: string;
+    redirect: string;
 }
 
 
 class EditProfileService {
-    async execute({ name, id, userId, photo, description }: ProfileRequest) {
+    async execute({ name, id, userId, photo, description, redirect }: ProfileRequest) {
 
         const getProfile = await prismaClient.profile.findUnique({
             where: {
@@ -31,9 +32,14 @@ class EditProfileService {
             description = getProfile.description
         }
 
+        if (!redirect) {
+            redirect = getProfile.redirect
+        }
+
         let data = {
             name: name,
             description: description,
+            redirect: redirect,
         }
 
         if (photo) {
@@ -48,11 +54,11 @@ class EditProfileService {
             if (profileImage["photo"]) {
                 await s3Storage.deleteFile(profileImage["photo"])
             }
-            const upload = await s3Storage.saveFile(photo)
 
-            data["photo"] = upload
+            await s3Storage.saveFile(photo)
+
+            data["photo"] = photo
         }
-
 
         const profile = await prismaClient.profile.update({
             where: {

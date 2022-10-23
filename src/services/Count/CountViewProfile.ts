@@ -27,7 +27,6 @@ class CountViewProfile {
                     year: format(new Date(), "yyyy"),
                 }
             })
-            console.log(countView)
         }
     }
 }

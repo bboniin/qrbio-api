@@ -54,9 +54,9 @@ class EditDesignProfileService {
             if (getProfile["background_image"]) {
                 await s3Storage.deleteFile(getProfile["background_image"])
             }
-            const upload = await s3Storage.saveFile(background_image)
+            await s3Storage.saveFile(background_image)
 
-            data["background_image"] = upload
+            data["background_image"] = background_image
         }
 
         const profile = await prismaClient.profile.update({

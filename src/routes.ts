@@ -37,21 +37,29 @@ import { LinkTagController } from './controllers/Tag/LinkTagController'
 
 import uploadConfig from './config/multer'
 import { ShowCountViewController } from './controllers/Profile/ShowCountViewController'
+import { ListUsersController } from './controllers/Admin/ListUsersController'
+import { ListBatchsController } from './controllers/Admin/ListBatchsController'
+import { CreateBatchController } from './controllers/Admin/CreateBatchController'
+import { GetBatchController } from './controllers/Admin/GetBatchController'
+import { AuthAdminController } from './controllers/Admin/AuthAdminController'
+import { CreateAdminController } from './controllers/Admin/CreateAdminController'
 
 const upload = multer(uploadConfig)
 
 const router = Router()
 
-// Routes User
+// Routes Public
 
 router.post('/user', new CreateUserController().handle)
 router.post('/session', new AuthUserController().handle)
 router.get('/profile/:id', new ViewProfilePublicController().handle)
 router.post('/tag', new CreateTagController().handle)
+router.post('/session-admin', new AuthAdminController().handle)
+router.post('/admin', new CreateAdminController().handle)
 
 router.use(isAuthenticated)
 
-// Routes BarberShop
+// Routes Users
 
 router.get('/links/:id', new ListLinksController().handle)
 router.post('/link', new CreateLinkController().handle)
@@ -81,6 +89,11 @@ router.put('/tag/:id', new EditTagController().handle)
 router.put('/link-tag/:id', new LinkTagController().handle)
 router.delete('/tag/:id', new DeleteTagController().handle)
 
-// Routes Barber
+// Routes Admin
+
+router.get('/admin/users', new ListUsersController().handle)
+router.get('/admin/batchs', new ListBatchsController().handle)
+router.get('/admin/batch/:id', new GetBatchController().handle)
+router.post('/admin/batch', new CreateBatchController().handle)
 
 export { router }

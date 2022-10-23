@@ -37,7 +37,9 @@ class ListProfilesService {
         await listProfiles.map(async (item) => {
             item["viewsDay"] = item["viewsProfiles"].length
             item["viewsProfiles"] = undefined
-            item["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.photo
+            if (item.photo) {
+                item["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.photo
+            }
             item["background_image"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.background_image
         })
 
