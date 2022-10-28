@@ -32,10 +32,6 @@ class EditProfileService {
             description = getProfile.description
         }
 
-        if (!redirect) {
-            redirect = getProfile.redirect
-        }
-
         let data = {
             name: name,
             description: description,
