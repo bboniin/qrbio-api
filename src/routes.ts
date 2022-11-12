@@ -61,6 +61,7 @@ router.use(isAuthenticated)
 // Routes Users
 // router.post('/admin', new CreateAdminController().handle)
 //router.post('/tag', new CreateTagController().handle)
+router.put('/user', new EditUserController().handle)
 
 router.get('/links/:id', new ListLinksController().handle)
 router.post('/link', new CreateLinkController().handle)
