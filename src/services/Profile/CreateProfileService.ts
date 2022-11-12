@@ -20,7 +20,7 @@ class CreateProfileService {
         })
 
         if (profileExist) {
-            throw new Error("Nickname já está sendo usado")
+            throw new Error("Usuário já está sendo utilizado")
         }
 
         if (photo) {
