@@ -18,7 +18,7 @@ class AuthUserService {
         })
 
         if (!user) {
-            throw new Error("Email e Senha não correspondem.")
+            throw new Error("Email/Senha estão incorreto")
         }
 
         const passwordMatch = await compare(password, user.password)
@@ -32,7 +32,7 @@ class AuthUserService {
         })
 
         if (!passwordMatch) {
-            throw new Error("Email/Senha estão incorreto.")
+            throw new Error("Email/Senha estão incorreto")
         }
 
         return ({

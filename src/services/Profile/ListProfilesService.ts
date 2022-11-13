@@ -8,6 +8,16 @@ interface ProfileRequest {
 class ListProfilesService {
     async execute({ userId }: ProfileRequest) {
 
+        const user = await prismaClient.user.findFirst({
+            where: {
+                id: userId
+            }
+        })
+
+        if (!user) {
+            throw new Error("Essa conta foi deletada")
+        }
+
         const listProfiles = await prismaClient.profile.findMany({
             where: {
                 user_id: userId

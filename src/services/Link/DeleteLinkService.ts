@@ -15,7 +15,7 @@ class DeleteLinkService {
         })
 
         if (getLink.user_id != userId) {
-            throw new Error("Esse perfil não pertence ao Usuário.")
+            throw new Error("Esse perfil não pertence ao Usuário")
         }
 
         const linkDeleted = await prismaClient.link.delete({

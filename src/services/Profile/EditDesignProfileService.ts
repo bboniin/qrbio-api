@@ -35,7 +35,7 @@ class EditDesignProfileService {
         })
 
         if (getProfile.user_id != userId) {
-            throw new Error("Esse perfil não pertence ao Usuário.")
+            throw new Error("Esse perfil não pertence ao Usuário")
         }
 
         let data = {

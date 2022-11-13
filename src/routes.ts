@@ -43,6 +43,7 @@ import { CreateBatchController } from './controllers/Admin/CreateBatchController
 import { GetBatchController } from './controllers/Admin/GetBatchController'
 import { AuthAdminController } from './controllers/Admin/AuthAdminController'
 import { CreateAdminController } from './controllers/Admin/CreateAdminController'
+import { DeleteUserController } from './controllers/User/DeleteUserController'
 
 const upload = multer(uploadConfig)
 
@@ -62,6 +63,7 @@ router.use(isAuthenticated)
 // router.post('/admin', new CreateAdminController().handle)
 //router.post('/tag', new CreateTagController().handle)
 router.put('/user', new EditUserController().handle)
+router.post('/user-delete', new DeleteUserController().handle)
 
 router.get('/links/:id', new ListLinksController().handle)
 router.post('/link', new CreateLinkController().handle)

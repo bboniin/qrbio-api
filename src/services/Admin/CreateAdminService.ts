@@ -21,7 +21,7 @@ class CreateAdminService {
         })
 
         if (adminAlreadyExists) {
-            throw new Error("Email já cadastrado.")
+            throw new Error("Email já cadastrado")
         }
 
         const passwordHash = await hash(password, 8)

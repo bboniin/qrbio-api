@@ -21,7 +21,7 @@ class ShowCountViewService {
         })
 
         if (profile.user_id != userId) {
-            throw new Error("Esse perfil não pertence ao Usuário.")
+            throw new Error("Esse perfil não pertence ao Usuário")
         }
 
         if (type_date == "yearly") {

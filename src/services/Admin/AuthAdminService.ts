@@ -18,7 +18,7 @@ class AuthAdminService {
         })
 
         if (!admin) {
-            throw new Error("Email e Senha não correspondem.")
+            throw new Error("Email e Senha não correspondem")
         }
 
         const passwordMatch = await compare(password, admin.password)
@@ -32,7 +32,7 @@ class AuthAdminService {
         })
 
         if (!passwordMatch) {
-            throw new Error("Email/Senha estão incorreto.")
+            throw new Error("Email/Senha estão incorreto")
         }
 
         return ({

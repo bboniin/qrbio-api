@@ -21,7 +21,7 @@ class EditSocialService {
         })
 
         if (getSocial.user_id != userId) {
-            throw new Error("Esse perfil não pertence ao Usuário.")
+            throw new Error("Esse perfil não pertence ao Usuário")
         }
 
         const socialEdited = await prismaClient.social.update({
