@@ -20,6 +20,16 @@ model User {
   @@map("users")
 }
 
+model PasswordForgot {
+  id         String    @id @default(uuid())
+  user_email String
+  code       String
+  create_at  DateTime? @default(now())
+  update_at  DateTime? @default(now())
+
+  @@map("passwords_forgot")
+}
+
 model Profile {
   id                 String        @id @default(uuid())
   name               String

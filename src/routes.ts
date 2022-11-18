@@ -44,6 +44,8 @@ import { GetBatchController } from './controllers/Admin/GetBatchController'
 import { AuthAdminController } from './controllers/Admin/AuthAdminController'
 import { CreateAdminController } from './controllers/Admin/CreateAdminController'
 import { DeleteUserController } from './controllers/User/DeleteUserController'
+import { PasswordForgotController } from './controllers/User/PasswordForgotController'
+import { PasswordResetController } from './controllers/User/PasswordResetController'
 
 const upload = multer(uploadConfig)
 
@@ -56,6 +58,8 @@ router.post('/session', new AuthUserController().handle)
 router.post('/session-admin', new AuthAdminController().handle)
 
 router.get('/profile/:id', new ViewProfilePublicController().handle)
+router.post('/password-forgot', new PasswordForgotController().handle)
+router.post('/password-reset', new PasswordResetController().handle)
 
 router.use(isAuthenticated)
 
