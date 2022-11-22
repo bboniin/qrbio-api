@@ -10,11 +10,11 @@ class GetBatchController {
 
         const getBatchService = new GetBatchService
 
-        const batchs = await getBatchService.execute({
+        const batch = await getBatchService.execute({
             userId, id
         })
 
-        return res.json(batchs)
+        return res.json(batch)
     }
 }
 

@@ -34,8 +34,8 @@ import { EditTagController } from './controllers/Tag/EditTagController'
 import { DeleteTagController } from './controllers/Tag/DeleteTagController'
 import { LinkTagController } from './controllers/Tag/LinkTagController'
 
-
 import uploadConfig from './config/multer'
+
 import { ShowCountViewController } from './controllers/Profile/ShowCountViewController'
 import { ListUsersController } from './controllers/Admin/ListUsersController'
 import { ListBatchsController } from './controllers/Admin/ListBatchsController'
@@ -46,6 +46,7 @@ import { CreateAdminController } from './controllers/Admin/CreateAdminController
 import { DeleteUserController } from './controllers/User/DeleteUserController'
 import { PasswordForgotController } from './controllers/User/PasswordForgotController'
 import { PasswordResetController } from './controllers/User/PasswordResetController'
+import { GetUserController } from './controllers/Admin/GetUserController'
 
 const upload = multer(uploadConfig)
 
@@ -100,6 +101,7 @@ router.delete('/tag/:id', new DeleteTagController().handle)
 // Routes Admin
 
 router.get('/admin/users', new ListUsersController().handle)
+router.get('/admin/user/:id', new GetUserController().handle)
 router.get('/admin/batchs', new ListBatchsController().handle)
 router.get('/admin/batch/:id', new GetBatchController().handle)
 router.post('/admin/batch', new CreateBatchController().handle)

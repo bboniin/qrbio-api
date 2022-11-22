@@ -9,7 +9,7 @@ interface BatchRequest {
 class GetBatchService {
     async execute({ userId, id }: BatchRequest) {
 
-        const batchs = await prismaClient.batch.findUnique({
+        const batch = await prismaClient.batch.findUnique({
             where: {
                 id: id,
             },
@@ -22,7 +22,7 @@ class GetBatchService {
             }
         })
 
-        return (batchs)
+        return (batch)
     }
 }
 
