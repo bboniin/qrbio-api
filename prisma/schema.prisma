@@ -53,6 +53,7 @@ model Profile {
   redirect           String?
   user               User          @relation(fields: [user_id], references: [id])
   links              Link[]
+  texts              Text[]
   sociais            Social[]
   tags               Tag[]
   viewsProfiles      ViewProfile[]
@@ -86,6 +87,22 @@ model Link {
   profile    Profile   @relation(fields: [profile_id], references: [id])
 
   @@map("links")
+}
+
+model Text {
+  id         String    @id @default(uuid())
+  name       String
+  order      Int
+  text       String
+  open       Boolean
+  user_id    String
+  create_at  DateTime? @default(now())
+  update_at  DateTime? @default(now())
+  profile_id String
+  visible    Boolean   @default(true)
+  profile    Profile   @relation(fields: [profile_id], references: [id])
+
+  @@map("texts")
 }
 
 model Social {

@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import prismaClient from '../../prisma'
+import { ListModulesService } from './../Modules/ListModulesService';
 
 interface ProfileRequest {
     userId: string;
@@ -26,16 +27,6 @@ class ListProfilesService {
                 create_at: "asc"
             },
             include: {
-                links: {
-                    orderBy: {
-                        order: 'asc',
-                    },
-                },
-                sociais: {
-                    orderBy: {
-                        order: 'asc',
-                    },
-                },
                 viewsProfiles: {
                     where: {
                         date: format(new Date(), "dd/MM/yyyy")
@@ -44,13 +35,16 @@ class ListProfilesService {
             }
         })
 
-        await listProfiles.map(async (item) => {
+        listProfiles.map(async (item) => {
             item["viewsDay"] = item["viewsProfiles"].length
             item["viewsProfiles"] = undefined
             if (item.photo) {
                 item["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.photo
             }
-            item["background_image"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.background_image
+            if (item["background_image"]) {
+
+            }
+            item["background_image_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.background_image
         })
 
         return (listProfiles)

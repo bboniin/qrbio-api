@@ -15,12 +15,12 @@ import { EditDesignProfileController } from './controllers/Profile/EditDesignPro
 import { DeleteProfileController } from './controllers/Profile/DeleteProfileController'
 import { ViewProfilePublicController } from './controllers/Profile/ViewProfilePublicController'
 
+import { ListModulesController } from './controllers/Modules/ListModulesController'
+import { OrderModulesController } from './controllers/Modules/OrderModulesController'
+
 import { CreateLinkController } from './controllers/Link/CreateLinkController'
-import { ListLinksController } from './controllers/Link/ListLinksController'
 import { EditLinkController } from './controllers/Link/EditLinkController'
-import { OrderLinksController } from './controllers/Link/OrderLinksController'
 import { DeleteLinkController } from './controllers/Link/DeleteLinkController'
-import { VisibleLinkController } from './controllers/Link/VisibleLinkController'
 
 import { CreateSocialController } from './controllers/Social/CreateSocialController'
 import { ListSociaisController } from './controllers/Social/ListSociaisController'
@@ -47,6 +47,10 @@ import { DeleteUserController } from './controllers/User/DeleteUserController'
 import { PasswordForgotController } from './controllers/User/PasswordForgotController'
 import { PasswordResetController } from './controllers/User/PasswordResetController'
 import { GetUserController } from './controllers/Admin/GetUserController'
+import { GetProfileController } from './controllers/Profile/GetProfileController'
+import { CreateTextController } from './controllers/Text/CreateTextController'
+import { EditTextController } from './controllers/Text/EditTextController'
+import { DeleteTextController } from './controllers/Text/DeleteTextController'
 
 const upload = multer(uploadConfig)
 
@@ -70,13 +74,16 @@ router.use(isAuthenticated)
 router.put('/user', new EditUserController().handle)
 router.post('/user-delete', new DeleteUserController().handle)
 
-router.get('/links/:id', new ListLinksController().handle)
+router.get('/modules/:id', new ListModulesController().handle)
+router.put('/order-modules/:id', new OrderModulesController().handle)
+
 router.post('/link', new CreateLinkController().handle)
 router.put('/link/:id', new EditLinkController().handle)
-router.put('/visible/:id', new VisibleLinkController().handle)
-router.put('/order-links/:id', new OrderLinksController().handle)
 router.delete('/link/:id', new DeleteLinkController().handle)
 
+router.post('/text', new CreateTextController().handle)
+router.put('/text/:id', new EditTextController().handle)
+router.delete('/text/:id', new DeleteTextController().handle)
 
 router.get('/sociais/:id', new ListSociaisController().handle)
 router.post('/social', new CreateSocialController().handle)
@@ -88,6 +95,7 @@ router.delete('/social/:id', new DeleteSocialController().handle)
 router.get('/profile-views/:profile_id', new ShowCountViewController().handle)
 router.get('/profiles', new ListProfilesController().handle)
 router.post('/profile', upload.single("file"), new CreateProfileController().handle)
+router.get('/my-profile/:id', new GetProfileController().handle)
 router.put('/profile/:id', upload.single("file"), new EditProfileController().handle)
 router.put('/design-profile/:id', upload.single("file"), new EditDesignProfileController().handle)
 router.delete('/profile/:id', new DeleteProfileController().handle)

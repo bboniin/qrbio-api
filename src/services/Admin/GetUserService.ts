@@ -20,7 +20,7 @@ class GetUserService {
                 id: true,
                 profiles: {
                     orderBy: {
-                        create_at: "asc"
+                        create_at: "desc"
                     }
                 }
             }

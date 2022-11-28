@@ -66,8 +66,6 @@ class EditDesignProfileService {
             data: data
         })
 
-        profile["background_image"] = "https://edish.s3.sa-east-1.amazonaws.com/" + profile["background_image"]
-
         return (profile)
     }
 }
