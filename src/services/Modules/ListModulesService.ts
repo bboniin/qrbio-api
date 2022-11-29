@@ -22,7 +22,7 @@ class ListModulesService {
             modules.push({ ...item, type: "link" })
         })
 
-        const listTags = await prismaClient.text.findMany({
+        const listTexts = await prismaClient.text.findMany({
             where: {
                 profile_id: id,
             },
@@ -31,7 +31,7 @@ class ListModulesService {
             }
         })
 
-        listTags.map((item) => {
+        listTexts.map((item) => {
             modules.push({ ...item, type: "text" })
         })
 

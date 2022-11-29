@@ -12,6 +12,7 @@ class ListModulesPublicService {
         let listLinks = await prismaClient.link.findMany({
             where: {
                 profile_id: id,
+                visible: true
             },
             orderBy: {
                 order: "asc"
@@ -22,16 +23,17 @@ class ListModulesPublicService {
             modules.push({ ...item, type: "link" })
         })
 
-        const listTags = await prismaClient.text.findMany({
+        const listTexts = await prismaClient.text.findMany({
             where: {
                 profile_id: id,
+                visible: true
             },
             orderBy: {
                 order: "asc"
             }
         })
 
-        listTags.map((item) => {
+        listTexts.map((item) => {
             modules.push({ ...item, type: "text" })
         })
 
