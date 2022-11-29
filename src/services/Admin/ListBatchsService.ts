@@ -12,7 +12,7 @@ class ListBatchsService {
 
         const listBatchsTotal = await prismaClient.batch.findMany({
             orderBy: {
-                update_at: "asc"
+                update_at: "desc"
             },
             where:
                 search ?
@@ -37,7 +37,7 @@ class ListBatchsService {
                     }
                     : {},
             orderBy: {
-                update_at: "asc"
+                update_at: "desc"
             },
             include: {
                 tags: true

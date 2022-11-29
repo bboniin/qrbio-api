@@ -1,16 +1,16 @@
 import { format } from 'date-fns';
 import prismaClient from '../../prisma'
 
-interface UserRequest {
+interface ProfileRequest {
     userId: string;
     page: string;
     search: string;
 }
 
-class ListUsersService {
-    async execute({ userId, page, search }: UserRequest) {
+class ListAdminProfilesService {
+    async execute({ userId, page, search }: ProfileRequest) {
 
-        const listUsersTotal = await prismaClient.user.findMany({
+        const listProfilesTotal = await prismaClient.profile.findMany({
             orderBy: {
                 update_at: "desc"
             },
@@ -18,13 +18,13 @@ class ListUsersService {
                 search ? {
                     OR: [
                         {
-                            email: {
+                            name: {
                                 contains: search,
                             },
                         },
 
                         {
-                            name: {
+                            nickname: {
                                 contains: search,
                             },
                         }
@@ -33,25 +33,25 @@ class ListUsersService {
             select: {
                 create_at: true,
                 name: true,
-                email: true,
-                id: true
+                id: true,
+                nickname: true
             }
         })
 
-        const listUsers = await prismaClient.user.findMany({
+        const listProfiles = await prismaClient.profile.findMany({
             skip: parseInt(page) * 25,
             take: 25,
             where:
                 search ? {
                     OR: [
                         {
-                            email: {
+                            name: {
                                 contains: search,
                             },
                         },
 
                         {
-                            name: {
+                            nickname: {
                                 contains: search,
                             },
                         }
@@ -63,21 +63,21 @@ class ListUsersService {
             select: {
                 update_at: true,
                 name: true,
-                email: true,
+                nickname: true,
                 id: true
             }
         })
 
-        let totalInDay = listUsersTotal.filter((item) => {
+        let totalInDay = listProfilesTotal.filter((item) => {
             return format(new Date(item.create_at), "dd/MM/yyyy") == format(new Date(), "dd/MM/yyyy")
         })
 
         return ({
-            users: listUsers,
+            profiles: listProfiles,
             totalInDay: totalInDay.length,
-            total: listUsersTotal.length
+            total: listProfilesTotal.length
         })
     }
 }
 
-export { ListUsersService }
+export { ListAdminProfilesService }

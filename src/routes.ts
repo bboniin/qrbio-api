@@ -51,6 +51,7 @@ import { GetProfileController } from './controllers/Profile/GetProfileController
 import { CreateTextController } from './controllers/Text/CreateTextController'
 import { EditTextController } from './controllers/Text/EditTextController'
 import { DeleteTextController } from './controllers/Text/DeleteTextController'
+import { ListAdminProfilesController } from './controllers/Admin/ListAdminProfilesController'
 
 const upload = multer(uploadConfig)
 
@@ -109,6 +110,7 @@ router.delete('/tag/:id', new DeleteTagController().handle)
 // Routes Admin
 
 router.get('/admin/users', new ListUsersController().handle)
+router.get('/admin/profiles', new ListAdminProfilesController().handle)
 router.get('/admin/user/:id', new GetUserController().handle)
 router.get('/admin/batchs', new ListBatchsController().handle)
 router.get('/admin/batch/:id', new GetBatchController().handle)

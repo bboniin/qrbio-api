@@ -42,9 +42,9 @@ class ListProfilesService {
                 item["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.photo
             }
             if (item["background_image"]) {
-
+                item["background_image_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.background_image
             }
-            item["background_image_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.background_image
+
         })
 
         return (listProfiles)

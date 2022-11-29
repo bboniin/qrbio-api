@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { CountViewProfile } from '../../services/Count/CountViewProfile';
 import { ViewProfilePublicService } from '../../services/Profile/ViewProfilePublicService';
+import { ListModulesPublicService } from '../../services/Modules/ListModulesPublicService';
 
 class ViewProfilePublicController {
     async handle(req: Request, res: Response) {
@@ -17,11 +18,18 @@ class ViewProfilePublicController {
 
         const countViewProfile = new CountViewProfile
 
-        const countProfile = await countViewProfile.execute({
+        await countViewProfile.execute({
             ip, profile_id: profile.id
         })
 
-        return res.json(profile)
+        const listModulesPublicService = new ListModulesPublicService
+
+        const modules = await listModulesPublicService.execute({
+            id: profile.id
+        })
+
+        return res.json({ ...profile, modules })
+
     }
 }
 

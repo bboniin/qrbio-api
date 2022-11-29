@@ -32,9 +32,7 @@ class GetProfileService {
                 profile["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + profile.photo
             }
             if (profile["background_image"]) {
-
                 profile["background_image_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + profile.background_image
-
             }
         }
 
