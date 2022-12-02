@@ -5,11 +5,12 @@ interface TextRequest {
     id: string;
     userId: string;
     text: string;
+    alignment: string;
     open: boolean;
 }
 
 class EditTextService {
-    async execute({ name, id, userId, text, open }: TextRequest) {
+    async execute({ name, id, userId, text, open, alignment }: TextRequest) {
 
         const getText = await prismaClient.text.findUnique({
             where: {
@@ -33,6 +34,7 @@ class EditTextService {
                 name: name,
                 text: text,
                 open: open,
+                alignment: alignment
             }
         })
 

@@ -52,6 +52,8 @@ import { CreateTextController } from './controllers/Text/CreateTextController'
 import { EditTextController } from './controllers/Text/EditTextController'
 import { DeleteTextController } from './controllers/Text/DeleteTextController'
 import { ListAdminProfilesController } from './controllers/Admin/ListAdminProfilesController'
+import { PrintedBatchController } from './controllers/Admin/PrintedBatchController'
+import { PrintedTagController } from './controllers/Admin/PrintedTagController'
 
 const upload = multer(uploadConfig)
 
@@ -115,5 +117,7 @@ router.get('/admin/user/:id', new GetUserController().handle)
 router.get('/admin/batchs', new ListBatchsController().handle)
 router.get('/admin/batch/:id', new GetBatchController().handle)
 router.post('/admin/batch', new CreateBatchController().handle)
+router.post('/admin/print-batch/:id', new PrintedBatchController().handle)
+router.post('/admin/print-tag/:id', new PrintedTagController().handle)
 
 export { router }

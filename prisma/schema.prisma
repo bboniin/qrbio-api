@@ -63,6 +63,7 @@ model Profile {
 
 model Tag {
   id         String    @id @default(uuid())
+  printed    Boolean   @default(false)
   name       String?
   create_at  DateTime? @default(now())
   update_at  DateTime? @default(now())
@@ -96,6 +97,7 @@ model Text {
   text       String
   open       Boolean
   user_id    String
+  alignment  String    @default("center")
   create_at  DateTime? @default(now())
   update_at  DateTime? @default(now())
   profile_id String
@@ -136,6 +138,7 @@ model ViewProfile {
 model Batch {
   id        String    @id @default(uuid())
   name      String?
+  printed   Boolean   @default(false)
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 
