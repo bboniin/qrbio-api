@@ -2,13 +2,13 @@ import prismaClient from '../../prisma'
 
 interface TagRequest {
     id: string;
-    plan: string;
+    plan_name: string;
 }
 
 class PlanProfileService {
-    async execute({ id, plan }: TagRequest) {
+    async execute({ id, plan_name }: TagRequest) {
 
-        if (!id || !plan) {
+        if (!id || !plan_name) {
             throw new Error("Id do perfil e nome do plano é obrigátorio")
         }
         const tagPrinted = await prismaClient.profile.update({
@@ -16,7 +16,7 @@ class PlanProfileService {
                 id: id
             },
             data: {
-                plan: plan,
+                plan_name: plan_name,
             }
         })
 

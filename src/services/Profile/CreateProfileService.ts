@@ -37,7 +37,7 @@ class CreateProfileService {
                 photo: photo,
                 category: category,
                 nickname: nickname,
-                plan: plan,
+                plan_name: "free",
                 user_id: userId,
             }
         })

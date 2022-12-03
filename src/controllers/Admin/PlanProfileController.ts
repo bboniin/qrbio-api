@@ -5,12 +5,12 @@ class PlanProfileController {
     async handle(req: Request, res: Response) {
         const { id } = req.params
 
-        const { plan } = req.body
+        const { plan_name } = req.body
 
         const planProfileService = new PlanProfileService
 
         const planProfile = await planProfileService.execute({
-            id, plan
+            id, plan_name
         })
 
         return res.json(planProfile)
