@@ -34,7 +34,8 @@ class ListAdminProfilesService {
                 create_at: true,
                 name: true,
                 id: true,
-                nickname: true
+                nickname: true,
+                plan_name: true,
             }
         })
 
@@ -64,7 +65,8 @@ class ListAdminProfilesService {
                 update_at: true,
                 name: true,
                 nickname: true,
-                id: true
+                id: true,
+                plan_name: true,
             }
         })
 
@@ -72,9 +74,14 @@ class ListAdminProfilesService {
             return format(new Date(item.create_at), "dd/MM/yyyy") == format(new Date(), "dd/MM/yyyy")
         })
 
+        let totalPremium = listProfilesTotal.filter((item) => {
+            return item.plan_name != "free"
+        })
+
         return ({
             profiles: listProfiles,
             totalInDay: totalInDay.length,
+            totalPremium: totalPremium.length,
             total: listProfilesTotal.length
         })
     }
