@@ -34,6 +34,7 @@ model Profile {
   id                 String        @id @default(uuid())
   name               String
   nickname           String        @unique
+  plan               String        @default("free")
   photo              String?
   description        String?
   create_at          DateTime?     @default(now())

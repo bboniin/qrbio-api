@@ -54,6 +54,7 @@ import { DeleteTextController } from './controllers/Text/DeleteTextController'
 import { ListAdminProfilesController } from './controllers/Admin/ListAdminProfilesController'
 import { PrintedBatchController } from './controllers/Admin/PrintedBatchController'
 import { PrintedTagController } from './controllers/Admin/PrintedTagController'
+import { PlanProfileController } from './controllers/Admin/PlanProfileController'
 
 const upload = multer(uploadConfig)
 
@@ -113,6 +114,7 @@ router.delete('/tag/:id', new DeleteTagController().handle)
 
 router.get('/admin/users', new ListUsersController().handle)
 router.get('/admin/profiles', new ListAdminProfilesController().handle)
+router.post('/admin/plan-profile/:id', new PlanProfileController().handle)
 router.get('/admin/user/:id', new GetUserController().handle)
 router.get('/admin/batchs', new ListBatchsController().handle)
 router.get('/admin/batch/:id', new GetBatchController().handle)
