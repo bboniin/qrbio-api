@@ -35,6 +35,23 @@ class ListModulesService {
             modules.push({ ...item, type: "text" })
         })
 
+        const getPix = await prismaClient.pix.findFirst({
+            where: {
+                profile_id: id,
+            },
+            include: {
+                pixKeys: {
+                    orderBy: {
+                        create_at: "asc"
+                    },
+                }
+            },
+        })
+
+        if (getPix) {
+            modules.push({ ...getPix, type: "pix" })
+        }
+
         return (modules.sort(((a, b) => a.order - b.order)))
     }
 }

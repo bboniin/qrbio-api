@@ -34,6 +34,17 @@ class OrderModulesService {
                     }
                 })
             }
+            if (item.type == "pix") {
+                await prismaClient.pix.update({
+                    where: {
+                        id: item.id
+                    },
+                    data: {
+                        order: index,
+                        visible: item.visible,
+                    }
+                })
+            }
         })
 
         return true

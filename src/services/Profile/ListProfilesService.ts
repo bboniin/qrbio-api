@@ -39,10 +39,10 @@ class ListProfilesService {
             item["viewsDay"] = item["viewsProfiles"].length
             item["viewsProfiles"] = undefined
             if (item.photo) {
-                item["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.photo
+                item["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + item.photo
             }
             if (item["background_image"]) {
-                item["background_image_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + item.background_image
+                item["background_image_url"] = "https://qrbio-api.s3.amazonaws.com/" + item.background_image
             }
 
         })

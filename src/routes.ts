@@ -55,6 +55,14 @@ import { ListAdminProfilesController } from './controllers/Admin/ListAdminProfil
 import { PrintedBatchController } from './controllers/Admin/PrintedBatchController'
 import { PrintedTagController } from './controllers/Admin/PrintedTagController'
 import { PlanProfileController } from './controllers/Admin/PlanProfileController'
+import { CreatePixController } from './controllers/Pix/CreatePixController'
+import { EditPixController } from './controllers/Pix/EditPixController'
+import { DeletePixController } from './controllers/Pix/DeletePixController'
+import { CreatePixKeysController } from './controllers/Pix/CreatePixKeysController'
+import { EditPixKeysController } from './controllers/Pix/EditPixKeysController'
+import { DeletePixKeysController } from './controllers/Pix/DeletePixKeysController'
+import { VerifyNicknameController } from './controllers/Profile/VerifyNicknameController'
+import { ActivePixKeysController } from './controllers/Pix/ActivePixKeysController'
 
 const upload = multer(uploadConfig)
 
@@ -89,6 +97,19 @@ router.post('/text', new CreateTextController().handle)
 router.put('/text/:id', new EditTextController().handle)
 router.delete('/text/:id', new DeleteTextController().handle)
 
+router.post('/text', new CreateTextController().handle)
+router.put('/text/:id', new EditTextController().handle)
+router.delete('/text/:id', new DeleteTextController().handle)
+
+router.post('/pix', new CreatePixController().handle)
+router.put('/pix/:id', new EditPixController().handle)
+router.delete('/pix/:id', new DeletePixController().handle)
+
+router.put('/active-pix-keys/:id', new ActivePixKeysController().handle)
+router.post('/pix-keys', new CreatePixKeysController().handle)
+router.put('/pix-keys/:id', new EditPixKeysController().handle)
+router.delete('/pix-keys/:id', new DeletePixKeysController().handle)
+
 router.get('/sociais/:id', new ListSociaisController().handle)
 router.post('/social', new CreateSocialController().handle)
 router.put('/social/:id', new EditSocialController().handle)
@@ -96,6 +117,7 @@ router.put('/order-sociais/:id', new OrderSociaisController().handle)
 router.delete('/social/:id', new DeleteSocialController().handle)
 
 
+router.get('/verify-nickname/:nickname', new VerifyNicknameController().handle)
 router.get('/profile-views/:profile_id', new ShowCountViewController().handle)
 router.get('/profiles', new ListProfilesController().handle)
 router.post('/profile', upload.single("file"), new CreateProfileController().handle)

@@ -63,7 +63,7 @@ class EditProfileService {
             data: data
         })
 
-        profile["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + profile.photo
+        profile["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + profile.photo
 
         return (profile)
     }

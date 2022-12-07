@@ -58,6 +58,7 @@ model Profile {
   sociais            Social[]
   tags               Tag[]
   viewsProfiles      ViewProfile[]
+  pix                Pix[]
 
   @@map("profiles")
 }
@@ -157,4 +158,36 @@ model Admin {
   update_at DateTime? @default(now())
 
   @@map("admins")
+}
+
+model Pix {
+  id              String    @id @default(uuid())
+  name            String
+  message         String?
+  visible_message Boolean   @default(true)
+  order           Int
+  user_id         String
+  create_at       DateTime? @default(now())
+  update_at       DateTime? @default(now())
+  profile_id      String
+  visible         Boolean   @default(true)
+  profile         Profile   @relation(fields: [profile_id], references: [id])
+
+  pixKeys PixKey[]
+
+  @@map("pixs")
+}
+
+model PixKey {
+  id        String    @id @default(uuid())
+  key       String
+  name      String
+  order     Int
+  visible   Boolean   @default(true)
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+  pix       Pix       @relation(fields: [pix_id], references: [id])
+  pix_id    String
+
+  @@map("pixKeys")
 }

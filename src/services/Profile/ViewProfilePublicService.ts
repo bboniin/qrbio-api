@@ -49,10 +49,10 @@ class ViewProfilePublicService {
             throw new Error("Nenhum perfil ou tag foi identificado")
         } else {
             if (viewProfilePublic.photo) {
-                viewProfilePublic["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + viewProfilePublic.photo
+                viewProfilePublic["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic.photo
             }
             if (viewProfilePublic.background_image) {
-                viewProfilePublic["background_image_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + viewProfilePublic.background_image
+                viewProfilePublic["background_image_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic.background_image
             }
         }
 

@@ -29,10 +29,10 @@ class GetProfileService {
             throw new Error("Nenhum perfil foi encontrado")
         } else {
             if (profile.photo) {
-                profile["photo_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + profile.photo
+                profile["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + profile.photo
             }
             if (profile["background_image"]) {
-                profile["background_image_url"] = "https://edish.s3.sa-east-1.amazonaws.com/" + profile.background_image
+                profile["background_image_url"] = "https://qrbio-api.s3.amazonaws.com/" + profile.background_image
             }
         }
 

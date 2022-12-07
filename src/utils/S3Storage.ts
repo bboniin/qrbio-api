@@ -5,29 +5,29 @@ import mime from 'mime'
 
 import multerConfig from '../config/multer';
 
-class S3Storage{
+class S3Storage {
     private client: S3;
 
-    constructor(){
+    constructor() {
         this.client = new aws.S3({
-            region: 'sa-east-1',
+            region: 'us-east-1',
         })
     }
 
-    async saveFile(filename: string): Promise<string>{
+    async saveFile(filename: string): Promise<string> {
         const originalPath = path.resolve(multerConfig.directory, filename)
 
         const ContentType = mime.getType(originalPath)
 
-        if(!ContentType){
+        if (!ContentType) {
             throw new Error("Arquivo não enviado")
         }
 
         const fileContent = await fs.promises.readFile(originalPath)
-        
 
-       await this.client.putObject({
-            Bucket: 'edish',
+
+        await this.client.putObject({
+            Bucket: 'qrbio-api',
             Key: filename,
             ACL: 'public-read',
             Body: fileContent,
@@ -41,12 +41,12 @@ class S3Storage{
 
     async deleteFile(file: string): Promise<void> {
         await this.client
-          .deleteObject({
-            Bucket: "edish",
-            Key: file,
-          })
-          .promise();
-      }
+            .deleteObject({
+                Bucket: "qrbio-api",
+                Key: file,
+            })
+            .promise();
+    }
 }
 
 export default S3Storage
