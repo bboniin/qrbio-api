@@ -63,6 +63,7 @@ import { EditPixKeysController } from './controllers/Pix/EditPixKeysController'
 import { DeletePixKeysController } from './controllers/Pix/DeletePixKeysController'
 import { VerifyNicknameController } from './controllers/Profile/VerifyNicknameController'
 import { ActivePixKeysController } from './controllers/Pix/ActivePixKeysController'
+import { RelocateProfileController } from './controllers/Admin/RelocateTagController'
 
 const upload = multer(uploadConfig)
 
@@ -136,12 +137,13 @@ router.delete('/tag/:id', new DeleteTagController().handle)
 
 router.get('/admin/users', new ListUsersController().handle)
 router.get('/admin/profiles', new ListAdminProfilesController().handle)
+router.put('/admin/profile-relocate/:nickname', new RelocateProfileController().handle)
 router.post('/admin/plan-profile/:id', new PlanProfileController().handle)
 router.get('/admin/user/:id', new GetUserController().handle)
 router.get('/admin/batchs', new ListBatchsController().handle)
 router.get('/admin/batch/:id', new GetBatchController().handle)
 router.post('/admin/batch', new CreateBatchController().handle)
-router.post('/admin/print-batch/:id', new PrintedBatchController().handle)
-router.post('/admin/print-tag/:id', new PrintedTagController().handle)
+router.put('/admin/print-batch/:id', new PrintedBatchController().handle)
+router.put('/admin/print-tag/:id', new PrintedTagController().handle)
 
 export { router }
