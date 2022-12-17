@@ -3,13 +3,13 @@ import { CreatePixKeysService } from '../../services/Pix/CreatePixKeysService';
 
 class CreatePixKeysController {
     async handle(req: Request, res: Response) {
-        const { name, key, order, pix_id } = req.body
+        const { name, key, order, type, pix_id } = req.body
 
 
         const createPixKeysService = new CreatePixKeysService
 
         const pixCreated = await createPixKeysService.execute({
-            name, key, order, pix_id
+            name, key, order, type, pix_id
         })
 
         return res.json(pixCreated)

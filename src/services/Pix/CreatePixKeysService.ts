@@ -4,13 +4,14 @@ interface PixRequest {
     name: string;
     key: string;
     pix_id: string;
+    type: string;
     order: number;
 }
 
 class CreatePixKeysService {
-    async execute({ name, pix_id, key, order }: PixRequest) {
-        if (name === "" || key === "") {
-            throw new Error("Nome e chave é obrigátorio")
+    async execute({ name, pix_id, key, type, order }: PixRequest) {
+        if (name === "" || key === "" || type === "") {
+            throw new Error("Nome, tipo e chave é obrigátorio")
         }
 
         const pixCreated = await prismaClient.pixKey.create({
@@ -18,6 +19,7 @@ class CreatePixKeysService {
                 pix_id: pix_id,
                 name: name,
                 key: key,
+                type: type,
                 visible: true,
                 order: order,
             }

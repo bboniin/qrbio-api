@@ -182,6 +182,7 @@ model PixKey {
   id        String    @id @default(uuid())
   key       String
   name      String
+  type      String    @default("")
   order     Int
   visible   Boolean   @default(true)
   create_at DateTime? @default(now())
