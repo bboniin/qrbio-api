@@ -18,6 +18,8 @@ class GetUserService {
                 email: true,
                 phone_number: true,
                 id: true,
+                observation: true,
+                message: true,
                 profiles: {
                     orderBy: {
                         create_at: "desc"
