@@ -13,6 +13,8 @@ model User {
   email        String    @unique
   phone_number String    @default("")
   password     String
+  message      String?   @default("")
+  observation  String?   @default("")
   create_at    DateTime? @default(now())
   update_at    DateTime? @default(now())
   profiles     Profile[]
