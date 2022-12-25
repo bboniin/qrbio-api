@@ -1,17 +1,15 @@
-import { id } from 'date-fns/locale';
 import prismaClient from '../../prisma'
 
 interface UserRequest {
     userId: string;
-    id: string;
 }
 
 class GetUserService {
-    async execute({ userId, id }: UserRequest) {
+    async execute({ userId }: UserRequest) {
 
         const user = await prismaClient.user.findUnique({
             where: {
-                id: id,
+                id: userId,
             },
             select: {
                 name: true,
@@ -20,11 +18,6 @@ class GetUserService {
                 id: true,
                 observation: true,
                 message: true,
-                profiles: {
-                    orderBy: {
-                        create_at: "desc"
-                    }
-                }
             }
         })
 

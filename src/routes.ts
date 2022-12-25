@@ -46,7 +46,7 @@ import { CreateAdminController } from './controllers/Admin/CreateAdminController
 import { DeleteUserController } from './controllers/User/DeleteUserController'
 import { PasswordForgotController } from './controllers/User/PasswordForgotController'
 import { PasswordResetController } from './controllers/User/PasswordResetController'
-import { GetUserController } from './controllers/Admin/GetUserController'
+import { GetAdminUserController } from './controllers/Admin/GetAdminUserController'
 import { GetProfileController } from './controllers/Profile/GetProfileController'
 import { CreateTextController } from './controllers/Text/CreateTextController'
 import { EditTextController } from './controllers/Text/EditTextController'
@@ -65,6 +65,7 @@ import { VerifyNicknameController } from './controllers/Profile/VerifyNicknameCo
 import { ActivePixKeysController } from './controllers/Pix/ActivePixKeysController'
 import { RelocateProfileController } from './controllers/Admin/RelocateTagController'
 import { EditAdminUserController } from './controllers/Admin/EditAdminUserController'
+import { GetUserController } from './controllers/User/GetUserController'
 
 const upload = multer(uploadConfig)
 
@@ -86,6 +87,7 @@ router.use(isAuthenticated)
 // router.post('/admin', new CreateAdminController().handle)
 //router.post('/tag', new CreateTagController().handle)
 router.put('/user', new EditUserController().handle)
+router.get('/user', new GetUserController().handle)
 router.post('/user-delete', new DeleteUserController().handle)
 
 router.get('/modules/:id', new ListModulesController().handle)
@@ -140,7 +142,7 @@ router.get('/admin/users', new ListUsersController().handle)
 router.get('/admin/profiles', new ListAdminProfilesController().handle)
 router.put('/admin/profile-relocate/:nickname', new RelocateProfileController().handle)
 router.post('/admin/plan-profile/:id', new PlanProfileController().handle)
-router.get('/admin/user/:id', new GetUserController().handle)
+router.get('/admin/user/:id', new GetAdminUserController().handle)
 router.get('/admin/batchs', new ListBatchsController().handle)
 router.get('/admin/batch/:id', new GetBatchController().handle)
 router.post('/admin/batch', new CreateBatchController().handle)
