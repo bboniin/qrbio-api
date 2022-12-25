@@ -15,6 +15,7 @@ class ViewProfilePublicController {
         })
 
         const ip = req.ip;
+        console.log(ip)
 
         const countViewProfile = new CountViewProfile
 
