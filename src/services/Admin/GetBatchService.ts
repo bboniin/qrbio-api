@@ -15,14 +15,10 @@ class GetBatchService {
             },
             include: {
                 tags: {
-                    orderBy: [
-                        {
-                            profile_id: 'desc',
-                        },
-                        {
-                            printed: 'asc',
-                        }
-                    ],
+                    orderBy:
+                    {
+                        id: 'desc',
+                    }
                 }
             }
         })

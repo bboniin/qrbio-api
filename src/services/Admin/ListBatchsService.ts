@@ -40,7 +40,12 @@ class ListBatchsService {
                 update_at: "desc"
             },
             include: {
-                tags: true
+                tags: {
+                    orderBy:
+                    {
+                        id: 'desc',
+                    }
+                }
             }
         })
 
