@@ -57,6 +57,9 @@ class ViewProfilePublicService {
         } else {
             if (tag) {
                 viewProfilePublic["partner"] = tag.batch.partner
+                if (viewProfilePublic["partner"]["photo"]) {
+                    viewProfilePublic["partner"]["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic["partner"]["photo"]
+                }
             } else {
                 viewProfilePublic["partner"] = null
             }

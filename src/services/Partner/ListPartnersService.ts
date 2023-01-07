@@ -39,6 +39,12 @@ class ListPartnersService {
             },
         })
 
+        listPartners.map(async (item) => {
+            if (item.photo) {
+                item["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + item.photo
+            }
+        })
+
         return ({
             partners: listPartners,
             total: listPartnersTotal.length

@@ -145,10 +145,10 @@ router.delete('/tag/:id', new DeleteTagController().handle)
 // Routes Admin
 
 
-router.post('/admin/partner', new CreatePartnerController().handle)
+router.post('/admin/partner', upload.single("file"), new CreatePartnerController().handle)
 router.get('/admin/partners', new ListPartnersController().handle)
 router.get('/admin/partner/:id', new GetPartnerController().handle)
-router.put('/admin/partner/:id', new EditPartnerController().handle)
+router.put('/admin/partner/:id', upload.single("file"), new EditPartnerController().handle)
 router.put('/admin/association/:batch_id', new LinkPartnerController().handle)
 router.delete('/admin/partner/:id', new DeletePartnerController().handle)
 

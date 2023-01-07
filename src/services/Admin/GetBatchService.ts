@@ -19,9 +19,16 @@ class GetBatchService {
                     {
                         id: 'desc',
                     }
-                }
+                },
+                partner: true
             }
         })
+
+        if (batch["partner"]) {
+            if (batch["partner"]["photo"]) {
+                batch["partner"]["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + batch["partner"]["photo"]
+            }
+        }
 
         return (batch)
     }
