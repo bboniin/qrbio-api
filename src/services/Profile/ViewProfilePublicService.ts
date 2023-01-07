@@ -56,9 +56,13 @@ class ViewProfilePublicService {
             throw new Error("Nenhum perfil ou tag foi identificado")
         } else {
             if (tag) {
-                viewProfilePublic["partner"] = tag.batch.partner
-                if (viewProfilePublic["partner"]["photo"]) {
-                    viewProfilePublic["partner"]["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic["partner"]["photo"]
+                if (tag.batch.partner) {
+                    viewProfilePublic["partner"] = tag.batch.partner
+                    if (viewProfilePublic["partner"]["photo"]) {
+                        viewProfilePublic["partner"]["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic["partner"]["photo"]
+                    }
+                } else {
+                    viewProfilePublic["partner"] = null
                 }
             } else {
                 viewProfilePublic["partner"] = null
