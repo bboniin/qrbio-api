@@ -66,6 +66,12 @@ import { ActivePixKeysController } from './controllers/Pix/ActivePixKeysControll
 import { RelocateProfileController } from './controllers/Admin/RelocateTagController'
 import { EditAdminUserController } from './controllers/Admin/EditAdminUserController'
 import { GetUserController } from './controllers/User/GetUserController'
+import { CreatePartnerController } from './controllers/Partner/CreatePartnerController'
+import { ListPartnersController } from './controllers/Partner/ListPartnersController'
+import { GetPartnerController } from './controllers/Partner/GetPartnerController'
+import { EditPartnerController } from './controllers/Partner/EditPartnerController'
+import { LinkPartnerController } from './controllers/Partner/LinkPartnerController'
+import { DeletePartnerController } from './controllers/Partner/DeletePartnerController'
 
 const upload = multer(uploadConfig)
 
@@ -137,6 +143,14 @@ router.put('/link-tag/:id', new LinkTagController().handle)
 router.delete('/tag/:id', new DeleteTagController().handle)
 
 // Routes Admin
+
+
+router.post('/admin/partner', new CreatePartnerController().handle)
+router.get('/admin/partners', new ListPartnersController().handle)
+router.get('/admin/partner/:id', new GetPartnerController().handle)
+router.put('/admin/partner/:id', new EditPartnerController().handle)
+router.put('/admin/association/:batch_id', new LinkPartnerController().handle)
+router.delete('/admin/partner/:id', new DeletePartnerController().handle)
 
 router.get('/admin/users', new ListUsersController().handle)
 router.get('/admin/profiles', new ListAdminProfilesController().handle)

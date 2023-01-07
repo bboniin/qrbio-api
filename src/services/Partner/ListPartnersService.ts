@@ -1,16 +1,14 @@
-import { format } from 'date-fns';
 import prismaClient from '../../prisma'
 
-interface BatchRequest {
-    userId: string;
+interface PartnerRequest {
     page: string;
     search: string;
 }
 
-class ListBatchsService {
-    async execute({ userId, page, search }: BatchRequest) {
+class ListPartnersService {
+    async execute({ page, search }: PartnerRequest) {
 
-        const listBatchsTotal = await prismaClient.batch.findMany({
+        const listPartnersTotal = await prismaClient.partner.findMany({
             orderBy: {
                 update_at: "desc"
             },
@@ -25,7 +23,7 @@ class ListBatchsService {
         })
 
 
-        const listBatchs = await prismaClient.batch.findMany({
+        const listPartners = await prismaClient.partner.findMany({
             skip: parseInt(page) * 25,
             take: 25,
             where:
@@ -39,22 +37,13 @@ class ListBatchsService {
             orderBy: {
                 update_at: "desc"
             },
-            include: {
-                tags: {
-                    orderBy:
-                    {
-                        id: 'desc',
-                    }
-                },
-                partner: true
-            }
         })
 
         return ({
-            batchs: listBatchs,
-            total: listBatchsTotal.length
+            partners: listPartners,
+            total: listPartnersTotal.length
         })
     }
 }
 
-export { ListBatchsService }
+export { ListPartnersService }

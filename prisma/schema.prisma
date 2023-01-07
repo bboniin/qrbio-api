@@ -146,9 +146,26 @@ model Batch {
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 
+  partner_id String?
+  partner    Partner? @relation(fields: [partner_id], references: [id])
+
   tags Tag[]
 
   @@map("batchs")
+}
+
+model Partner {
+  id        String    @id @default(uuid())
+  name      String
+  latitude  String?
+  longitude String?
+  photo     String?
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  batchs Batch[]
+
+  @@map("partners")
 }
 
 model Admin {

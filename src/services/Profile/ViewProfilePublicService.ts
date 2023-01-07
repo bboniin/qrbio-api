@@ -13,6 +13,13 @@ class ViewProfilePublicService {
             where: {
                 id: id
             },
+            include: {
+                batch: {
+                    include: {
+                        partner: true
+                    }
+                }
+            }
         })
 
 
@@ -48,6 +55,11 @@ class ViewProfilePublicService {
         if (!viewProfilePublic) {
             throw new Error("Nenhum perfil ou tag foi identificado")
         } else {
+            if (tag) {
+                viewProfilePublic["partner"] = tag.batch.partner
+            } else {
+                viewProfilePublic["partner"] = null
+            }
             if (viewProfilePublic.photo) {
                 viewProfilePublic["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic.photo
             }
