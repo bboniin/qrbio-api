@@ -5,12 +5,13 @@ interface PartnerRequest {
     name: string;
     latitude: string;
     photo: string;
+    url: string;
     userId: string;
     longitude: string;
 }
 
 class CreatePartnerService {
-    async execute({ name, latitude, longitude, photo, userId }: PartnerRequest) {
+    async execute({ name, latitude, longitude, photo, url, userId }: PartnerRequest) {
 
         if (name === "") {
             throw new Error("Nome é obrigátorio")
@@ -27,6 +28,7 @@ class CreatePartnerService {
             data: {
                 name: name,
                 photo: photo,
+                url: url,
                 latitude: latitude,
                 longitude: longitude
             }

@@ -5,7 +5,7 @@ class EditPartnerController {
     async handle(req: Request, res: Response) {
         const { id } = req.params
 
-        const { name, latitude, longitude } = req.body
+        const { name, latitude, longitude, url } = req.body
 
         let userId = req.userId
 
@@ -18,7 +18,7 @@ class EditPartnerController {
         const editPartnerService = new EditPartnerService
 
         const partnerEdited = await editPartnerService.execute({
-            name, id, latitude, longitude, photo, userId
+            name, id, latitude, longitude, url, photo, userId
         })
 
         return res.json(partnerEdited)

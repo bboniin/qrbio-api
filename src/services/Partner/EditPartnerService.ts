@@ -8,10 +8,11 @@ interface PartnerRequest {
     photo: string;
     userId: string;
     longitude: string;
+    url: string;
 }
 
 class EditPartnerService {
-    async execute({ name, id, latitude, longitude, photo, userId }: PartnerRequest) {
+    async execute({ name, id, latitude, longitude, photo, userId, url }: PartnerRequest) {
 
         const getPartner = await prismaClient.partner.findUnique({
             where: {
@@ -31,11 +32,16 @@ class EditPartnerService {
             longitude = getPartner.longitude
         }
 
+        if (!url) {
+            url = getPartner.url
+        }
+
 
         let data = {
             name: name,
             latitude: latitude,
             longitude: longitude,
+            url: url
         }
 
         if (photo) {

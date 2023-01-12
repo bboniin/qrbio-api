@@ -72,6 +72,7 @@ import { GetPartnerController } from './controllers/Partner/GetPartnerController
 import { EditPartnerController } from './controllers/Partner/EditPartnerController'
 import { LinkPartnerController } from './controllers/Partner/LinkPartnerController'
 import { DeletePartnerController } from './controllers/Partner/DeletePartnerController'
+import { EditPasswordUserController } from './controllers/User/EditPasswordUserController'
 
 const upload = multer(uploadConfig)
 
@@ -93,6 +94,7 @@ router.use(isAuthenticated)
 // router.post('/admin', new CreateAdminController().handle)
 //router.post('/tag', new CreateTagController().handle)
 router.put('/user', new EditUserController().handle)
+router.put('/password', new EditPasswordUserController().handle)
 router.get('/user', new GetUserController().handle)
 router.post('/user-delete', new DeleteUserController().handle)
 
