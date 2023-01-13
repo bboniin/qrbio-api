@@ -22,7 +22,6 @@ class ListUsersService {
                                 contains: search,
                             },
                         },
-
                         {
                             name: {
                                 contains: search,

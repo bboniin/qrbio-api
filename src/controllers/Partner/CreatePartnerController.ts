@@ -3,7 +3,7 @@ import { CreatePartnerService } from '../../services/Partner/CreatePartnerServic
 
 class CreatePartnerController {
     async handle(req: Request, res: Response) {
-        const { name, latitude, longitude, url } = req.body
+        const { name, latitude, longitude, url, label } = req.body
 
         let userId = req.userId
 
@@ -16,7 +16,7 @@ class CreatePartnerController {
         const createPartnerService = new CreatePartnerService
 
         const PartnerCreated = await createPartnerService.execute({
-            name, latitude, longitude, photo, url, userId
+            name, latitude, longitude, photo, url, label, userId
         })
 
         return res.json(PartnerCreated)

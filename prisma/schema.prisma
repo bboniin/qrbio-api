@@ -161,6 +161,7 @@ model Partner {
   longitude String?
   photo     String?
   url       String?   @default("")
+  label     String?   @default("")
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 

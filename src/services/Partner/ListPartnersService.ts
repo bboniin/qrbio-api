@@ -15,9 +15,18 @@ class ListPartnersService {
             where:
                 search ?
                     {
-                        name: {
-                            contains: search,
-                        },
+                        OR: [
+                            {
+                                label: {
+                                    contains: search,
+                                },
+                            },
+                            {
+                                name: {
+                                    contains: search,
+                                },
+                            }
+                        ]
                     }
                     : {}
         })
@@ -29,9 +38,18 @@ class ListPartnersService {
             where:
                 search ?
                     {
-                        name: {
-                            contains: search,
-                        },
+                        OR: [
+                            {
+                                label: {
+                                    contains: search,
+                                },
+                            },
+                            {
+                                name: {
+                                    contains: search,
+                                },
+                            }
+                        ]
                     }
                     : {},
             orderBy: {

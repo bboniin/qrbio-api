@@ -8,14 +8,11 @@ interface PartnerRequest {
     url: string;
     userId: string;
     longitude: string;
+    label: string;
 }
 
 class CreatePartnerService {
-    async execute({ name, latitude, longitude, photo, url, userId }: PartnerRequest) {
-
-        if (name === "") {
-            throw new Error("Nome é obrigátorio")
-        }
+    async execute({ name, label, latitude, longitude, photo, url, userId }: PartnerRequest) {
 
         if (photo) {
             const s3Storage = new S3Storage()
@@ -29,6 +26,7 @@ class CreatePartnerService {
                 name: name,
                 photo: photo,
                 url: url,
+                label: label,
                 latitude: latitude,
                 longitude: longitude
             }
