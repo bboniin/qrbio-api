@@ -67,6 +67,7 @@ class ListAdminProfilesService {
                 nickname: true,
                 id: true,
                 plan_name: true,
+                user_id: true
             }
         })
 

@@ -73,6 +73,7 @@ import { EditPartnerController } from './controllers/Partner/EditPartnerControll
 import { LinkPartnerController } from './controllers/Partner/LinkPartnerController'
 import { DeletePartnerController } from './controllers/Partner/DeletePartnerController'
 import { EditPasswordUserController } from './controllers/User/EditPasswordUserController'
+import { NicknameProfileController } from './controllers/Admin/NicknameProfileController'
 
 const upload = multer(uploadConfig)
 
@@ -161,6 +162,7 @@ router.post('/admin/plan-profile/:id', new PlanProfileController().handle)
 router.get('/admin/user/:id', new GetAdminUserController().handle)
 router.get('/admin/batchs', new ListBatchsController().handle)
 router.get('/admin/batch/:id', new GetBatchController().handle)
+router.put('/admin/change-nickname/:id', new NicknameProfileController().handle)
 router.post('/admin/batch', new CreateBatchController().handle)
 router.put('/admin/print-batch/:id', new PrintedBatchController().handle)
 router.put('/admin/print-tag/:id', new PrintedTagController().handle)
