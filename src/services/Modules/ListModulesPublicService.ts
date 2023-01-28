@@ -58,6 +58,27 @@ class ListModulesPublicService {
             modules.push({ ...getPix, type: "pix" })
         }
 
+        const getEmergency = await prismaClient.emergency.findFirst({
+            where: {
+                profile_id: id,
+                visible: true
+            },
+            include: {
+                emergencyContacts: {
+                    where: {
+                        visible: true
+                    },
+                    orderBy: {
+                        create_at: "asc"
+                    },
+                }
+            },
+        })
+
+        if (getEmergency) {
+            modules.push({ ...getEmergency, type: "emergency" })
+        }
+
         return (modules.sort(((a, b) => a.order - b.order)))
     }
 }

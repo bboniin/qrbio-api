@@ -61,6 +61,7 @@ model Profile {
   tags               Tag[]
   viewsProfiles      ViewProfile[]
   pix                Pix[]
+  emergency          Emergency[]
 
   @@map("profiles")
 }
@@ -212,4 +213,36 @@ model PixKey {
   pix_id    String
 
   @@map("pixKeys")
+}
+
+model Emergency {
+  id         String    @id @default(uuid())
+  name       String    @default("Contato de Emergência")
+  message    String
+  order      Int
+  user_id    String
+  create_at  DateTime? @default(now())
+  update_at  DateTime? @default(now())
+  profile_id String
+  visible    Boolean   @default(true)
+  profile    Profile   @relation(fields: [profile_id], references: [id])
+
+  emergencyContacts EmergencyContact[]
+
+  @@map("emergencies")
+}
+
+model EmergencyContact {
+  id           String    @id @default(uuid())
+  contact      String
+  name         String
+  kinship      String
+  order        Int
+  visible      Boolean   @default(true)
+  create_at    DateTime? @default(now())
+  update_at    DateTime? @default(now())
+  emergency    Emergency @relation(fields: [emergency_id], references: [id])
+  emergency_id String
+
+  @@map("emergencyContacts")
 }

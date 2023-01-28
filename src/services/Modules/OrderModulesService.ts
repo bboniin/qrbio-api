@@ -45,6 +45,17 @@ class OrderModulesService {
                     }
                 })
             }
+            if (item.type == "emergency") {
+                await prismaClient.emergency.update({
+                    where: {
+                        id: item.id
+                    },
+                    data: {
+                        order: index,
+                        visible: item.visible,
+                    }
+                })
+            }
         })
 
         return true

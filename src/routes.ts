@@ -74,6 +74,13 @@ import { LinkPartnerController } from './controllers/Partner/LinkPartnerControll
 import { DeletePartnerController } from './controllers/Partner/DeletePartnerController'
 import { EditPasswordUserController } from './controllers/User/EditPasswordUserController'
 import { NicknameProfileController } from './controllers/Admin/NicknameProfileController'
+import { CreateEmergencyController } from './controllers/Emergency/CreateEmergencyController'
+import { EditEmergencyController } from './controllers/Emergency/EditEmergencyController'
+import { DeleteEmergencyController } from './controllers/Emergency/DeleteEmergencyController'
+import { ActiveEmergencyContactController } from './controllers/Emergency/ActiveEmergencyContactController'
+import { CreateEmergencyContactController } from './controllers/Emergency/CreateEmergencyContactController'
+import { EditEmergencyContactController } from './controllers/Emergency/EditEmergencyContactController'
+import { DeleteEmergencyContactController } from './controllers/Emergency/DeleteEmergencyContactController'
 
 const upload = multer(uploadConfig)
 
@@ -122,6 +129,17 @@ router.put('/active-pix-keys/:id', new ActivePixKeysController().handle)
 router.post('/pix-keys', new CreatePixKeysController().handle)
 router.put('/pix-keys/:id', new EditPixKeysController().handle)
 router.delete('/pix-keys/:id', new DeletePixKeysController().handle)
+
+
+
+router.post('/emergency', new CreateEmergencyController().handle)
+router.put('/emergency/:id', new EditEmergencyController().handle)
+router.delete('/emergency/:id', new DeleteEmergencyController().handle)
+
+router.put('/active-emergency-contacts/:id', new ActiveEmergencyContactController().handle)
+router.post('/emergency-contacts', new CreateEmergencyContactController().handle)
+router.put('/emergency-contacts/:id', new EditEmergencyContactController().handle)
+router.delete('/emergency-contacts/:id', new DeleteEmergencyContactController().handle)
 
 router.get('/sociais/:id', new ListSociaisController().handle)
 router.post('/social', new CreateSocialController().handle)
