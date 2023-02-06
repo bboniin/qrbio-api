@@ -81,6 +81,9 @@ import { ActiveEmergencyContactController } from './controllers/Emergency/Active
 import { CreateEmergencyContactController } from './controllers/Emergency/CreateEmergencyContactController'
 import { EditEmergencyContactController } from './controllers/Emergency/EditEmergencyContactController'
 import { DeleteEmergencyContactController } from './controllers/Emergency/DeleteEmergencyContactController'
+import { GetTagController } from './controllers/Tag/GetTagController'
+import { ListAllPartnersController } from './controllers/Partner/ListAllPartnersController'
+import { EditBatchController } from './controllers/Admin/EditBatchController'
 
 const upload = multer(uploadConfig)
 
@@ -130,8 +133,6 @@ router.post('/pix-keys', new CreatePixKeysController().handle)
 router.put('/pix-keys/:id', new EditPixKeysController().handle)
 router.delete('/pix-keys/:id', new DeletePixKeysController().handle)
 
-
-
 router.post('/emergency', new CreateEmergencyController().handle)
 router.put('/emergency/:id', new EditEmergencyController().handle)
 router.delete('/emergency/:id', new DeleteEmergencyController().handle)
@@ -147,7 +148,6 @@ router.put('/social/:id', new EditSocialController().handle)
 router.put('/order-sociais/:id', new OrderSociaisController().handle)
 router.delete('/social/:id', new DeleteSocialController().handle)
 
-
 router.get('/verify-nickname/:nickname', new VerifyNicknameController().handle)
 router.get('/profile-views/:profile_id', new ShowCountViewController().handle)
 router.get('/profiles', new ListProfilesController().handle)
@@ -157,7 +157,6 @@ router.put('/profile/:id', upload.single("file"), new EditProfileController().ha
 router.put('/design-profile/:id', upload.single("file"), new EditDesignProfileController().handle)
 router.delete('/profile/:id', new DeleteProfileController().handle)
 
-
 router.get('/tags/:id', new ListTagsController().handle)
 router.put('/tag/:id', new EditTagController().handle)
 router.put('/link-tag/:id', new LinkTagController().handle)
@@ -165,8 +164,9 @@ router.delete('/tag/:id', new DeleteTagController().handle)
 
 // Routes Admin
 
-
+router.get('/admin/tag-batch/:id', new GetTagController().handle)
 router.post('/admin/partner', upload.single("file"), new CreatePartnerController().handle)
+router.get('/admin/all-partners', new ListAllPartnersController().handle)
 router.get('/admin/partners', new ListPartnersController().handle)
 router.get('/admin/partner/:id', new GetPartnerController().handle)
 router.put('/admin/partner/:id', upload.single("file"), new EditPartnerController().handle)
@@ -182,6 +182,7 @@ router.get('/admin/batchs', new ListBatchsController().handle)
 router.get('/admin/batch/:id', new GetBatchController().handle)
 router.put('/admin/change-nickname/:id', new NicknameProfileController().handle)
 router.post('/admin/batch', new CreateBatchController().handle)
+router.put('/admin/batch/:id', new EditBatchController().handle)
 router.put('/admin/print-batch/:id', new PrintedBatchController().handle)
 router.put('/admin/print-tag/:id', new PrintedTagController().handle)
 router.put('/admin/user-edit/:user_id', new EditAdminUserController().handle)
