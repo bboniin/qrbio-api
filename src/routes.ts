@@ -84,6 +84,8 @@ import { DeleteEmergencyContactController } from './controllers/Emergency/Delete
 import { GetTagController } from './controllers/Tag/GetTagController'
 import { ListAllPartnersController } from './controllers/Partner/ListAllPartnersController'
 import { EditBatchController } from './controllers/Admin/EditBatchController'
+import { CountProfilesController } from './controllers/Statistics/CountProfilesService'
+import { ViewProfilesController } from './controllers/Statistics/ViewProfilesService'
 
 const upload = multer(uploadConfig)
 
@@ -186,5 +188,11 @@ router.put('/admin/batch/:id', new EditBatchController().handle)
 router.put('/admin/print-batch/:id', new PrintedBatchController().handle)
 router.put('/admin/print-tag/:id', new PrintedTagController().handle)
 router.put('/admin/user-edit/:user_id', new EditAdminUserController().handle)
+
+
+router.get('/admin/statistics/counts', new CountProfilesController().handle)
+router.get('/admin/statistics/features', new ViewProfilesController().handle)
+
+
 
 export { router }

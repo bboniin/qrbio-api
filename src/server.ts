@@ -23,4 +23,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     })
 })
 
-app.listen(3333, () => console.log("rodando v30"))
+app.listen(3333, () => console.log("rodando v31"))

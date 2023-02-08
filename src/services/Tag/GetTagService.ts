@@ -11,9 +11,11 @@ class GetTagService {
             throw new Error("ID é obrigátorio")
         }
 
-        const getTag = await prismaClient.tag.findUnique({
+        const getTag = await prismaClient.tag.findMany({
             where: {
-                id: id
+                id: {
+                    contains: id,
+                },
             },
             include: {
                 batch: {
@@ -24,8 +26,12 @@ class GetTagService {
             }
         })
 
-        if (!getTag) {
-            throw new Error("Tag não foi encontrada")
+        if (getTag.length == 0) {
+            throw new Error("Nenhuma tag foi encontrada")
+        }
+
+        if (getTag.length != 1) {
+            throw new Error("Várias tags foram encontradas, digite mais caracteres")
         }
 
         return (getTag)
