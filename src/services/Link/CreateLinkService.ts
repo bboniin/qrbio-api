@@ -6,10 +6,11 @@ interface LinkRequest {
     url: string;
     order: number;
     userId: string;
+    icon_name: string;
 }
 
 class CreateLinkService {
-    async execute({ name, userId, profile_id, url, order }: LinkRequest) {
+    async execute({ name, userId, profile_id, icon_name, url, order }: LinkRequest) {
 
         const linkCreated = await prismaClient.link.create({
             data: {
@@ -17,6 +18,7 @@ class CreateLinkService {
                 url: url,
                 user_id: userId,
                 order: order,
+                icon_name: icon_name,
                 profile_id: profile_id,
             }
         })

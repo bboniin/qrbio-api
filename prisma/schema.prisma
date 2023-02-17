@@ -54,6 +54,7 @@ model Profile {
   background_visible Boolean?      @default(true)
   button_opacity     Float?        @default(100)
   redirect           String?
+  partner_id         String?       @default("")
   user               User          @relation(fields: [user_id], references: [id])
   links              Link[]
   texts              Text[]
@@ -86,6 +87,7 @@ model Link {
   order      Int
   url        String
   user_id    String
+  icon_name  String?   @default("")
   create_at  DateTime? @default(now())
   update_at  DateTime? @default(now())
   profile_id String
@@ -102,6 +104,7 @@ model Text {
   text       String
   open       Boolean
   user_id    String
+  icon_name  String?   @default("")
   alignment  String    @default("center")
   create_at  DateTime? @default(now())
   update_at  DateTime? @default(now())

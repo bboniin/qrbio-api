@@ -3,14 +3,14 @@ import { CreateLinkService } from '../../services/Link/CreateLinkService';
 
 class CreateLinkController {
     async handle(req: Request, res: Response) {
-        const { name, url, order, profile_id } = req.body
+        const { name, url, order, profile_id, icon_name } = req.body
 
         let userId = req.userId
 
         const createLinkService = new CreateLinkService
 
         const linkCreated = await createLinkService.execute({
-            name, url, order, userId, profile_id
+            name, url, order, userId, profile_id, icon_name
         })
 
         return res.json(linkCreated)

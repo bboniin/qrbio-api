@@ -46,6 +46,44 @@ class DeleteUserService {
                         profile_id: item.id
                     }
                 })
+
+
+                let pix = await prismaClient.pix.findFirst({
+                    where: {
+                        profile_id: item.id
+                    }
+                })
+
+                await prismaClient.pix.deleteMany({
+                    where: {
+                        profile_id: item.id
+                    }
+                })
+
+                await prismaClient.pixKey.deleteMany({
+                    where: {
+                        pix_id: pix.id
+                    }
+                })
+
+                let emergency = await prismaClient.emergency.findFirst({
+
+                    where: {
+                        profile_id: item.id
+                    }
+                })
+                await prismaClient.emergency.deleteMany({
+                    where: {
+                        profile_id: item.id
+                    }
+                })
+
+                await prismaClient.emergencyContact.deleteMany({
+                    where: {
+                        emergency_id: emergency.id
+                    }
+                })
+
             })
 
             await prismaClient.profile.deleteMany({

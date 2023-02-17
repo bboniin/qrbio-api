@@ -86,6 +86,7 @@ import { ListAllPartnersController } from './controllers/Partner/ListAllPartners
 import { EditBatchController } from './controllers/Admin/EditBatchController'
 import { CountProfilesController } from './controllers/Statistics/CountProfilesService'
 import { ViewProfilesController } from './controllers/Statistics/ViewProfilesService'
+import { ClearTagController } from './controllers/Tag/ClearTagController'
 
 const upload = multer(uploadConfig)
 
@@ -162,6 +163,7 @@ router.delete('/profile/:id', new DeleteProfileController().handle)
 router.get('/tags/:id', new ListTagsController().handle)
 router.put('/tag/:id', new EditTagController().handle)
 router.put('/link-tag/:id', new LinkTagController().handle)
+router.put('/clear-tag/:id', new ClearTagController().handle)
 router.delete('/tag/:id', new DeleteTagController().handle)
 
 // Routes Admin

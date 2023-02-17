@@ -12,6 +12,7 @@ class LinkTagService {
         if (!id || !profile_id) {
             throw new Error("Id da tag e do perfil é obrigátorio")
         }
+
         const tag = await prismaClient.tag.findFirst({
             where: {
                 id: id
@@ -26,11 +27,26 @@ class LinkTagService {
             where: {
                 id: id
             },
+            include: {
+                batch: true
+            },
             data: {
                 name: name,
                 profile_id: profile_id
             }
         })
+
+        if (tagLinked.batch.partner_id) {
+            await prismaClient.profile.update({
+                where: {
+                    id: profile_id
+                },
+                data: {
+                    partner_id: tagLinked.batch.partner_id
+                }
+            })
+        }
+
 
         return (tagLinked)
     }

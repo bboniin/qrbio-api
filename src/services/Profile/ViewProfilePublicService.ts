@@ -62,10 +62,30 @@ class ViewProfilePublicService {
                         viewProfilePublic["partner"]["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic["partner"]["photo"]
                     }
                 } else {
-                    viewProfilePublic["partner"] = null
+                    if (viewProfilePublic.partner_id) {
+                        let partner = await prismaClient.partner.findUnique({
+                            where: { id: viewProfilePublic.partner_id }
+                        })
+                        viewProfilePublic["partner"] = partner
+                        if (viewProfilePublic["partner"]["photo"]) {
+                            viewProfilePublic["partner"]["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic["partner"]["photo"]
+                        }
+                    } else {
+                        viewProfilePublic["partner"] = null
+                    }
                 }
             } else {
-                viewProfilePublic["partner"] = null
+                if (viewProfilePublic.partner_id) {
+                    let partner = await prismaClient.partner.findUnique({
+                        where: { id: viewProfilePublic.partner_id }
+                    })
+                    viewProfilePublic["partner"] = partner
+                    if (viewProfilePublic["partner"]["photo"]) {
+                        viewProfilePublic["partner"]["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic["partner"]["photo"]
+                    }
+                } else {
+                    viewProfilePublic["partner"] = null
+                }
             }
             if (viewProfilePublic.photo) {
                 viewProfilePublic["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic.photo

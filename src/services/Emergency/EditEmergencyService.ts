@@ -30,7 +30,7 @@ class EditEmergencyService {
             },
             data: {
                 name: name,
-                message: message,
+                message: message
             }
         })
 

@@ -5,10 +5,11 @@ interface LinkRequest {
     id: string;
     userId: string;
     url: string;
+    icon_name: string;
 }
 
 class EditLinkService {
-    async execute({ name, id, userId, url }: LinkRequest) {
+    async execute({ name, id, userId, url, icon_name }: LinkRequest) {
 
         const getLink = await prismaClient.link.findUnique({
             where: {
@@ -31,6 +32,7 @@ class EditLinkService {
             data: {
                 name: name,
                 url: url,
+                icon_name: icon_name
             }
         })
 
