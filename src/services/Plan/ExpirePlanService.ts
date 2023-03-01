@@ -1,13 +1,15 @@
+import { addDays } from 'date-fns';
 import prismaClient from '../../prisma'
 
 interface PlanRequest {
-    plan_name: string;
+    name: string;
     profile_id: string;
-    validity: Date;
+    purchase_id: string;
+    value: number;
 }
 
-class PlanProfileService {
-    async execute({ plan_name, profile_id, validity }: PlanRequest) {
+class AddPlanService {
+    async execute({ name, profile_id, purchase_id, value }: PlanRequest) {
 
         const getPlan = await prismaClient.plan.findUnique({
             where: {
@@ -15,15 +17,12 @@ class PlanProfileService {
             }
         })
 
-        await prismaClient.purchase.create({
-            data: {
-                name: plan_name,
-                profile_id: profile_id,
-                purchase_id: "admin",
-                token_id: "admin",
-                value: 0,
-            }
-        })
+        const plans = {
+            "bronze": 90,
+            "prata": 180,
+            "ouro": 365
+        }
+
 
         if (getPlan) {
             const planEdit = await prismaClient.plan.update({
@@ -31,34 +30,35 @@ class PlanProfileService {
                     profile_id: profile_id
                 },
                 data: {
-                    name: plan_name,
-                    validity: validity,
+                    name: name,
+                    validity: addDays(getPlan.validity, plans[name]),
                 }
             })
-            await prismaClient.profile.update({
+
+            const planProfile = await prismaClient.profile.update({
                 where: {
                     id: profile_id
                 },
                 data: {
-                    plan_name: plan_name,
+                    plan_name: name,
                 }
             })
             return (planEdit)
         } else {
             const planCreated = await prismaClient.plan.create({
                 data: {
-                    name: plan_name,
+                    name: name,
                     profile_id: profile_id,
-                    validity: validity,
+                    validity: addDays(new Date(), plans[name]),
                     id: profile_id,
                 }
             })
-            await prismaClient.profile.update({
+            const planProfile = await prismaClient.profile.update({
                 where: {
                     id: profile_id
                 },
                 data: {
-                    plan_name: plan_name,
+                    plan_name: name,
                 }
             })
             return (planCreated)
@@ -67,4 +67,4 @@ class PlanProfileService {
     }
 }
 
-export { PlanProfileService }
+export { AddPlanService }

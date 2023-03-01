@@ -37,6 +37,7 @@ model Profile {
   name               String
   nickname           String        @unique
   plan_name          String        @default("free")
+  promotional        Boolean       @default(false)
   photo              String?
   description        String?
   create_at          DateTime?     @default(now())
@@ -248,4 +249,29 @@ model EmergencyContact {
   emergency_id String
 
   @@map("emergencyContacts")
+}
+
+model Plan {
+  id         String    @id @default(uuid())
+  profile_id String    @unique
+  validity   DateTime
+  name       String
+  create_at  DateTime? @default(now())
+  update_at  DateTime? @default(now())
+
+  @@map("plans")
+}
+
+model Purchase {
+  id          String    @id @default(uuid())
+  profile_id  String
+  purchase_id String
+  token_id    String
+  name        String
+  value       Float
+  visible     Boolean   @default(true)
+  create_at   DateTime? @default(now())
+  update_at   DateTime? @default(now())
+
+  @@map("purchases")
 }

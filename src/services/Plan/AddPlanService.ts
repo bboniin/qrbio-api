@@ -1,13 +1,16 @@
+import { addDays } from 'date-fns';
 import prismaClient from '../../prisma'
 
 interface PlanRequest {
-    plan_name: string;
+    name: string;
     profile_id: string;
-    validity: Date;
+    purchase_id: string;
+    token_id: string;
+    value: number;
 }
 
-class PlanProfileService {
-    async execute({ plan_name, profile_id, validity }: PlanRequest) {
+class AddPlanService {
+    async execute({ name, profile_id, purchase_id, token_id, value }: PlanRequest) {
 
         const getPlan = await prismaClient.plan.findUnique({
             where: {
@@ -15,13 +18,31 @@ class PlanProfileService {
             }
         })
 
+        const plans = {
+            "bronze": 90,
+            "prata": 180,
+            "ouro": 365
+        }
+        const plansName = [
+            "free",
+            "promocional",
+            "bronze",
+            "prata",
+            "ouro"
+        ]
+        let plan_name = name
+        if (getPlan) {
+            plan_name = plansName.indexOf(name) > plansName.indexOf(getPlan.name) ? name : getPlan.name
+        }
+        console.log(plan_name)
+
         await prismaClient.purchase.create({
             data: {
                 name: plan_name,
                 profile_id: profile_id,
-                purchase_id: "admin",
-                token_id: "admin",
-                value: 0,
+                purchase_id: purchase_id,
+                token_id: token_id,
+                value: value,
             }
         })
 
@@ -32,7 +53,7 @@ class PlanProfileService {
                 },
                 data: {
                     name: plan_name,
-                    validity: validity,
+                    validity: addDays(getPlan.validity, plans[name]),
                 }
             })
             await prismaClient.profile.update({
@@ -49,7 +70,7 @@ class PlanProfileService {
                 data: {
                     name: plan_name,
                     profile_id: profile_id,
-                    validity: validity,
+                    validity: addDays(new Date(), plans[name]),
                     id: profile_id,
                 }
             })
@@ -67,4 +88,4 @@ class PlanProfileService {
     }
 }
 
-export { PlanProfileService }
+export { AddPlanService }

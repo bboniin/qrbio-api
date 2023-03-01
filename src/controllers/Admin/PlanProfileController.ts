@@ -3,14 +3,14 @@ import { PlanProfileService } from '../../services/Admin/PlanProfileService';
 
 class PlanProfileController {
     async handle(req: Request, res: Response) {
-        const { id } = req.params
+        const { profile_id } = req.params
 
-        const { plan_name } = req.body
+        const { plan_name, validity } = req.body
 
         const planProfileService = new PlanProfileService
 
         const planProfile = await planProfileService.execute({
-            id, plan_name
+            profile_id, plan_name, validity
         })
 
         return res.json(planProfile)

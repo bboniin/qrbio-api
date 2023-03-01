@@ -87,6 +87,9 @@ import { EditBatchController } from './controllers/Admin/EditBatchController'
 import { CountProfilesController } from './controllers/Statistics/CountProfilesService'
 import { ViewProfilesController } from './controllers/Statistics/ViewProfilesService'
 import { ClearTagController } from './controllers/Tag/ClearTagController'
+import { AddPlanController } from './controllers/Plan/AddPlanController'
+import { GetPlanController } from './controllers/Plan/GetPlanController'
+import { ListPurchasesController } from './controllers/Plan/ListPurchasesController'
 
 const upload = multer(uploadConfig)
 
@@ -107,6 +110,11 @@ router.use(isAuthenticated)
 // Routes Users
 // router.post('/admin', new CreateAdminController().handle)
 //router.post('/tag', new CreateTagController().handle)
+
+router.post('/plan', new AddPlanController().handle)
+router.get('/plan/:id', new GetPlanController().handle)
+router.get('/purchases/:id', new ListPurchasesController().handle)
+
 router.put('/user', new EditUserController().handle)
 router.put('/password', new EditPasswordUserController().handle)
 router.get('/user', new GetUserController().handle)
@@ -180,7 +188,7 @@ router.delete('/admin/partner/:id', new DeletePartnerController().handle)
 router.get('/admin/users', new ListUsersController().handle)
 router.get('/admin/profiles', new ListAdminProfilesController().handle)
 router.put('/admin/profile-relocate/:nickname', new RelocateProfileController().handle)
-router.post('/admin/plan-profile/:id', new PlanProfileController().handle)
+router.post('/admin/plan-profile/:profile_id', new PlanProfileController().handle)
 router.get('/admin/user/:id', new GetAdminUserController().handle)
 router.get('/admin/batchs', new ListBatchsController().handle)
 router.get('/admin/batch/:id', new GetBatchController().handle)

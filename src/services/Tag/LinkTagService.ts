@@ -23,6 +23,13 @@ class LinkTagService {
             throw new Error("Tag já está vinculada a um perfil")
         }
 
+        const profile = await prismaClient.profile.findFirst({
+            where: {
+                id: profile_id
+            },
+        })
+
+
         const tagLinked = await prismaClient.tag.update({
             where: {
                 id: id
@@ -47,6 +54,17 @@ class LinkTagService {
             })
         }
 
+        if (!profile.promotional && profile.plan_name == "free") {
+            await prismaClient.profile.update({
+                where: {
+                    id: profile_id
+                },
+                data: {
+                    promotional: true,
+                }
+            })
+            tagLinked["plan"] = "promotional"
+        }
 
         return (tagLinked)
     }
