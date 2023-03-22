@@ -1,70 +1,117 @@
-import { addDays } from 'date-fns';
+import { addDays, differenceInDays } from 'date-fns';
 import prismaClient from '../../prisma'
+import { resolve } from "path";
+import fs from "fs";
+import nodemailer from "nodemailer";
+import handlebars from "handlebars";
+
 
 interface PlanRequest {
-    name: string;
-    profile_id: string;
-    purchase_id: string;
-    value: number;
 }
 
-class AddPlanService {
-    async execute({ name, profile_id, purchase_id, value }: PlanRequest) {
+class ExpirePlanService {
+    async execute({ }: PlanRequest) {
 
-        const getPlan = await prismaClient.plan.findUnique({
-            where: {
-                id: profile_id
+        const plans = await prismaClient.plan.findMany({})
+        const profilesGet = await prismaClient.profile.findMany({
+            include: {
+                user: true
             }
         })
 
-        const plans = {
-            "bronze": 90,
-            "prata": 180,
-            "ouro": 365
-        }
+        let profiles = {}
 
+        profilesGet.map((item) => {
+            profiles[item.id] = item
+        })
 
-        if (getPlan) {
-            const planEdit = await prismaClient.plan.update({
-                where: {
-                    profile_id: profile_id
-                },
-                data: {
-                    name: name,
-                    validity: addDays(getPlan.validity, plans[name]),
-                }
-            })
+        var transport = await nodemailer.createTransport({
+            host: "smtp.hostinger.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: "contato@qrbio.com.br",
+                pass: "88120217Dr#",
+            },
+        });
 
-            const planProfile = await prismaClient.profile.update({
-                where: {
-                    id: profile_id
-                },
-                data: {
-                    plan_name: name,
-                }
-            })
-            return (planEdit)
-        } else {
-            const planCreated = await prismaClient.plan.create({
-                data: {
-                    name: name,
-                    profile_id: profile_id,
-                    validity: addDays(new Date(), plans[name]),
-                    id: profile_id,
-                }
-            })
-            const planProfile = await prismaClient.profile.update({
-                where: {
-                    id: profile_id
-                },
-                data: {
-                    plan_name: name,
-                }
-            })
-            return (planCreated)
-        }
+        plans.map(async (item) => {
+            if (differenceInDays(item.validity, new Date()) == 2) {
+                const path = resolve(
+                    __dirname,
+                    "..",
+                    "..",
+                    "views",
+                    "expireInThreeDays.hbs"
+                );
 
+                const templateFileContent = fs.readFileSync(path).toString("utf-8");
+
+                const templateParse = handlebars.compile(templateFileContent);
+                const templateHTML = templateParse({
+                    name: item.name,
+                });
+
+                await transport.sendMail({
+                    from: {
+                        name: "Equipe QRBio",
+                        address: "contato@qrbio.com.br",
+                    },
+                    to: {
+                        name: profiles[item.profile_id].user.name,
+                        address: profiles[item.profile_id].user.email,
+                    },
+                    subject: "[QRBio] Seu plano expira em 3 dias",
+                    html: templateHTML,
+                });
+            } else {
+                if (differenceInDays(item.validity, new Date()) < 0) {
+                    await prismaClient.plan.delete({
+                        where: {
+                            profile_id: item.profile_id
+                        }
+                    })
+
+                    await prismaClient.profile.update({
+                        where: {
+                            id: item.profile_id
+                        },
+                        data: {
+                            plan_name: "free",
+                        }
+                    })
+                    const path = resolve(
+                        __dirname,
+                        "..",
+                        "..",
+                        "views",
+                        "expirePlan.hbs"
+                    );
+
+                    const templateFileContent = fs.readFileSync(path).toString("utf-8");
+
+                    const templateParse = handlebars.compile(templateFileContent);
+                    const templateHTML = templateParse({
+                        name: item.name,
+                    });
+
+                    await transport.sendMail({
+                        from: {
+                            name: "Equipe QRBio",
+                            address: "suporte@qrbio.com.br",
+                        },
+                        to: {
+                            name: profiles[item.profile_id].user.name,
+                            address: profiles[item.profile_id].user.email,
+                        },
+                        subject: "[QRBio] Seu plano expirou",
+                        html: templateHTML,
+                    });
+                }
+            }
+        })
+        return ""
     }
 }
 
-export { AddPlanService }
+export { ExpirePlanService }

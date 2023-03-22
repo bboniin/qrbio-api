@@ -84,12 +84,13 @@ import { DeleteEmergencyContactController } from './controllers/Emergency/Delete
 import { GetTagController } from './controllers/Tag/GetTagController'
 import { ListAllPartnersController } from './controllers/Partner/ListAllPartnersController'
 import { EditBatchController } from './controllers/Admin/EditBatchController'
-import { CountProfilesController } from './controllers/Statistics/CountProfilesService'
-import { ViewProfilesController } from './controllers/Statistics/ViewProfilesService'
+import { CountProfilesController } from './controllers/Statistics/CountProfilesController'
+import { ViewProfilesController } from './controllers/Statistics/ViewProfilesController'
 import { ClearTagController } from './controllers/Tag/ClearTagController'
 import { AddPlanController } from './controllers/Plan/AddPlanController'
 import { GetPlanController } from './controllers/Plan/GetPlanController'
 import { ListPurchasesController } from './controllers/Plan/ListPurchasesController'
+import { CountProfileController } from './controllers/Profile/CountProfileController'
 
 const upload = multer(uploadConfig)
 
@@ -161,6 +162,7 @@ router.delete('/social/:id', new DeleteSocialController().handle)
 
 router.get('/verify-nickname/:nickname', new VerifyNicknameController().handle)
 router.get('/profile-views/:profile_id', new ShowCountViewController().handle)
+router.get('/views-month/:profile_id', new CountProfileController().handle)
 router.get('/profiles', new ListProfilesController().handle)
 router.post('/profile', upload.single("file"), new CreateProfileController().handle)
 router.get('/my-profile/:id', new GetProfileController().handle)

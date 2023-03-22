@@ -58,7 +58,7 @@ class PasswordForgotService {
             port: 465,
             secure: true,
             auth: {
-                user: "support@qrcartao.com.br",
+                user: "suporte@qrbio.com.br",
                 pass: "88120217Dr#",
             },
         });
@@ -67,7 +67,7 @@ class PasswordForgotService {
         await transport.sendMail({
             from: {
                 name: "Equipe QRBio",
-                address: "support@qrcartao.com.br",
+                address: "suporte@qrbio.com.br",
             },
             to: {
                 name: user.name,

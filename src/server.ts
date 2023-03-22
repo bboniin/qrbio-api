@@ -2,8 +2,10 @@ require("dotenv");
 import express, { Request, Response, NextFunction } from "express";
 import 'express-async-errors'
 import cors from 'cors'
+import cron from "node-cron";
 
 import { router } from "./routes";
+import { ExpirePlanService } from "./services/Plan/ExpirePlanService";
 
 const app = express()
 
@@ -23,4 +25,9 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     })
 })
 
-app.listen(3333, () => console.log("rodando v33"))
+cron.schedule("0 8 * * *", () => {
+    const expirePlanService = new ExpirePlanService();
+    expirePlanService.execute({});
+});
+
+app.listen(3333, () => console.log("rodando v34"))

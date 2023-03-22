@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .registration {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        .msg-principal {
+            color: #000;
+            text-align: center;
+            font-size: 23px;
+            padding: 17px;
+        }
+
+        .text-principal {
+            text-align: center;
+            color: #404040;
+            font-weight: 600;
+            margin: 22px;
+        }
+
+        .text-destaque {
+            margin-bottom: 16px;
+        }
+
+        .text-destaque span {
+            color: #2CB5E8;
+        }
+
+        .text-auxiliar {
+            font-weight: 400;
+            max-width: 350px;
+            margin: 18px auto;
+        }
+
+        .footer {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 11px 22px;
+            border-radius: 4px;
+            align-items: center;
+        }
+
+        .footer div {
+            text-align: center;
+        }
+
+        .footer a {
+            margin: 0 15px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="registration">
+        <div class="msg-principal">
+            <span>Seu plano expirou</span>
+        </div>
+
+        <div class="text-principal">
+            <p class="text-destaque"> Olá, o plano do seu perfil <span> {{name}}</span> expirou</p>
+
+            <p class="text-destaque">Adquira um novo plano agora no nosso aplicativo para continuar usufruindo de todos
+                os nossos recurso</p>
+
+            <p class="text-auxiliar">Atenciosamente</p>
+
+            <p class="text-auxiliar">Equipe QRBio</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div>
+            <a href="https://play.google.com/store/apps/details?id=solucoesdaweb.qrbio&pli=1">
+                <img src="https://qrcode-api.s3.amazonaws.com/assets/google-play.png" />
+            </a>
+
+            <a href="https://apps.apple.com/app/qr-bio/id6444109866">
+                <img src="https://qrcode-api.s3.amazonaws.com/assets/app-store.png" />
+            </a>
+        </div>
+
+    </div>
+</body>
+
+</html>

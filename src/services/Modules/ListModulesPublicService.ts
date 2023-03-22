@@ -7,6 +7,50 @@ interface ModuleRequest {
 class ListModulesPublicService {
     async execute({ id }: ModuleRequest) {
 
+        const profile = await prismaClient.profile.findUnique({
+            where: {
+                id: id
+            }
+        })
+
+        const plans = {
+            "free": {
+                pix: 1,
+                redes: 5,
+                link: 5,
+                text: 1,
+                emergency: 1
+            },
+            "promocional": {
+                pix: 2,
+                redes: 5,
+                link: 5,
+                text: 2,
+                emergency: 2
+            },
+            "bronze": {
+                pix: 99,
+                redes: 8,
+                link: 8,
+                text: 3,
+                emergency: 2
+            },
+            "prata": {
+                pix: 99,
+                redes: 99,
+                link: 99,
+                text: 99,
+                emergency: 99
+            },
+            "ouro": {
+                pix: 99,
+                redes: 99,
+                link: 99,
+                text: 99,
+                emergency: 99
+            },
+        }
+
         let modules = []
 
         let listLinks = await prismaClient.link.findMany({
@@ -19,8 +63,11 @@ class ListModulesPublicService {
             }
         })
 
-        listLinks.map((item) => {
-            modules.push({ ...item, type: "link" })
+
+        listLinks.map((item, index) => {
+            if (plans[profile.plan_name]["link"] > index) {
+                modules.push({ ...item, type: "link" })
+            }
         })
 
         const listTexts = await prismaClient.text.findMany({
@@ -33,11 +80,13 @@ class ListModulesPublicService {
             }
         })
 
-        listTexts.map((item) => {
-            modules.push({ ...item, type: "text" })
+        listTexts.map((item, index) => {
+            if (plans[profile.plan_name]["text"] > index) {
+                modules.push({ ...item, type: "text" })
+            }
         })
 
-        const getPix = await prismaClient.pix.findFirst({
+        let getPix = await prismaClient.pix.findFirst({
             where: {
                 profile_id: id,
                 visible: true
@@ -55,10 +104,23 @@ class ListModulesPublicService {
         })
 
         if (getPix) {
+            let pixKeys = []
+
+            getPix.pixKeys.map((item, index) => {
+                if (plans[profile.plan_name]["pix"] > index) {
+                    pixKeys.push(item)
+                }
+            })
+
+            getPix.pixKeys = pixKeys
+        }
+
+
+        if (getPix) {
             modules.push({ ...getPix, type: "pix" })
         }
 
-        const getEmergency = await prismaClient.emergency.findFirst({
+        let getEmergency = await prismaClient.emergency.findFirst({
             where: {
                 profile_id: id,
                 visible: true
@@ -74,6 +136,20 @@ class ListModulesPublicService {
                 }
             },
         })
+
+
+        if (getEmergency) {
+
+            let emergencyContacts = []
+
+            getEmergency.emergencyContacts.map((item, index) => {
+                if (plans[profile.plan_name]["emergency"] > index) {
+                    emergencyContacts.push(item)
+                }
+            })
+
+            getEmergency.emergencyContacts = emergencyContacts
+        }
 
         if (getEmergency) {
             modules.push({ ...getEmergency, type: "emergency" })

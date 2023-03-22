@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { CountViewProfile } from '../../services/Count/CountViewProfile';
+import { CountProfileService } from '../../services/Profile/CountProfileService';
 import { ViewProfilePublicService } from '../../services/Profile/ViewProfilePublicService';
 import { ListModulesPublicService } from '../../services/Modules/ListModulesPublicService';
 
@@ -13,6 +14,16 @@ class ViewProfilePublicController {
         const profile = await viewProfilePublicService.execute({
             id
         })
+
+        const countProfileService = new CountProfileService
+
+        const views = await countProfileService.execute({
+            profile_id: profile.id
+        })
+
+        if (views.viewsTotal >= views.viewsPlan) {
+            throw new Error("Esse perfil atingiu o limite de leituras mensal")
+        }
 
         const ip = req.ip;
 
