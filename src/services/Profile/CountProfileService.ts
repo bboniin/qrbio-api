@@ -19,6 +19,7 @@ class CountProfileService {
 
         const countProfile = await prismaClient.viewProfile.findMany({
             where: {
+                profile_id: profile_id,
                 month: format(date, "MM"),
                 year: format(date, "yyyy")
             }
