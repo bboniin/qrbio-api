@@ -98,7 +98,7 @@ class ExpirePlanService {
                     await transport.sendMail({
                         from: {
                             name: "Equipe QRBio",
-                            address: "suporte@qrbio.com.br",
+                            address: "contato@qrbio.com.br",
                         },
                         to: {
                             name: profiles[item.profile_id].user.name,
