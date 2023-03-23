@@ -4,10 +4,11 @@ interface PlanRequest {
     plan_name: string;
     profile_id: string;
     validity: Date;
+    views: number;
 }
 
 class PlanProfileService {
-    async execute({ plan_name, profile_id, validity }: PlanRequest) {
+    async execute({ plan_name, profile_id, validity, views }: PlanRequest) {
 
         const getPlan = await prismaClient.plan.findUnique({
             where: {
@@ -33,6 +34,7 @@ class PlanProfileService {
                 data: {
                     name: plan_name,
                     validity: validity,
+                    views: views ? views : 0
                 }
             })
             await prismaClient.profile.update({
@@ -50,6 +52,7 @@ class PlanProfileService {
                     name: plan_name,
                     profile_id: profile_id,
                     validity: validity,
+                    views: views ? views : 0,
                     id: profile_id,
                 }
             })

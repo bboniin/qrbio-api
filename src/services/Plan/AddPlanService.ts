@@ -28,7 +28,8 @@ class AddPlanService {
             "promocional",
             "bronze",
             "prata",
-            "ouro"
+            "ouro",
+            "business",
         ]
         let plan_name = name
         if (getPlan) {

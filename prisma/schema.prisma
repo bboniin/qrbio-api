@@ -8,16 +8,17 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(uuid())
-  name         String
-  email        String    @unique
-  phone_number String    @default("")
-  password     String
-  message      String?   @default("")
-  observation  String?   @default("")
-  create_at    DateTime? @default(now())
-  update_at    DateTime? @default(now())
-  profiles     Profile[]
+  id                 String    @id @default(uuid())
+  name               String
+  email              String    @unique
+  email_confirmation Boolean   @default(false)
+  phone_number       String    @default("")
+  password           String
+  message            String?   @default("")
+  observation        String?   @default("")
+  create_at          DateTime? @default(now())
+  update_at          DateTime? @default(now())
+  profiles           Profile[]
 
   @@map("users")
 }
@@ -256,6 +257,7 @@ model Plan {
   profile_id String    @unique
   validity   DateTime
   name       String
+  views      Int       @default(0)
   create_at  DateTime? @default(now())
   update_at  DateTime? @default(now())
 

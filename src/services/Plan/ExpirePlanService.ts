@@ -52,18 +52,20 @@ class ExpirePlanService {
                     name: item.name,
                 });
 
-                await transport.sendMail({
-                    from: {
-                        name: "Equipe QRBio",
-                        address: "contato@qrbio.com.br",
-                    },
-                    to: {
-                        name: profiles[item.profile_id].user.name,
-                        address: profiles[item.profile_id].user.email,
-                    },
-                    subject: "[QRBio] Seu plano expira em 3 dias",
-                    html: templateHTML,
-                });
+                if (profiles[item.profile_id].user.email_confirmation) {
+                    await transport.sendMail({
+                        from: {
+                            name: "Equipe QRBio",
+                            address: "contato@qrbio.com.br",
+                        },
+                        to: {
+                            name: profiles[item.profile_id].user.name,
+                            address: profiles[item.profile_id].user.email,
+                        },
+                        subject: "[QRBio] Seu plano expira em 3 dias",
+                        html: templateHTML,
+                    });
+                }
             } else {
                 if (differenceInDays(item.validity, new Date()) < 0) {
                     await prismaClient.plan.delete({
@@ -94,19 +96,21 @@ class ExpirePlanService {
                     const templateHTML = templateParse({
                         name: item.name,
                     });
+                    if (profiles[item.profile_id].user.email_confirmation) {
+                        await transport.sendMail({
+                            from: {
+                                name: "Equipe QRBio",
+                                address: "contato@qrbio.com.br",
+                            },
+                            to: {
+                                name: profiles[item.profile_id].user.name,
+                                address: profiles[item.profile_id].user.email,
+                            },
+                            subject: "[QRBio] Seu plano expirou",
+                            html: templateHTML,
+                        });
+                    }
 
-                    await transport.sendMail({
-                        from: {
-                            name: "Equipe QRBio",
-                            address: "contato@qrbio.com.br",
-                        },
-                        to: {
-                            name: profiles[item.profile_id].user.name,
-                            address: profiles[item.profile_id].user.email,
-                        },
-                        subject: "[QRBio] Seu plano expirou",
-                        html: templateHTML,
-                    });
                 }
             }
         })

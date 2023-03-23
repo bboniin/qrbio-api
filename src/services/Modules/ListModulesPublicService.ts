@@ -49,6 +49,13 @@ class ListModulesPublicService {
                 text: 99,
                 emergency: 99
             },
+            "business": {
+                pix: 99,
+                redes: 99,
+                link: 99,
+                text: 99,
+                emergency: 99
+            },
         }
 
         let modules = []

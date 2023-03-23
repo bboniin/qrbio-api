@@ -63,7 +63,7 @@ class LinkTagService {
                     promotional: true,
                 }
             })
-            tagLinked["plan"] = "promotional"
+            tagLinked["plan"] = "promocional"
         }
 
         return (tagLinked)

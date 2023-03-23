@@ -5,21 +5,15 @@ import nodemailer from "nodemailer";
 import handlebars from "handlebars";
 
 interface BodyRequest {
-    email: string;
+    userId: string;
 }
 
-class PasswordForgotService {
-
-
-    async execute({ email }: BodyRequest) {
-
-        if (!email) {
-            throw new Error("Insira o email")
-        }
+class SendEmailConfirmService {
+    async execute({ userId }: BodyRequest) {
 
         const user = await prismaClient.user.findFirst({
             where: {
-                email: email
+                id: userId
             }
         })
 
@@ -27,21 +21,12 @@ class PasswordForgotService {
             throw new Error("Usuário não encontrado")
         }
 
-        const code = Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000;
-
-        await prismaClient.passwordForgot.create({
-            data: {
-                user_email: email,
-                code: String(code),
-            }
-        });
-
         const path = resolve(
             __dirname,
             "..",
             "..",
             "views",
-            "forgotPassword.hbs"
+            "confirmEmail.hbs"
         );
 
         const templateFileContent = fs.readFileSync(path).toString("utf-8");
@@ -49,7 +34,7 @@ class PasswordForgotService {
         const templateParse = handlebars.compile(templateFileContent);
 
         const templateHTML = templateParse({
-            code,
+            id: userId,
             name: user.name,
         });
 
@@ -63,7 +48,6 @@ class PasswordForgotService {
             },
         });
 
-
         await transport.sendMail({
             from: {
                 name: "Equipe QRBio",
@@ -73,13 +57,12 @@ class PasswordForgotService {
                 name: user.name,
                 address: user.email,
             },
-            subject: "[QRBio] Recuperação de senha",
+            subject: "[QRBio] Confirme seu Email",
             html: templateHTML,
         });
 
         return;
-
     }
 }
 
-export { PasswordForgotService }
+export { SendEmailConfirmService }

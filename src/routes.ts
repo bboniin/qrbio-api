@@ -91,6 +91,8 @@ import { AddPlanController } from './controllers/Plan/AddPlanController'
 import { GetPlanController } from './controllers/Plan/GetPlanController'
 import { ListPurchasesController } from './controllers/Plan/ListPurchasesController'
 import { CountProfileController } from './controllers/Profile/CountProfileController'
+import { EmailConfirmController } from './controllers/User/EmailConfirmController'
+import { SendEmailConfirmController } from './controllers/User/SendEmailConfirmController'
 
 const upload = multer(uploadConfig)
 
@@ -98,6 +100,7 @@ const router = Router()
 
 // Routes Public
 
+router.get('/email-confirmation/:id', new EmailConfirmController().handle)
 router.post('/user', new CreateUserController().handle)
 router.post('/session', new AuthUserController().handle)
 router.post('/session-admin', new AuthAdminController().handle)
@@ -112,6 +115,7 @@ router.use(isAuthenticated)
 // router.post('/admin', new CreateAdminController().handle)
 //router.post('/tag', new CreateTagController().handle)
 
+router.post('/send-email-confirmation', new SendEmailConfirmController().handle)
 router.post('/plan', new AddPlanController().handle)
 router.get('/plan/:id', new GetPlanController().handle)
 router.get('/purchases/:id', new ListPurchasesController().handle)
