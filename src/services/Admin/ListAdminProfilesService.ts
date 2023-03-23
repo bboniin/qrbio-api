@@ -4,11 +4,12 @@ import prismaClient from '../../prisma'
 interface ProfileRequest {
     userId: string;
     page: string;
+    premium: boolean;
     search: string;
 }
 
 class ListAdminProfilesService {
-    async execute({ userId, page, search }: ProfileRequest) {
+    async execute({ userId, page, search, premium }: ProfileRequest) {
 
         const listProfilesTotal = await prismaClient.profile.findMany({
             orderBy: {
@@ -22,13 +23,13 @@ class ListAdminProfilesService {
                                 contains: search,
                             },
                         },
-
                         {
                             nickname: {
                                 contains: search,
                             },
                         }
-                    ]
+                    ],
+
                 } : {},
             select: {
                 create_at: true,
@@ -44,20 +45,34 @@ class ListAdminProfilesService {
             take: 25,
             where:
                 search ? {
+                    NOT: [
+                        {
+                            plan_name: {
+                                contains: premium ? "free" : "premium",
+                            },
+                        }
+                    ],
                     OR: [
                         {
                             name: {
                                 contains: search,
                             },
                         },
-
                         {
                             nickname: {
                                 contains: search,
                             },
                         }
                     ]
-                } : {},
+                } : {
+                    NOT: [
+                        {
+                            plan_name: {
+                                contains: premium ? "free" : "premium",
+                            },
+                        }
+                    ],
+                },
             orderBy: {
                 update_at: "desc"
             },
