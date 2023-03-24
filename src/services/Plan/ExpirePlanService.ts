@@ -5,12 +5,8 @@ import fs from "fs";
 import nodemailer from "nodemailer";
 import handlebars from "handlebars";
 
-
-interface PlanRequest {
-}
-
 class ExpirePlanService {
-    async execute({ }: PlanRequest) {
+    async execute({ }) {
 
         const plans = await prismaClient.plan.findMany({})
         const profilesGet = await prismaClient.profile.findMany({

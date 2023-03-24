@@ -90,7 +90,7 @@ import { ClearTagController } from './controllers/Tag/ClearTagController'
 import { AddPlanController } from './controllers/Plan/AddPlanController'
 import { GetPlanController } from './controllers/Plan/GetPlanController'
 import { ListPurchasesController } from './controllers/Plan/ListPurchasesController'
-import { CountProfileController } from './controllers/Profile/CountProfileController'
+import { CountProfileMonthController } from './controllers/Profile/CountProfileMonthController'
 import { EmailConfirmController } from './controllers/User/EmailConfirmController'
 import { SendEmailConfirmController } from './controllers/User/SendEmailConfirmController'
 
@@ -166,7 +166,7 @@ router.delete('/social/:id', new DeleteSocialController().handle)
 
 router.get('/verify-nickname/:nickname', new VerifyNicknameController().handle)
 router.get('/profile-views/:profile_id', new ShowCountViewController().handle)
-router.get('/views-month/:profile_id', new CountProfileController().handle)
+router.get('/views-month/:profile_id', new CountProfileMonthController().handle)
 router.get('/profiles', new ListProfilesController().handle)
 router.post('/profile', upload.single("file"), new CreateProfileController().handle)
 router.get('/my-profile/:id', new GetProfileController().handle)

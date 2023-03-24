@@ -7,11 +7,11 @@ import handlebars from "handlebars";
 
 interface CountRequest {
     profile_id: string;
+    ip: string;
 }
 
 class CountProfileService {
-    async execute({ profile_id }: CountRequest) {
-
+    async execute({ profile_id, ip }: CountRequest) {
 
         const profile = await prismaClient.profile.findUnique({
             where: {
@@ -22,7 +22,14 @@ class CountProfileService {
             }
         })
 
+        const plan = await prismaClient.plan.findUnique({
+            where: {
+                id: profile_id
+            }
+        })
+
         let date = new Date()
+        let dateFormat = format(date, "dd/MM/yyyy")
 
         const countProfile = await prismaClient.viewProfile.findMany({
             where: {
@@ -38,12 +45,14 @@ class CountProfileService {
             "bronze": 300,
             "prata": 500,
             "ouro": 1000,
-            "business": 9999
+            "business": plan ? plan.views ? plan.views : 99999 : 99999
         }
 
+        let emailEnviado = countProfile.filter((item) => {
+            return item.ip == ip && item.date == dateFormat
+        })
 
-        if (plans[profile.plan_name] * 0.8 == countProfile.length) {
-
+        if (plans[profile.plan_name] * 0.8 == (countProfile.length + 1) && profile.user.email_confirmation && emailEnviado.length == 0) {
             const path = resolve(
                 __dirname,
                 "..",
@@ -85,8 +94,8 @@ class CountProfileService {
             });
 
         }
-        if (plans[profile.plan_name] - 1 == countProfile.length) {
-
+        if (plans[profile.plan_name] == (countProfile.length + 1) && profile.user.email_confirmation && emailEnviado.length == 0) {
+            console.log("ta aq")
             const path = resolve(
                 __dirname,
                 "..",
@@ -112,7 +121,6 @@ class CountProfileService {
                     pass: "88120217Dr#",
                 },
             });
-
 
             await transport.sendMail({
                 from: {

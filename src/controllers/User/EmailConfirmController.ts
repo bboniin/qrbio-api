@@ -13,7 +13,7 @@ class EmailConfirmController {
             id
         })
 
-        return res.send(user.message)
+        return res.send(`<div><p style="font-size: 30px; width: 100%; text-align: center; margin: 25px" >${user.message}<p></div>`)
     }
 }
 

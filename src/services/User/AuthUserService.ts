@@ -40,6 +40,7 @@ class AuthUserService {
                 id: user.id,
                 name: user.name,
                 email: user.email,
+                email_confirmation: user.email_confirmation,
                 phone_number: user.phone_number
             },
             token

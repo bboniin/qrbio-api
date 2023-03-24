@@ -15,17 +15,20 @@ class ViewProfilePublicController {
             id
         })
 
+        const ip = req.ip;
+
         const countProfileService = new CountProfileService
 
         const views = await countProfileService.execute({
-            profile_id: profile.id
+            profile_id: profile.id,
+            ip
         })
 
         if (views.viewsTotal >= views.viewsPlan) {
             throw new Error("Esse perfil atingiu o limite de leituras mensal")
         }
 
-        const ip = req.ip;
+
 
         const countViewProfile = new CountViewProfile
 
