@@ -19,10 +19,12 @@ class AddPlanService {
         })
 
         const plans = {
+            "promocional": 365,
             "bronze": 90,
             "prata": 180,
             "ouro": 365
         }
+
         const plansName = [
             "free",
             "promocional",
@@ -31,11 +33,14 @@ class AddPlanService {
             "ouro",
             "business",
         ]
+
         let plan_name = name
+
         if (getPlan) {
             plan_name = plansName.indexOf(name) > plansName.indexOf(getPlan.name) ? name : getPlan.name
         }
-        console.log(plan_name)
+
+        console.log(plan_name, new Date())
 
         await prismaClient.purchase.create({
             data: {
