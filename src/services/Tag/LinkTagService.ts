@@ -19,6 +19,10 @@ class LinkTagService {
             },
         })
 
+        if (!tag) {
+            throw new Error("Essa tag não existe no nosso sistema ou já foi apagada")
+        }
+
         if (tag.profile_id) {
             throw new Error("Tag já está vinculada a um perfil")
         }
@@ -28,7 +32,6 @@ class LinkTagService {
                 id: profile_id
             },
         })
-
 
         const tagLinked = await prismaClient.tag.update({
             where: {

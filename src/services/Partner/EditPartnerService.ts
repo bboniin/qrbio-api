@@ -21,26 +21,6 @@ class EditPartnerService {
             }
         })
 
-        if (!name) {
-            name = getPartner.name
-        }
-
-        if (!latitude) {
-            latitude = getPartner.latitude
-        }
-
-        if (!longitude) {
-            longitude = getPartner.longitude
-        }
-
-        if (!url) {
-            url = getPartner.url
-        }
-        if (!label) {
-            label = getPartner.label
-        }
-
-
         let data = {
             name: name,
             latitude: latitude,
@@ -52,14 +32,8 @@ class EditPartnerService {
         if (photo) {
             const s3Storage = new S3Storage()
 
-            const partnerImage = await prismaClient.partner.findUnique({
-                where: {
-                    id: id
-                },
-            })
-
-            if (partnerImage["photo"]) {
-                await s3Storage.deleteFile(partnerImage["photo"])
+            if (getPartner["photo"]) {
+                await s3Storage.deleteFile(getPartner["photo"])
             }
 
             await s3Storage.saveFile(photo)
