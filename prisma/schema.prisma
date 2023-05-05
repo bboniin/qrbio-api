@@ -277,3 +277,30 @@ model Purchase {
 
   @@map("purchases")
 }
+
+model BatchCoupon {
+  id        String    @id @default(uuid())
+  name      String
+  plan      String
+  printed   Boolean   @default(false)
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  coupons Coupon[]
+
+  @@map("batchsCoupon")
+}
+
+model Coupon {
+  id        String    @id @default(uuid())
+  plan      String
+  coupon_id String
+  rescued   Boolean   @default(false)
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  batchsCoupon_id String
+  batchsCoupon    BatchCoupon @relation(fields: [batchsCoupon_id], references: [id])
+
+  @@map("coupons")
+}

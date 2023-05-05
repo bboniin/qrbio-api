@@ -93,6 +93,11 @@ import { ListPurchasesController } from './controllers/Plan/ListPurchasesControl
 import { CountProfileMonthController } from './controllers/Profile/CountProfileMonthController'
 import { EmailConfirmController } from './controllers/User/EmailConfirmController'
 import { SendEmailConfirmController } from './controllers/User/SendEmailConfirmController'
+import { GetCouponController } from './controllers/Coupon/GetCouponController'
+import { CreateBatchCouponController } from './controllers/Coupon/ClearBatchCouponController'
+import { RescueCouponController } from './controllers/Coupon/RescueCouponController'
+import { GetBatchCouponController } from './controllers/Coupon/GetBatchCouponController'
+import { ListBatchCouponController } from './controllers/Coupon/ListBatchCouponController'
 
 const upload = multer(uploadConfig)
 
@@ -180,6 +185,9 @@ router.put('/link-tag/:id', new LinkTagController().handle)
 router.put('/clear-tag/:id', new ClearTagController().handle)
 router.delete('/tag/:id', new DeleteTagController().handle)
 
+router.get('/coupon/:id', new GetCouponController().handle)
+router.post('/rescue-coupon/:id', new RescueCouponController().handle)
+
 // Routes Admin
 
 router.get('/admin/tag-batch/:id', new GetTagController().handle)
@@ -205,10 +213,12 @@ router.put('/admin/print-batch/:id', new PrintedBatchController().handle)
 router.put('/admin/print-tag/:id', new PrintedTagController().handle)
 router.put('/admin/user-edit/:user_id', new EditAdminUserController().handle)
 
-
 router.get('/admin/statistics/counts', new CountProfilesController().handle)
 router.get('/admin/statistics/features', new ViewProfilesController().handle)
 
+router.get('/admin/batchs-coupons', new ListBatchCouponController().handle)
+router.get('/admin/batch-coupons/:id', new GetBatchCouponController().handle)
+router.post('/admin/batch-coupons', new CreateBatchCouponController().handle)
 
 
 export { router }
