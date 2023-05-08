@@ -21,7 +21,7 @@ class EditBatchCouponService {
         }
 
         if (!partner_id) {
-            partner_id = getBatchCoupon.partner_id
+            partner_id = null
         }
 
 
