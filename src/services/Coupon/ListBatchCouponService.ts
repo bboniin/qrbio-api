@@ -36,6 +36,7 @@ class ListBatchCouponService {
                 update_at: "desc"
             },
             include: {
+                partner: true,
                 coupons: {
                     orderBy:
                     {

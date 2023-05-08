@@ -94,10 +94,11 @@ import { CountProfileMonthController } from './controllers/Profile/CountProfileM
 import { EmailConfirmController } from './controllers/User/EmailConfirmController'
 import { SendEmailConfirmController } from './controllers/User/SendEmailConfirmController'
 import { GetCouponController } from './controllers/Coupon/GetCouponController'
-import { CreateBatchCouponController } from './controllers/Coupon/ClearBatchCouponController'
+import { CreateBatchCouponController } from './controllers/Coupon/CreateBatchCouponController'
 import { RescueCouponController } from './controllers/Coupon/RescueCouponController'
 import { GetBatchCouponController } from './controllers/Coupon/GetBatchCouponController'
 import { ListBatchCouponController } from './controllers/Coupon/ListBatchCouponController'
+import { EditBatchCouponController } from './controllers/Coupon/EditBatchCouponController'
 
 const upload = multer(uploadConfig)
 
@@ -219,6 +220,6 @@ router.get('/admin/statistics/features', new ViewProfilesController().handle)
 router.get('/admin/batchs-coupons', new ListBatchCouponController().handle)
 router.get('/admin/batch-coupons/:id', new GetBatchCouponController().handle)
 router.post('/admin/batch-coupons', new CreateBatchCouponController().handle)
-
+router.put('/admin/batch-coupons/:id', new EditBatchCouponController().handle)
 
 export { router }

@@ -171,7 +171,8 @@ model Partner {
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 
-  batchs Batch[]
+  batchs      Batch[]
+  BatchCoupon BatchCoupon[]
 
   @@map("partners")
 }
@@ -285,6 +286,9 @@ model BatchCoupon {
   printed   Boolean   @default(false)
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
+
+  partner_id String?
+  partner    Partner? @relation(fields: [partner_id], references: [id])
 
   coupons Coupon[]
 

@@ -17,6 +17,9 @@ class RescueCouponService {
             where: {
                 coupon_id: id
             },
+            include: {
+                batchsCoupon: true
+            }
         })
 
         const profile = await prismaClient.profile.findFirst({
@@ -24,6 +27,8 @@ class RescueCouponService {
                 id: profile_id
             },
         })
+
+        const partner_id = coupon.batchsCoupon.partner_id
 
         if (!profile) {
             throw new Error("Essa perfil não existe no nosso sistema.")
@@ -85,13 +90,19 @@ class RescueCouponService {
                     validity: addDays(getPlan.validity, plans[coupon.plan]),
                 }
             })
+
+            let data = {
+                plan_name: plan_name
+            }
+            if (partner_id) {
+                data["partner_id"] = partner_id
+            }
+
             await prismaClient.profile.update({
                 where: {
                     id: profile_id
                 },
-                data: {
-                    plan_name: plan_name,
-                }
+                data: data
             })
 
             await prismaClient.coupon.update({
@@ -113,13 +124,19 @@ class RescueCouponService {
                     id: profile_id,
                 }
             })
+
+            let data = {
+                plan_name: plan_name
+            }
+            if (partner_id) {
+                data["partner_id"] = partner_id
+            }
+
             await prismaClient.profile.update({
                 where: {
                     id: profile_id
                 },
-                data: {
-                    plan_name: plan_name,
-                }
+                data: data
             })
 
             await prismaClient.coupon.update({

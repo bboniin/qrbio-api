@@ -16,6 +16,7 @@ class GetBatchCouponService {
                 id: id,
             },
             include: {
+                partner: true,
                 coupons: true
             }
         })

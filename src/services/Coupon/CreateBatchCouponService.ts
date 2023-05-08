@@ -4,6 +4,7 @@ import uniqid from "uniqid";
 interface BatchCouponRequest {
     name: string;
     plan: string;
+    partner_id: string;
     couponsTotal: number;
 }
 
@@ -23,12 +24,13 @@ function getPlanNamePrefix(plan_name) {
 }
 
 class CreateBatchCouponService {
-    async execute({ name, plan, couponsTotal }: BatchCouponRequest) {
+    async execute({ name, plan, partner_id, couponsTotal }: BatchCouponRequest) {
 
         const batchCouponCreated = await prismaClient.batchCoupon.create({
             data: {
                 name: name,
-                plan: plan
+                plan: plan,
+                partner_id: partner_id
             }
         })
 
