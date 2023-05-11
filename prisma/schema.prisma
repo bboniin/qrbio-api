@@ -57,7 +57,7 @@ model Profile {
   button_opacity     Float?        @default(100)
   redirect           String?
   partner_id         String?       @default("")
-  user               User          @relation(fields: [user_id], references: [id])
+  user               User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
   links              Link[]
   texts              Text[]
   sociais            Social[]
@@ -76,7 +76,7 @@ model Tag {
   create_at  DateTime? @default(now())
   update_at  DateTime? @default(now())
   profile_id String?
-  profile    Profile?  @relation(fields: [profile_id], references: [id])
+  profile    Profile?  @relation(fields: [profile_id], references: [id], onDelete: SetNull)
   batch      Batch?    @relation(fields: [batch_id], references: [id])
   batch_id   String?
 
@@ -94,7 +94,7 @@ model Link {
   update_at  DateTime? @default(now())
   profile_id String
   visible    Boolean   @default(true)
-  profile    Profile   @relation(fields: [profile_id], references: [id])
+  profile    Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
 
   @@map("links")
 }
@@ -112,7 +112,7 @@ model Text {
   update_at  DateTime? @default(now())
   profile_id String
   visible    Boolean   @default(true)
-  profile    Profile   @relation(fields: [profile_id], references: [id])
+  profile    Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
 
   @@map("texts")
 }
@@ -126,7 +126,7 @@ model Social {
   create_at  DateTime? @default(now())
   update_at  DateTime? @default(now())
   profile_id String
-  profile    Profile   @relation(fields: [profile_id], references: [id])
+  profile    Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
 
   @@map("sociais")
 }
@@ -140,7 +140,7 @@ model ViewProfile {
   year       String
   create_at  DateTime? @default(now())
   update_at  DateTime? @default(now())
-  profile    Profile   @relation(fields: [profile_id], references: [id])
+  profile    Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
 
   @@map("viewProfiles")
 }
@@ -199,7 +199,7 @@ model Pix {
   update_at       DateTime? @default(now())
   profile_id      String
   visible         Boolean   @default(true)
-  profile         Profile   @relation(fields: [profile_id], references: [id])
+  profile         Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
 
   pixKeys PixKey[]
 
@@ -215,7 +215,7 @@ model PixKey {
   visible   Boolean   @default(true)
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
-  pix       Pix       @relation(fields: [pix_id], references: [id])
+  pix       Pix       @relation(fields: [pix_id], references: [id], onDelete: Cascade)
   pix_id    String
 
   @@map("pixKeys")
@@ -231,7 +231,7 @@ model Emergency {
   update_at  DateTime? @default(now())
   profile_id String
   visible    Boolean   @default(true)
-  profile    Profile   @relation(fields: [profile_id], references: [id])
+  profile    Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
 
   emergencyContacts EmergencyContact[]
 
@@ -247,7 +247,7 @@ model EmergencyContact {
   visible      Boolean   @default(true)
   create_at    DateTime? @default(now())
   update_at    DateTime? @default(now())
-  emergency    Emergency @relation(fields: [emergency_id], references: [id])
+  emergency    Emergency @relation(fields: [emergency_id], references: [id], onDelete: Cascade)
   emergency_id String
 
   @@map("emergencyContacts")
@@ -304,7 +304,7 @@ model Coupon {
   update_at DateTime? @default(now())
 
   batchsCoupon_id String
-  batchsCoupon    BatchCoupon @relation(fields: [batchsCoupon_id], references: [id])
+  batchsCoupon    BatchCoupon @relation(fields: [batchsCoupon_id], references: [id], onDelete: Cascade)
 
   @@map("coupons")
 }

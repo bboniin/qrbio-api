@@ -26,6 +26,10 @@ function getPlanNamePrefix(plan_name) {
 class CreateBatchCouponService {
     async execute({ name, plan, partner_id, couponsTotal }: BatchCouponRequest) {
 
+        if (!name || !plan) {
+            throw new Error("Preencha o nome e plano para criar lote.")
+        }
+
         const batchCouponCreated = await prismaClient.batchCoupon.create({
             data: {
                 name: name,
