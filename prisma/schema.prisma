@@ -50,6 +50,8 @@ model Profile {
   font               String?
   font_button_color  String?
   font_color         String?
+  save_contact       Boolean       @default(true)
+  view_partner       Boolean       @default(true)
   category           String?
   background_blur    Float?        @default(0)
   background_image   String?       @default("")

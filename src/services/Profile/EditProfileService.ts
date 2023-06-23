@@ -6,13 +6,14 @@ interface ProfileRequest {
     name: string;
     description: string;
     photo: string;
+    view_partner: string;
     id: string;
     redirect: string;
 }
 
 
 class EditProfileService {
-    async execute({ name, id, userId, photo, description, redirect }: ProfileRequest) {
+    async execute({ name, id, userId, photo, description, redirect, view_partner}: ProfileRequest) {
 
         const getProfile = await prismaClient.profile.findUnique({
             where: {
@@ -32,10 +33,19 @@ class EditProfileService {
             description = getProfile.description
         }
 
+        let new_view_partner = true
+        
+        if (view_partner === undefined) {
+            new_view_partner = getProfile.view_partner
+        } else {
+            new_view_partner = String(view_partner) == "true" ? true : false
+        }
+
         let data = {
             name: name,
             description: description,
             redirect: redirect,
+            view_partner: new_view_partner
         }
 
         if (photo) {

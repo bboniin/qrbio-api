@@ -5,7 +5,7 @@ class EditProfileController {
     async handle(req: Request, res: Response) {
         const { id } = req.params
 
-        const { name, description, redirect } = req.body
+        const { name, description, redirect, view_partner } = req.body
 
         let userId = req.userId
 
@@ -19,7 +19,7 @@ class EditProfileController {
         const editProfileService = new EditProfileService
 
         const profileEdited = await editProfileService.execute({
-            userId, id, name, description, photo, redirect
+            userId, id, name, description, photo, redirect, view_partner
         })
 
         return res.json(profileEdited)

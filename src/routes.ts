@@ -99,6 +99,8 @@ import { RescueCouponController } from './controllers/Coupon/RescueCouponControl
 import { GetBatchCouponController } from './controllers/Coupon/GetBatchCouponController'
 import { ListBatchCouponController } from './controllers/Coupon/ListBatchCouponController'
 import { EditBatchCouponController } from './controllers/Coupon/EditBatchCouponController'
+import { AdminDeleteUserService } from './services/Admin/AdminDeleteUserService'
+import { AdminDeleteUserController } from './controllers/Admin/AdminDeleteUserController'
 
 const upload = multer(uploadConfig)
 
@@ -201,6 +203,7 @@ router.put('/admin/association/:batch_id', new LinkPartnerController().handle)
 router.delete('/admin/partner/:id', new DeletePartnerController().handle)
 
 router.get('/admin/users', new ListUsersController().handle)
+router.delete('/admin/delete-user/:user_id', new AdminDeleteUserController().handle)
 router.get('/admin/profiles', new ListAdminProfilesController().handle)
 router.put('/admin/profile-relocate/:nickname', new RelocateProfileController().handle)
 router.post('/admin/plan-profile/:profile_id', new PlanProfileController().handle)
