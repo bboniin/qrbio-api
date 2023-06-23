@@ -12,7 +12,9 @@ class EditDesignProfileController {
             font,
             background_visible,
             background_blur,
-            button_opacity
+            button_opacity,
+            save_contact,
+            view_profile
         } = req.body
 
         let userId = req.userId
@@ -35,7 +37,9 @@ class EditDesignProfileController {
             background_image,
             background_visible,
             background_blur,
-            button_opacity
+            button_opacity,
+            save_contact,
+            view_profile
         })
 
         return res.json(profileEdited)

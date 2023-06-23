@@ -50,6 +50,7 @@ model Profile {
   font               String?
   font_button_color  String?
   font_color         String?
+  view_profile       Boolean       @default(true)
   save_contact       Boolean       @default(true)
   view_partner       Boolean       @default(true)
   category           String?
