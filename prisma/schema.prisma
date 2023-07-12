@@ -225,16 +225,18 @@ model PixKey {
 }
 
 model Emergency {
-  id         String    @id @default(uuid())
-  name       String    @default("Contato de Emergência")
-  message    String
-  order      Int
-  user_id    String
-  create_at  DateTime? @default(now())
-  update_at  DateTime? @default(now())
-  profile_id String
-  visible    Boolean   @default(true)
-  profile    Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+  id            String    @id @default(uuid())
+  name          String    @default("Contato de Emergência")
+  message       String
+  order         Int
+  user_id       String
+  observation   String?   @default("")
+  type_blood    String?   @default("")
+  create_at     DateTime? @default(now())
+  update_at     DateTime? @default(now())
+  profile_id    String
+  visible       Boolean   @default(true)
+  profile       Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
 
   emergencyContacts EmergencyContact[]
 

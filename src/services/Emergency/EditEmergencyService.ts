@@ -4,11 +4,13 @@ interface EmergencyRequest {
     message: string;
     id: string;
     name: string;
+    observation: string;
+    type_blood: string;
     userId: string;
 }
 
 class EditEmergencyService {
-    async execute({ id, name, userId, message }: EmergencyRequest) {
+    async execute({ id, name, userId, observation, type_blood, message }: EmergencyRequest) {
 
         const getEmergency = await prismaClient.emergency.findUnique({
             where: {
@@ -30,6 +32,8 @@ class EditEmergencyService {
             },
             data: {
                 name: name,
+                observation: observation,
+                type_blood: type_blood,
                 message: message
             }
         })
