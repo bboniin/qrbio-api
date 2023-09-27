@@ -75,15 +75,15 @@ class CountProfileService {
                 port: 465,
                 secure: true,
                 auth: {
-                    user: "contato@qrbio.com.br",
-                    pass: "88120217Dr#",
+                    user: "confirmacaodemail@qrbio.com.br",
+                    pass: "BoniAdson85Dr#xx",
                 },
             });
 
             await transport.sendMail({
                 from: {
                     name: "Equipe QRBio",
-                    address: "contato@qrbio.com.br",
+                    address: "confirmacaodemail@qrbio.com.br",
                 },
                 to: {
                     name: profile.user.name,
@@ -117,15 +117,15 @@ class CountProfileService {
                 port: 465,
                 secure: true,
                 auth: {
-                    user: "contato@qrbio.com.br",
-                    pass: "88120217Dr#",
+                    user: "confirmacaodemail@qrbio.com.br",
+                    pass: "BoniAdson85Dr#xx",
                 },
             });
 
             await transport.sendMail({
                 from: {
                     name: "Equipe QRBio",
-                    address: "contato@qrbio.com.br",
+                    address: "confirmacaodemail@qrbio.com.br",
                 },
                 to: {
                     name: profile.user.name,
