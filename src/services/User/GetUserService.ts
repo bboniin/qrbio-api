@@ -17,6 +17,7 @@ class GetUserService {
                 phone_number: true,
                 id: true,
                 observation: true,
+                email_confirmation: true,
                 message: true,
             }
         })
