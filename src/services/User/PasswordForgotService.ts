@@ -59,7 +59,7 @@ class PasswordForgotService {
             secure: true,
             auth: {
                 user: "confirmacaodemail@qrbio.com.br",
-                pass: "BoniAdson85Dr#xx",
+                pass: "LeandroBoniDr#xx23",
             },
         });
 

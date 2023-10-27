@@ -76,7 +76,7 @@ class CountProfileService {
                 secure: true,
                 auth: {
                     user: "confirmacaodemail@qrbio.com.br",
-                    pass: "BoniAdson85Dr#xx",
+                    pass: "LeandroBoniDr#xx23",
                 },
             });
 
@@ -118,7 +118,7 @@ class CountProfileService {
                 secure: true,
                 auth: {
                     user: "confirmacaodemail@qrbio.com.br",
-                    pass: "BoniAdson85Dr#xx",
+                    pass: "LeandroBoniDr#xx23",
                 },
             });
 
