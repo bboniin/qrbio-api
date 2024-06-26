@@ -15,6 +15,7 @@ class ListBatchCouponService {
                     {
                         name: {
                             contains: search,
+                            mode: 'insensitive'
                         },
                     }
                     : {}
@@ -29,6 +30,7 @@ class ListBatchCouponService {
                     {
                         name: {
                             contains: search,
+                            mode: 'insensitive'
                         },
                     }
                     : {},

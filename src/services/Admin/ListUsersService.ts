@@ -20,11 +20,13 @@ class ListUsersService {
                         {
                             email: {
                                 contains: search,
+                                mode: 'insensitive'
                             },
                         },
                         {
                             name: {
                                 contains: search,
+                                mode: 'insensitive'
                             },
                         }
                     ]
@@ -46,12 +48,14 @@ class ListUsersService {
                         {
                             email: {
                                 contains: search,
+                                mode: 'insensitive'
                             },
                         },
 
                         {
                             name: {
                                 contains: search,
+                                mode: 'insensitive'
                             },
                         }
                     ]

@@ -19,11 +19,13 @@ class ListPartnersService {
                             {
                                 label: {
                                     contains: search,
+                                    mode: 'insensitive'
                                 },
                             },
                             {
                                 name: {
                                     contains: search,
+                                    mode: 'insensitive'
                                 },
                             }
                         ]
@@ -42,11 +44,13 @@ class ListPartnersService {
                             {
                                 label: {
                                     contains: search,
+                                    mode: 'insensitive'
                                 },
                             },
                             {
                                 name: {
                                     contains: search,
+                                    mode: 'insensitive'
                                 },
                             }
                         ]

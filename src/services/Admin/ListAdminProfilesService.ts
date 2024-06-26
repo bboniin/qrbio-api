@@ -21,11 +21,13 @@ class ListAdminProfilesService {
                         {
                             name: {
                                 contains: search,
+                                mode: 'insensitive'
                             },
                         },
                         {
                             nickname: {
                                 contains: search,
+                                mode: 'insensitive'
                             },
                         }
                     ],
@@ -56,11 +58,13 @@ class ListAdminProfilesService {
                         {
                             name: {
                                 contains: search,
+                                mode: 'insensitive'
                             },
                         },
                         {
                             nickname: {
                                 contains: search,
+                                mode: 'insensitive'
                             },
                         }
                     ]

@@ -19,6 +19,7 @@ class ListBatchsService {
                     {
                         name: {
                             contains: search,
+                            mode: 'insensitive'
                         },
                     }
                     : {}
@@ -33,6 +34,7 @@ class ListBatchsService {
                     {
                         name: {
                             contains: search,
+                            mode: 'insensitive'
                         },
                     }
                     : {},
