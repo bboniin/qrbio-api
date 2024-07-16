@@ -66,6 +66,7 @@ model Profile {
   sociais            Social[]
   tags               Tag[]
   viewsProfiles      ViewProfile[]
+  partners           PartnerProfile[]
   pix                Pix[]
   emergency          Emergency[]
 
@@ -129,6 +130,7 @@ model Social {
   create_at  DateTime? @default(now())
   update_at  DateTime? @default(now())
   profile_id String
+  visible    Boolean   @default(true)
   profile    Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
 
   @@map("sociais")
@@ -146,6 +148,18 @@ model ViewProfile {
   profile    Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
 
   @@map("viewProfiles")
+}
+
+model PartnerProfile {
+  id         String    @id @default(uuid())
+  profile_id String
+  partner_id String
+  create_at  DateTime? @default(now())
+  update_at  DateTime? @default(now())
+  partner    Partner   @relation(fields: [partner_id], references: [id], onDelete: Cascade)
+  profile    Profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+
+  @@map("partnersProfile")
 }
 
 model Batch {
@@ -176,6 +190,7 @@ model Partner {
 
   batchs      Batch[]
   BatchCoupon BatchCoupon[]
+  partners    PartnerProfile[]
 
   @@map("partners")
 }

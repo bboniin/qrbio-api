@@ -38,7 +38,7 @@ class ListAdminProfilesService {
                 name: true,
                 id: true,
                 nickname: true,
-                plan_name: true,
+                plan_name: true
             }
         })
 
@@ -86,7 +86,13 @@ class ListAdminProfilesService {
                 nickname: true,
                 id: true,
                 plan_name: true,
-                user_id: true
+                partners: {
+                    include: {
+                        partner: true
+                    }
+                },
+                partner_id: true,
+                user_id: true,
             }
         })
 

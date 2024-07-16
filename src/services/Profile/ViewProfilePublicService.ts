@@ -45,9 +45,20 @@ class ViewProfilePublicService {
                     },
                 },
                 sociais: {
+                    where: {
+                        visible: true
+                    },
                     orderBy: {
                         order: 'asc',
+                    }
+                },
+                partners: {
+                    orderBy: {
+                        create_at: 'asc',
                     },
+                    include: {
+                        partner: true
+                    }
                 }
             }
         })
@@ -55,6 +66,12 @@ class ViewProfilePublicService {
         if (!viewProfilePublic) {
             throw new Error("Nenhum perfil ou tag foi identificado")
         } else {
+            viewProfilePublic.partners.map((item)=>{
+                if(item["partner"]["photo"]){
+                    item["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + item["partner"]["photo"]
+                }
+            })
+
             if (tag) {
                 if (tag.batch.partner) {
                     viewProfilePublic["partner"] = tag.batch.partner

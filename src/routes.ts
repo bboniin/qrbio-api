@@ -28,7 +28,6 @@ import { EditSocialController } from './controllers/Social/EditSocialController'
 import { OrderSociaisController } from './controllers/Social/OrderSociaisController'
 import { DeleteSocialController } from './controllers/Social/DeleteSocialController'
 
-import { CreateTagController } from './controllers/Tag/CreateTagController'
 import { ListTagsController } from './controllers/Tag/ListTagsController'
 import { EditTagController } from './controllers/Tag/EditTagController'
 import { DeleteTagController } from './controllers/Tag/DeleteTagController'
@@ -42,7 +41,6 @@ import { ListBatchsController } from './controllers/Admin/ListBatchsController'
 import { CreateBatchController } from './controllers/Admin/CreateBatchController'
 import { GetBatchController } from './controllers/Admin/GetBatchController'
 import { AuthAdminController } from './controllers/Admin/AuthAdminController'
-import { CreateAdminController } from './controllers/Admin/CreateAdminController'
 import { DeleteUserController } from './controllers/User/DeleteUserController'
 import { PasswordForgotController } from './controllers/User/PasswordForgotController'
 import { PasswordResetController } from './controllers/User/PasswordResetController'
@@ -101,6 +99,8 @@ import { ListBatchCouponController } from './controllers/Coupon/ListBatchCouponC
 import { EditBatchCouponController } from './controllers/Coupon/EditBatchCouponController'
 import { AdminDeleteUserService } from './services/Admin/AdminDeleteUserService'
 import { AdminDeleteUserController } from './controllers/Admin/AdminDeleteUserController'
+import { PartnersProfileController } from './controllers/Profile/PartnersProfileController'
+import { ActiveSocialController } from './controllers/Social/ActiveSocialController'
 
 const upload = multer(uploadConfig)
 
@@ -170,6 +170,7 @@ router.get('/sociais/:id', new ListSociaisController().handle)
 router.post('/social', new CreateSocialController().handle)
 router.put('/social/:id', new EditSocialController().handle)
 router.put('/order-sociais/:id', new OrderSociaisController().handle)
+router.put('/active-sociais/:id', new ActiveSocialController().handle)
 router.delete('/social/:id', new DeleteSocialController().handle)
 
 router.get('/verify-nickname/:nickname', new VerifyNicknameController().handle)
@@ -205,6 +206,7 @@ router.delete('/admin/partner/:id', new DeletePartnerController().handle)
 router.get('/admin/users', new ListUsersController().handle)
 router.delete('/admin/delete-user/:user_id', new AdminDeleteUserController().handle)
 router.get('/admin/profiles', new ListAdminProfilesController().handle)
+router.post('/admin/partner-profile/:profile_id', new PartnersProfileController().handle)
 router.put('/admin/profile-relocate/:nickname', new RelocateProfileController().handle)
 router.post('/admin/plan-profile/:profile_id', new PlanProfileController().handle)
 router.get('/admin/user/:id', new GetAdminUserController().handle)

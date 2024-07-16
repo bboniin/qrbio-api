@@ -14,6 +14,15 @@ class ListAdminProfilesController {
             userId, page: page ? String(page) : "0", search: search ? String(search) : "", premium: premium == "true" ? true : false
         })
 
+        profiles.profiles.map((data)=>{
+            data["partners"].map((item)=>{
+                item["label"] = item["partner"]["label"]
+                if(item["partner"]["photo"]){
+                    item["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + item["partner"]["photo"]
+                }
+            })
+        })
+
         return res.json(profiles)
     }
 }
