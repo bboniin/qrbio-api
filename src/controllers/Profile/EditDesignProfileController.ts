@@ -14,6 +14,8 @@ class EditDesignProfileController {
             background_blur,
             button_opacity,
             save_contact,
+            name_visible,
+            description_visible,
             view_profile
         } = req.body
 
@@ -39,6 +41,8 @@ class EditDesignProfileController {
             background_blur,
             button_opacity,
             save_contact,
+            name_visible,
+            description_visible,
             view_profile
         })
 

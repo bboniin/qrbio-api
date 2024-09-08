@@ -15,6 +15,8 @@ interface ProfileRequest {
     button_opacity: String;
     save_contact: String;
     view_profile: String;
+    name_visible: String;
+    description_visible: String;
     id: string;
 }
 
@@ -29,6 +31,8 @@ class EditDesignProfileService {
         background_blur,
         save_contact,
         view_profile,
+        name_visible,
+        description_visible,
         button_opacity
     }: ProfileRequest) {
 
@@ -48,6 +52,8 @@ class EditDesignProfileService {
             font_button_color: font_button_color,
             font_color: font_color,
             font: font,
+            name_visible: name_visible == "true" ? true : false,
+            description_visible: description_visible == "true" ? true : false,
             background_visible: background_visible == "true" ? true : false,
             view_profile: view_profile == "true" ? true : false,
             save_contact: save_contact == "true" ? true : false,

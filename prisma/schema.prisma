@@ -34,41 +34,43 @@ model PasswordForgot {
 }
 
 model Profile {
-  id                 String        @id @default(uuid())
-  name               String
-  nickname           String        @unique
-  plan_name          String        @default("free")
-  promotional        Boolean       @default(false)
-  photo              String?
-  description        String?
-  create_at          DateTime?     @default(now())
-  update_at          DateTime?     @default(now())
-  user_id            String
-  background         String?
-  button_color       String?
-  button_style       String?
-  font               String?
-  font_button_color  String?
-  font_color         String?
-  view_profile       Boolean       @default(true)
-  save_contact       Boolean       @default(true)
-  view_partner       Boolean       @default(true)
-  category           String?
-  background_blur    Float?        @default(0)
-  background_image   String?       @default("")
-  background_visible Boolean?      @default(true)
-  button_opacity     Float?        @default(100)
-  redirect           String?
-  partner_id         String?       @default("")
-  user               User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  links              Link[]
-  texts              Text[]
-  sociais            Social[]
-  tags               Tag[]
-  viewsProfiles      ViewProfile[]
-  partners           PartnerProfile[]
-  pix                Pix[]
-  emergency          Emergency[]
+  id                     String        @id @default(uuid())
+  name                   String
+  nickname               String        @unique
+  plan_name              String        @default("free")
+  promotional            Boolean       @default(false)
+  photo                  String?
+  description            String?
+  create_at              DateTime?     @default(now())
+  update_at              DateTime?     @default(now())
+  user_id                String
+  background             String?
+  button_color           String?
+  button_style           String?
+  font                   String?
+  font_button_color      String?
+  font_color             String?
+  view_profile           Boolean       @default(true)
+  name_visible           Boolean       @default(true)
+  description_visible    Boolean       @default(true)
+  save_contact           Boolean       @default(true)
+  view_partner           Boolean       @default(true)
+  category               String?
+  background_blur        Float?        @default(0)
+  background_image       String?       @default("")
+  background_visible     Boolean?      @default(true)
+  button_opacity         Float?        @default(100)
+  redirect               String?
+  partner_id             String?       @default("")
+  user                   User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  links                  Link[]
+  texts                  Text[]
+  sociais                Social[]
+  tags                   Tag[]
+  viewsProfiles          ViewProfile[]
+  partners               PartnerProfile[]
+  pix                    Pix[]
+  emergency              Emergency[]
 
   @@map("profiles")
 }
