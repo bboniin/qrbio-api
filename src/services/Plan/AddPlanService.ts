@@ -40,8 +40,6 @@ class AddPlanService {
             plan_name = plansName.indexOf(name) > plansName.indexOf(getPlan.name) ? name : getPlan.name
         }
 
-        console.log(plan_name, new Date())
-
         await prismaClient.purchase.create({
             data: {
                 name: plan_name,

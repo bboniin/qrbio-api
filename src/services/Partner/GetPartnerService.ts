@@ -10,9 +10,6 @@ class GetPartnerService {
         const partner = await prismaClient.partner.findUnique({
             where: {
                 id: id,
-            },
-            include: {
-                batchs: true
             }
         })
 

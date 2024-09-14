@@ -12,17 +12,7 @@ class LinkPartnerService {
             throw new Error("Id do lote é obrigátorio")
         }
 
-        if (partner_id) {
-            const partner = await prismaClient.partner.findFirst({
-                where: {
-                    id: partner_id
-                },
-            })
-
-            if (!partner) {
-                throw new Error("Parceiro não foi encontrado")
-            }
-        } else {
+        if (!partner_id) {
             partner_id = null
         }
 

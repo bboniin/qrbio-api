@@ -4,6 +4,10 @@ interface ProfileRequest {
     id: string;
 }
 
+interface Partner {
+    photo: string;
+    name: string;
+}
 class ViewProfilePublicService {
     async execute({ id }: ProfileRequest) {
 
@@ -14,14 +18,9 @@ class ViewProfilePublicService {
                 id: id
             },
             include: {
-                batch: {
-                    include: {
-                        partner: true
-                    }
-                }
+                batch: true
             }
         })
-
 
         if (tag) {
             if (!tag.profile_id) {
@@ -63,21 +62,41 @@ class ViewProfilePublicService {
             }
         })
 
+        let partners = []
+
         if (!viewProfilePublic) {
             throw new Error("Nenhum perfil ou tag foi identificado")
         } else {
+
             viewProfilePublic.partners.map((item)=>{
                 if(item["partner"]["photo"]){
                     item["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + item["partner"]["photo"]
                 }
+                partners.push(item)
             })
 
             if (tag) {
-                if (tag.batch.partner) {
-                    viewProfilePublic["partner"] = tag.batch.partner
-                    if (viewProfilePublic["partner"]["photo"]) {
-                        viewProfilePublic["partner"]["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic["partner"]["photo"]
-                    }
+                if (tag.batch.partner_id) {
+                    let profiles = tag.batch.partner_id.split(",")
+                    let filter = []
+                    profiles.map((item)=>{
+                        filter.push({
+                            id: item
+                        }) 
+                    })
+                    
+                    const viewPartners = await prismaClient.partner.findMany({
+                        where: {
+                            OR: filter
+                        },
+                    })
+                    
+                    viewPartners.map((item)=>{
+                        if(item["photo"]){
+                            item["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + item["photo"]
+                        }
+                        partners.push(item)
+                    })
                 } else {
                     if (viewProfilePublic.partner_id) {
                         let partner = await prismaClient.partner.findUnique({
@@ -111,6 +130,7 @@ class ViewProfilePublicService {
                 viewProfilePublic["background_image_url"] = "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic.background_image
             }
         }
+        viewProfilePublic.partners = partners
 
         return (viewProfilePublic)
     }

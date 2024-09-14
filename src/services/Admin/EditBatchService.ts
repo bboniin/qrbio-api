@@ -9,7 +9,7 @@ interface BatchRequest {
 }
 
 class EditBatchService {
-    async execute({ userId, id, partner_id, name }: BatchRequest) {
+    async execute({ id, partner_id, name }: BatchRequest) {
 
         const getBatch = await prismaClient.batch.findUnique({
             where: {

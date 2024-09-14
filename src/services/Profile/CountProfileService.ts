@@ -95,7 +95,6 @@ class CountProfileService {
 
         }
         if (plans[profile.plan_name] == (countProfile.length + 1) && profile.user.email_confirmation && emailEnviado.length == 0) {
-            console.log("ta aq")
             const path = resolve(
                 __dirname,
                 "..",

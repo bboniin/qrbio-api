@@ -48,7 +48,6 @@ class ListBatchsService {
                         id: 'desc',
                     }
                 },
-                partner: true
             }
         })
 

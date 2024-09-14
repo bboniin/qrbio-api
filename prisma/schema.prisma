@@ -172,7 +172,6 @@ model Batch {
   update_at DateTime? @default(now())
 
   partner_id String?
-  partner    Partner? @relation(fields: [partner_id], references: [id])
 
   tags Tag[]
 
@@ -190,7 +189,6 @@ model Partner {
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 
-  batchs      Batch[]
   BatchCoupon BatchCoupon[]
   partners    PartnerProfile[]
 
