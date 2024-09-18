@@ -65,7 +65,7 @@ class ViewProfilePublicService {
         } else {
             viewProfilePublic.partners.map((item)=>{
                 if(item["partner"]["photo"]){
-                    item["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + item["partner"]["photo"]
+                    item["partner"]["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + item["partner"]["photo"]
                 }
                 partners.push(item)
             })
