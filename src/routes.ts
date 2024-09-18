@@ -97,7 +97,6 @@ import { RescueCouponController } from './controllers/Coupon/RescueCouponControl
 import { GetBatchCouponController } from './controllers/Coupon/GetBatchCouponController'
 import { ListBatchCouponController } from './controllers/Coupon/ListBatchCouponController'
 import { EditBatchCouponController } from './controllers/Coupon/EditBatchCouponController'
-import { AdminDeleteUserService } from './services/Admin/AdminDeleteUserService'
 import { AdminDeleteUserController } from './controllers/Admin/AdminDeleteUserController'
 import { PartnersProfileController } from './controllers/Profile/PartnersProfileController'
 import { ActiveSocialController } from './controllers/Social/ActiveSocialController'

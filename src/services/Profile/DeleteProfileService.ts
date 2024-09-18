@@ -20,7 +20,6 @@ class DeleteProfileService {
             await s3Storage.deleteFile(profileImage["photo"])
         }
 
-
         const profileDeleted = await prismaClient.profile.delete({
             where: {
                 id: id

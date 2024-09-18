@@ -4,10 +4,6 @@ interface ProfileRequest {
     id: string;
 }
 
-interface Partner {
-    photo: string;
-    name: string;
-}
 class ViewProfilePublicService {
     async execute({ id }: ProfileRequest) {
 
@@ -67,7 +63,6 @@ class ViewProfilePublicService {
         if (!viewProfilePublic) {
             throw new Error("Nenhum perfil ou tag foi identificado")
         } else {
-
             viewProfilePublic.partners.map((item)=>{
                 if(item["partner"]["photo"]){
                     item["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + item["partner"]["photo"]
@@ -95,7 +90,7 @@ class ViewProfilePublicService {
                         if(item["photo"]){
                             item["photo_url"] = "https://qrbio-api.s3.amazonaws.com/" + item["photo"]
                         }
-                        partners.push(item)
+                        partners.push({partner: item})
                     })
                 } else {
                     if (viewProfilePublic.partner_id) {

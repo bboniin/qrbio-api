@@ -16,7 +16,6 @@ class LinkPartnerService {
             partner_id = null
         }
 
-
         const partnerLinked = await prismaClient.batch.update({
             where: {
                 id: batch_id

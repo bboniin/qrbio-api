@@ -28,8 +28,6 @@ class ViewProfilePublicController {
             throw new Error("Esse perfil atingiu o limite de leituras mensal")
         }
 
-
-
         const countViewProfile = new CountViewProfile
 
         await countViewProfile.execute({
