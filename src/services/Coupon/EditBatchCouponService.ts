@@ -1,45 +1,55 @@
-import prismaClient from '../../prisma'
+import prismaClient from "../../prisma";
 
 interface BatchCouponRequest {
-    userId: string;
-    id: string;
-    name: string;
-    partner_id: string;
+  userId: string;
+  id: string;
+  name: string;
+  partner_id: string;
+  expiration_enable: boolean;
+  expiration_date: Date;
 }
 
 class EditBatchCouponService {
-    async execute({ userId, id, partner_id, name }: BatchCouponRequest) {
+  async execute({
+    expiration_enable,
+    expiration_date,
+    id,
+    partner_id,
+    name,
+  }: BatchCouponRequest) {
+    const getBatchCoupon = await prismaClient.batchCoupon.findUnique({
+      where: {
+        id: id,
+      },
+    });
 
-        const getBatchCoupon = await prismaClient.batchCoupon.findUnique({
-            where: {
-                id: id
-            }
-        })
-
-        if (!name) {
-            name = getBatchCoupon.name
-        }
-
-        if (!partner_id) {
-            partner_id = null
-        }
-
-
-        let data = {
-            name: name,
-            partner_id: partner_id,
-        }
-
-        const batchCouponEdited = await prismaClient.batchCoupon.update({
-            where: {
-                id: id
-            },
-            data: data
-        })
-
-
-        return (batchCouponEdited)
+    if (!name) {
+      name = getBatchCoupon.name;
     }
+
+    if (!partner_id) {
+      partner_id = null;
+    }
+    if (expiration_enable && !expiration_date) {
+      throw new Error("Preencha a data de vencimento para editar lote.");
+    }
+
+    let data = {
+      name: name,
+      partner_id: partner_id,
+      expiration_enable: expiration_enable,
+      expiration_date: expiration_enable ? expiration_date : new Date(),
+    };
+
+    const batchCouponEdited = await prismaClient.batchCoupon.update({
+      where: {
+        id: id,
+      },
+      data: data,
+    });
+
+    return batchCouponEdited;
+  }
 }
 
-export { EditBatchCouponService }
+export { EditBatchCouponService };

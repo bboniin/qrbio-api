@@ -1,24 +1,27 @@
-import { Request, Response } from 'express';
-import { EditBatchCouponService } from '../../services/Coupon/EditBatchCouponService';
+import { Request, Response } from "express";
+import { EditBatchCouponService } from "../../services/Coupon/EditBatchCouponService";
 
 class EditBatchCouponController {
-    async handle(req: Request, res: Response) {
+  async handle(req: Request, res: Response) {
+    const { id } = req.params;
 
-        const { id } = req.params
+    let userId = req.userId;
 
-        let userId = req.userId
+    const { name, partner_id, expiration_enable, expiration_date } = req.body;
 
+    const editBatchCouponService = new EditBatchCouponService();
 
-        const { name, partner_id } = req.body
+    const batch = await editBatchCouponService.execute({
+      userId,
+      id,
+      name,
+      partner_id,
+      expiration_enable,
+      expiration_date,
+    });
 
-        const editBatchCouponService = new EditBatchCouponService
-
-        const batch = await editBatchCouponService.execute({
-            userId, id, name, partner_id
-        })
-
-        return res.json(batch)
-    }
+    return res.json(batch);
+  }
 }
 
-export { EditBatchCouponController }
+export { EditBatchCouponController };

@@ -300,31 +300,33 @@ model Purchase {
 }
 
 model BatchCoupon {
-  id        String    @id @default(uuid())
-  name      String
-  plan      String
-  printed   Boolean   @default(false)
-  create_at DateTime? @default(now())
-  update_at DateTime? @default(now())
+  id                  String    @id @default(uuid())
+  name                String
+  plan                String
+  printed             Boolean   @default(false)
+  create_at           DateTime? @default(now())
+  update_at           DateTime? @default(now())
+  expiration_enable   Boolean   @default(false)
+  expiration_date     DateTime? @default(now())
 
-  partner_id String?
-  partner    Partner? @relation(fields: [partner_id], references: [id])
+  partner_id          String?
+  partner             Partner? @relation(fields: [partner_id], references: [id])
 
-  coupons Coupon[]
+  coupons             Coupon[]
 
   @@map("batchsCoupon")
 }
 
 model Coupon {
-  id        String    @id @default(uuid())
-  plan      String
-  coupon_id String
-  rescued   Boolean   @default(false)
-  create_at DateTime? @default(now())
-  update_at DateTime? @default(now())
+  id                  String    @id @default(uuid())
+  plan                String
+  coupon_id           String
+  rescued             Boolean   @default(false)
+  create_at           DateTime? @default(now())
+  update_at           DateTime? @default(now())
 
-  batchsCoupon_id String
-  batchsCoupon    BatchCoupon @relation(fields: [batchsCoupon_id], references: [id], onDelete: Cascade)
+  batchsCoupon_id     String
+  batchsCoupon        BatchCoupon @relation(fields: [batchsCoupon_id], references: [id], onDelete: Cascade)
 
   @@map("coupons")
 }
