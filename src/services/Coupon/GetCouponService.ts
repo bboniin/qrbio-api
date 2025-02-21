@@ -23,6 +23,7 @@ class GetCouponService {
     getCoupon["expiration_enable"] = getCoupon.batchsCoupon.expiration_enable;
     getCoupon["expiration_date"] = getCoupon.batchsCoupon.expiration_date;
     getCoupon["expiration"] = false;
+    getCoupon["days_plan"] = getCoupon.batchsCoupon.days_plan;
 
     if (getCoupon["expiration_enable"]) {
       if (
