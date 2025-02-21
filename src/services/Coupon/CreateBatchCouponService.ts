@@ -8,6 +8,7 @@ interface BatchCouponRequest {
   expiration_enable: boolean;
   expiration_date: Date;
   couponsTotal: number;
+  days_plan: number;
 }
 
 function getPlanNamePrefix(plan_name) {
@@ -28,6 +29,8 @@ function getPlanNamePrefix(plan_name) {
       return "P365";
     case "prime-vip":
       return "PV";
+    case "prime-promocional":
+      return "PP";
     default:
       return "";
   }
@@ -41,6 +44,7 @@ class CreateBatchCouponService {
     expiration_enable,
     expiration_date,
     couponsTotal,
+    days_plan,
   }: BatchCouponRequest) {
     if (!name || !plan || (expiration_enable && !expiration_date)) {
       throw new Error("Preencha o nome e plano para criar lote.");
@@ -53,6 +57,7 @@ class CreateBatchCouponService {
         partner_id: partner_id,
         expiration_enable: expiration_enable,
         expiration_date: expiration_enable ? expiration_date : new Date(),
+        days_plan: days_plan || 0,
       },
     });
 

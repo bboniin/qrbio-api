@@ -32,6 +32,7 @@ class AddPlanService {
       "prime-180": 180,
       "prime-365": 365,
       "prime-vip": 365,
+      "prime-promocional": 365,
     };
 
     const plansName = [
@@ -44,6 +45,7 @@ class AddPlanService {
       "prime-180",
       "prime-365",
       "prime-vip",
+      "prime-promocional",
       "business",
     ];
 

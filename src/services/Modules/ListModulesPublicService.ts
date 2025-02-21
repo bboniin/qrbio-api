@@ -76,6 +76,13 @@ class ListModulesPublicService {
         text: 2,
         emergency: 2,
       },
+      "prime-promocional": {
+        pix: 2,
+        redes: 5,
+        link: 5,
+        text: 2,
+        emergency: 2,
+      },
       business: {
         pix: 99,
         redes: 99,

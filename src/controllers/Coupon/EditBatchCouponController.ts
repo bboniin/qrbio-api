@@ -7,7 +7,8 @@ class EditBatchCouponController {
 
     let userId = req.userId;
 
-    const { name, partner_id, expiration_enable, expiration_date } = req.body;
+    const { name, partner_id, expiration_enable, expiration_date, days_plan } =
+      req.body;
 
     const editBatchCouponService = new EditBatchCouponService();
 
@@ -18,6 +19,7 @@ class EditBatchCouponController {
       partner_id,
       expiration_enable,
       expiration_date,
+      days_plan,
     });
 
     return res.json(batch);

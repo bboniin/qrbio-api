@@ -10,6 +10,7 @@ class CreateBatchCouponController {
       partner_id,
       expiration_enable,
       expiration_date,
+      days_plan,
     } = req.body;
 
     const createBatchCouponService = new CreateBatchCouponService();
@@ -21,6 +22,7 @@ class CreateBatchCouponController {
       partner_id,
       expiration_enable,
       expiration_date,
+      days_plan,
     });
 
     return res.json(batchCoupon);

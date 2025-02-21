@@ -307,6 +307,7 @@ model BatchCoupon {
   create_at           DateTime? @default(now())
   update_at           DateTime? @default(now())
   expiration_enable   Boolean   @default(false)
+  days_plan           Int       @default(0)
   expiration_date     DateTime? @default(now())
 
   partner_id          String?

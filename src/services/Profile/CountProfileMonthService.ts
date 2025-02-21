@@ -42,6 +42,7 @@ class CountProfileMonthService {
       "prime-180": 200,
       "prime-365": 200,
       "prime-vip": 200,
+      "prime-promocional": 200,
       business: plan ? (plan.views ? plan.views : 99999) : 99999,
     };
 

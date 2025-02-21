@@ -68,7 +68,10 @@ class RescueCouponService {
       "prime-180": 180,
       "prime-365": 365,
       "prime-vip": 365,
+      "prime-promocional": 365,
     };
+
+    const days_plan = batch.days_plan || plans[coupon.plan];
 
     const plansName = [
       "free",
@@ -80,6 +83,7 @@ class RescueCouponService {
       "prime-180",
       "prime-365",
       "prime-vip",
+      "prime-promocional",
       "business",
     ];
 
@@ -109,7 +113,7 @@ class RescueCouponService {
         },
         data: {
           name: plan_name,
-          validity: addDays(getPlan.validity, plans[coupon.plan]),
+          validity: addDays(getPlan.validity, days_plan),
         },
       });
 
@@ -142,7 +146,7 @@ class RescueCouponService {
         data: {
           name: plan_name,
           profile_id: profile_id,
-          validity: addDays(new Date(), plans[coupon.plan]),
+          validity: addDays(new Date(), days_plan),
           id: profile_id,
         },
       });

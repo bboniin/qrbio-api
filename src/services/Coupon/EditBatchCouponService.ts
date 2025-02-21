@@ -7,6 +7,7 @@ interface BatchCouponRequest {
   partner_id: string;
   expiration_enable: boolean;
   expiration_date: Date;
+  days_plan: number;
 }
 
 class EditBatchCouponService {
@@ -16,6 +17,7 @@ class EditBatchCouponService {
     id,
     partner_id,
     name,
+    days_plan,
   }: BatchCouponRequest) {
     const getBatchCoupon = await prismaClient.batchCoupon.findUnique({
       where: {
@@ -27,9 +29,14 @@ class EditBatchCouponService {
       name = getBatchCoupon.name;
     }
 
+    if (!days_plan) {
+      days_plan = getBatchCoupon.days_plan;
+    }
+
     if (!partner_id) {
       partner_id = null;
     }
+
     if (expiration_enable && !expiration_date) {
       throw new Error("Preencha a data de vencimento para editar lote.");
     }
@@ -37,6 +44,7 @@ class EditBatchCouponService {
     let data = {
       name: name,
       partner_id: partner_id,
+      days_plan: days_plan,
       expiration_enable: expiration_enable,
       expiration_date: expiration_enable ? expiration_date : new Date(),
     };
