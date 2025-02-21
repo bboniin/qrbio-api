@@ -20,6 +20,10 @@ class GetCouponService {
       },
     });
 
+    if (!getCoupon) {
+      throw new Error("Esse cupom é inválido");
+    }
+
     getCoupon["expiration_enable"] = getCoupon.batchsCoupon.expiration_enable;
     getCoupon["expiration_date"] = getCoupon.batchsCoupon.expiration_date;
     getCoupon["expiration"] = false;

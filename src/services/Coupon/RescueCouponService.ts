@@ -31,11 +31,11 @@ class RescueCouponService {
     const partner_id = batch.partner_id;
 
     if (!profile) {
-      throw new Error("Essa perfil não existe no nosso sistema.");
+      throw new Error("Essa perfil não existe no nosso sistema");
     }
 
     if (!coupon) {
-      throw new Error("Esse cupom não existe no nosso sistema.");
+      throw new Error("Esse cupom é inválido");
     }
 
     if (coupon.rescued) {
