@@ -331,3 +331,15 @@ model Coupon {
 
   @@map("coupons")
 }
+
+
+model Message {
+  id                  String    @id @default(uuid())
+  title               String
+  message             String
+  create_at           DateTime? @default(now())
+  update_at           DateTime? @default(now())
+
+  @@map("messages")
+}
+

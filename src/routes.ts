@@ -100,6 +100,10 @@ import { AdminDeleteUserController } from "./controllers/Admin/AdminDeleteUserCo
 import { PartnersProfileController } from "./controllers/Profile/PartnersProfileController";
 import { ActiveSocialController } from "./controllers/Social/ActiveSocialController";
 import { CopyProfileController } from "./controllers/Admin/CopyProfileController";
+import { ListMessagesController } from "./controllers/Message/ListMessagesController";
+import { CreateMessageController } from "./controllers/Message/CreateMessageController";
+import { EditMessageController } from "./controllers/Message/EditMessageController";
+import { DeleteMessageController } from "./controllers/Message/DeleteMessageController";
 
 const upload = multer(uploadConfig);
 
@@ -279,5 +283,10 @@ router.get("/admin/batchs-coupons", new ListBatchCouponController().handle);
 router.get("/admin/batch-coupons/:id", new GetBatchCouponController().handle);
 router.post("/admin/batch-coupons", new CreateBatchCouponController().handle);
 router.put("/admin/batch-coupons/:id", new EditBatchCouponController().handle);
+
+router.get("/admin/messages", new ListMessagesController().handle);
+router.post("/admin/message", new CreateMessageController().handle);
+router.put("/admin/message/:id", new EditMessageController().handle);
+router.delete("/admin/message/:id", new DeleteMessageController().handle);
 
 export { router };
