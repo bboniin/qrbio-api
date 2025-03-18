@@ -18,8 +18,8 @@ class CopyProfileService {
     nicknames,
     copyText,
     copyLinks,
-    copyPixs,
     copySocial,
+    copyPixs,
     copyEmergency,
     copyPartners,
     copyInfos,
@@ -48,11 +48,25 @@ class CopyProfileService {
 
     Promise.all(
       await nicknamesCopy.map(async (item) => {
-        const profileCopy = await prismaClient.profile.findUnique({
+        let profileCopy = await prismaClient.profile.findUnique({
           where: {
             nickname: item,
           },
         });
+
+        if (!profileCopy) {
+          profileCopy = await prismaClient.profile.create({
+            data: {
+              nickname: item,
+              name: profile.name,
+              description: profile.description,
+              photo: "",
+              category: profile.category,
+              plan_name: "free",
+              user_id: profile.user_id,
+            },
+          });
+        }
 
         if (profileCopy) {
           if (copyText) {

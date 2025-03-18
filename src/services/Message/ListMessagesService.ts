@@ -13,15 +13,16 @@ class ListMessagesService {
 
     if (!all) {
       filter["take"] = 25;
-      filter["page"] = page;
-      if (!search) {
-        searchWhere = {
-          name: {
-            contains: search,
-            mode: "insensitive",
-          },
-        };
-      }
+      filter["skip"] = page * 30;
+    }
+
+    if (search) {
+      searchWhere = {
+        title: {
+          contains: search,
+          mode: "insensitive",
+        },
+      };
     }
 
     const listMessagesTotal = await prismaClient.message.count({

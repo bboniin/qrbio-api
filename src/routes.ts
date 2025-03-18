@@ -120,6 +120,7 @@ router.get("/profile/:id", new ViewProfilePublicController().handle);
 router.post("/password-forgot", new PasswordForgotController().handle);
 router.post("/password-reset", new PasswordResetController().handle);
 router.post("/copy/profile", new CopyProfileController().handle);
+router.get("/verify-nickname/:nickname", new VerifyNicknameController().handle);
 
 router.use(isAuthenticated);
 
@@ -192,7 +193,6 @@ router.put("/order-sociais/:id", new OrderSociaisController().handle);
 router.put("/active-sociais/:id", new ActiveSocialController().handle);
 router.delete("/social/:id", new DeleteSocialController().handle);
 
-router.get("/verify-nickname/:nickname", new VerifyNicknameController().handle);
 router.get("/profile-views/:profile_id", new ShowCountViewController().handle);
 router.get(
   "/views-month/:profile_id",

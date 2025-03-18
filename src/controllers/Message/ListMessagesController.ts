@@ -3,7 +3,7 @@ import { ListMessagesService } from "../../services/Message/ListMessagesService"
 
 class ListMessagesController {
   async handle(req: Request, res: Response) {
-    const { page, all, search } = req.params;
+    const { page, all, search } = req.query;
 
     const listMessagesService = new ListMessagesService();
 

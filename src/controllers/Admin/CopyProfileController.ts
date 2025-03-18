@@ -20,13 +20,13 @@ class CopyProfileController {
     const profileRelocate = await copyProfileService.execute({
       nicknameCopy,
       nicknames,
-      copyLinks: copyLinks == "true",
-      copyPixs: copyPixs == "true",
-      copySocial: copySocial == "true",
-      copyInfos: copyInfos == "true",
-      copyText: copyText == "true",
-      copyEmergency: copyEmergency == "true",
-      copyPartners: copyPartners == "true",
+      copyLinks: copyLinks,
+      copyPixs: copyPixs,
+      copySocial: copySocial,
+      copyInfos: copyInfos,
+      copyText: copyText,
+      copyEmergency: copyEmergency,
+      copyPartners: copyPartners,
     });
 
     return res.json(profileRelocate);
