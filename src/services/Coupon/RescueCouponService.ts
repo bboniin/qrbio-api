@@ -27,9 +27,6 @@ class RescueCouponService {
       },
     });
 
-    const batch = coupon.batchsCoupon;
-    const partner_id = batch.partner_id;
-
     if (!profile) {
       throw new Error("Essa perfil não existe no nosso sistema");
     }
@@ -41,6 +38,9 @@ class RescueCouponService {
     if (coupon.rescued) {
       throw new Error("Cupom já foi resgatado");
     }
+
+    const batch = coupon.batchsCoupon;
+    const partner_id = batch.partner_id;
 
     if (batch.expiration_enable) {
       if (isBefore(startOfDay(batch.expiration_date), startOfDay(new Date()))) {
