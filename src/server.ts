@@ -30,4 +30,4 @@ cron.schedule("0 8 * * *", () => {
   expirePlanService.execute({});
 });
 
-app.listen(3333, () => console.log("rodando v55"));
+app.listen(3333, () => console.log("rodando v56"));

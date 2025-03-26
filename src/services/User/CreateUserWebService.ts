@@ -1,6 +1,11 @@
 import { addDays, format, isBefore, startOfDay } from "date-fns";
 import prismaClient from "../../prisma";
 import { hash } from "bcryptjs";
+import { resolve } from "path";
+import fs from "fs";
+import nodemailer from "nodemailer";
+import handlebars from "handlebars";
+import { validateEmail } from "../../config/functions";
 
 interface UserRequest {
   name: string;
@@ -28,6 +33,10 @@ class CreateUserWebService {
   }: UserRequest) {
     if (!email || !name || !phone_number || !password || !nickname) {
       throw new Error("Preencha todos os campos obrigátorios");
+    }
+
+    if (!validateEmail(email)) {
+      throw new Error("Email é inválido");
     }
 
     const userAlreadyExists = await prismaClient.user.findFirst({
@@ -286,6 +295,40 @@ class CreateUserWebService {
 
       return plan;
     }
+    const path = resolve(__dirname, "..", "..", "views", "welcomeEmail.hbs");
+
+    const templateFileContent = fs.readFileSync(path).toString("utf-8");
+
+    const templateParse = handlebars.compile(templateFileContent);
+
+    const templateHTML = templateParse({
+      email: user.email,
+      name: user.name,
+      password: password,
+    });
+
+    var transport = await nodemailer.createTransport({
+      host: "smtp.hostinger.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: "bemvindo@qrbio.com.br",
+        pass: "8812Dr#xx",
+      },
+    });
+
+    await transport.sendMail({
+      from: {
+        name: "Equipe QRBio",
+        address: "bemvindo@qrbio.com.br ",
+      },
+      to: {
+        name: user.name,
+        address: user.email,
+      },
+      subject: "[QRBio] Bem-vindo ao QRBio! 🎉",
+      html: templateHTML,
+    });
 
     return user;
   }
