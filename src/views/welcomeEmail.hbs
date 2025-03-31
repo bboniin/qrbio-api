@@ -7,12 +7,14 @@
       .registration { max-width: 600px; width: 100%; margin: 0 auto;
       margin-bottom: 20px; } .msg-principal { color: #000; text-align: center;
       font-size: 23px; padding: 17px; } .text-principal { text-align: center;
-      color: #404040; font-weight: 600; margin: 22px; } .text-destaque {
-      margin-bottom: 16px; } .text-destaque span { color: #2CB5E8; }
+      color: #404040; font-weight: 400; margin: 22px; } .text-destaque {
+      margin-bottom: 16px; } .text-destaque span { font-weight: 600 }
       .text-auxiliar { font-weight: 400; max-width: 350px; margin: 18px auto; }
       .footer { max-width: 600px; width: 100%; margin: 0 auto; padding: 11px
       22px; border-radius: 4px; align-items: center; } .footer div { text-align:
-      center; } .footer a { margin: 0 15px; text-decoration: none; }
+      center; } .footer a { margin: 0 15px; text-decoration: none; } button{
+      padding: 12px 35px; background: #20d45f; color: #363636; font-size: 17px;
+      border: none; border-radius: 10px}
     </style>
   </head>
 
@@ -31,7 +33,8 @@
         <p class="text-destaque">Aqui estão os detalhes do seu cadastro:</p>
         <p class="text-destaque">Email:
           {{email}}<br />Senha:
-          {{password}}<br />(Recomendamos que você altere a senha assim que
+          {{password}}</p>
+        <p class="text-destaque">(Recomendamos que você altere a senha assim que
           possível para garantir mais segurança).</p>
         <p class="text-destaque">O que é o QRBio?</p>
         <p class="text-destaque">QRBio chegou para facilitar ainda mais a sua
@@ -50,36 +53,55 @@
           estão ao seu favor.</p>
         <p class="text-destaque">QRBio é o seu perfil digital profissional!</p>
         <p class="text-destaque">Baixe o aplicativo e tenha o melhor da
-          tecnologia na palma da sua mão! Baixar na Play Store Precisa de ajuda
-          para criar seu perfil? Se precisar de ajuda para criar o seu perfil no
-          QRBio, é só acessar o nosso site e chamar o suporte. Nossa equipe está
-          pronta para te auxiliar em cada passo!</p>
-        <p class="text-destaque">Acesse o site e entre em contato com nosso
-          suporte: www.qrbio.com.br</p>
-        <p class="text-destaque">Agradecemos por escolher o QRBio! Estamos
-          ansiosos para proporcionar uma experiência incrível para você.</p>
+          tecnologia na palma da sua mão!
+        </p>
 
-        <p class="text-auxiliar">Atenciosamente</p>
+        <div class="footer">
+          <div>
+            <a
+              href="https://play.google.com/store/apps/details?id=solucoesdaweb.qrbio&pli=1"
+            >
+              <img
+                src="https://qrcode-api.s3.amazonaws.com/assets/google-play.png"
+              />
+            </a>
 
-        <p class="text-auxiliar">Equipe QRBio</p>
+            <a href="https://apps.apple.com/app/qr-bio/id6444109866">
+              <img
+                src="https://qrcode-api.s3.amazonaws.com/assets/app-store.png"
+              />
+            </a>
+          </div>
+          <p class="text-destaque">Nossa equipe está pronta para te auxiliar em
+            cada passo!</p>
+
+          <p class="text-destaque">Acesse o site e entre em contato com nosso
+            suporte: www.qrbio.com.br</p>
+          <p class="text-destaque">Agradecemos por escolher o QRBio!
+          </p>
+          <p class="text-destaque">Estamos ansiosos para proporcionar uma
+            experiência incrível para você.</p>
+
+          <div
+            class="text-destaque"
+            style="font-weight: 600; font-size: 18px; margin-top: 25px;"
+          >
+            <span>Acesse o link abaixo para confirmar seu e-mail</span>
+          </div>
+
+          <div class="text-principal">
+            <a href="https://api.qrbio.me/email-confirmation/{{id}}">
+              <button>
+
+                Confirmar e-mail
+              </button></a>
+          </div>
+
+          <p class="text-auxiliar">Atenciosamente</p>
+
+          <p class="text-auxiliar">Equipe QRBio</p>
+        </div>
       </div>
-    </div>
-
-    <div class="footer">
-      <div>
-        <a
-          href="https://play.google.com/store/apps/details?id=solucoesdaweb.qrbio&pli=1"
-        >
-          <img
-            src="https://qrcode-api.s3.amazonaws.com/assets/google-play.png"
-          />
-        </a>
-
-        <a href="https://apps.apple.com/app/qr-bio/id6444109866">
-          <img src="https://qrcode-api.s3.amazonaws.com/assets/app-store.png" />
-        </a>
-      </div>
-
     </div>
   </body>
 
