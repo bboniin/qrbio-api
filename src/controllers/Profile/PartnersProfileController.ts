@@ -1,23 +1,24 @@
-import { Request, Response } from 'express';
-import { PartnersProfileService } from '../../services/Profile/PartnersProfileService';
+import { Request, Response } from "express";
+import { PartnersProfileService } from "../../services/Profile/PartnersProfileService";
 
 class PartnersProfileController {
-    async handle(req: Request, res: Response) {
-        const { id } = req.params
+  async handle(req: Request, res: Response) {
+    const { id } = req.params;
 
-        const { partners } = req.body
+    const { partners, partner } = req.body;
 
-        const { profile_id } = req.params
+    const { profile_id } = req.params;
 
+    const partnersProfileService = new PartnersProfileService();
 
-        const partnersProfileService = new PartnersProfileService
+    await partnersProfileService.execute({
+      partners,
+      partner,
+      profile_id,
+    });
 
-        await partnersProfileService.execute({
-            partners, profile_id
-        })
-
-        return res.json(partnersProfileService)
-    }
+    return res.json(partnersProfileService);
+  }
 }
 
-export { PartnersProfileController }
+export { PartnersProfileController };
