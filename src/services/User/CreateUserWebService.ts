@@ -6,6 +6,7 @@ import fs from "fs";
 import nodemailer from "nodemailer";
 import handlebars from "handlebars";
 import { validateEmail } from "../../config/functions";
+import S3Storage from "../../utils/S3Storage";
 
 interface UserRequest {
   name: string;
@@ -17,6 +18,8 @@ interface UserRequest {
   code: string;
   qrcode: string;
   instagram: string;
+  photo: string;
+  partner_id: string;
 }
 
 class CreateUserWebService {
@@ -30,6 +33,8 @@ class CreateUserWebService {
     instagram,
     code,
     description,
+    photo,
+    partner_id,
   }: UserRequest) {
     if (!email || !name || !phone_number || !password || !nickname) {
       throw new Error("Preencha todos os campos obrigátorios");
@@ -54,6 +59,13 @@ class CreateUserWebService {
         nickname: nickname,
       },
     });
+
+    if (photo) {
+      const s3Storage = new S3Storage();
+      await s3Storage.saveFile(photo);
+    } else {
+      photo = "";
+    }
 
     if (nicknameAlreadyExists) {
       throw new Error("Usuário já está em uso");
@@ -130,6 +142,7 @@ class CreateUserWebService {
         profiles: {
           create: {
             name: name,
+            photo: photo,
             nickname: nickname,
             description: description,
           },
@@ -194,11 +207,9 @@ class CreateUserWebService {
       });
 
       if (tagLinked.batch.partner_id) {
-        await prismaClient.profile.update({
-          where: {
-            id: profile.id,
-          },
+        await prismaClient.partnerProfile.create({
           data: {
+            profile_id: profile.id,
             partner_id: tagLinked.batch.partner_id,
           },
         });
@@ -274,7 +285,12 @@ class CreateUserWebService {
       };
 
       if (partner_id) {
-        data["partner_id"] = partner_id;
+        await prismaClient.partnerProfile.create({
+          data: {
+            profile_id: profile.id,
+            partner_id: partner_id,
+          },
+        });
       }
 
       await prismaClient.profile.update({
@@ -295,6 +311,16 @@ class CreateUserWebService {
 
       return plan;
     }
+
+    if (partner_id) {
+      await prismaClient.partnerProfile.create({
+        data: {
+          profile_id: profile.id,
+          partner_id: partner_id,
+        },
+      });
+    }
+
     const path = resolve(__dirname, "..", "..", "views", "welcomeEmail.hbs");
 
     const templateFileContent = fs.readFileSync(path).toString("utf-8");

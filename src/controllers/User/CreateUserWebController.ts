@@ -11,9 +11,15 @@ class CreateUserWebController {
       nickname,
       description,
       code,
+      partner_id,
       qrcode,
       instagram,
     } = req.body;
+
+    let photo = "";
+    if (req.file) {
+      photo = req.file.filename;
+    }
 
     const createUserWebService = new CreateUserWebService();
 
@@ -27,6 +33,8 @@ class CreateUserWebController {
       code,
       qrcode,
       instagram,
+      partner_id,
+      photo,
     });
 
     return res.json(user);

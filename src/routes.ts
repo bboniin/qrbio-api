@@ -114,7 +114,11 @@ const router = Router();
 
 router.get("/email-confirmation/:id", new EmailConfirmController().handle);
 router.post("/user", new CreateUserController().handle);
-router.post("/user-web", new CreateUserWebController().handle);
+router.post(
+  "/user-web",
+  upload.single("file"),
+  new CreateUserWebController().handle
+);
 router.post("/session", new AuthUserController().handle);
 router.post("/session-admin", new AuthAdminController().handle);
 
