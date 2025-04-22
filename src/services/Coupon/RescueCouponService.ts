@@ -121,7 +121,25 @@ class RescueCouponService {
         plan_name: plan_name,
       };
       if (partner_id) {
-        data["partner_id"] = partner_id;
+        const partnerProfile = await prismaClient.partnerProfile.findFirst({
+          where: {
+            profile_id: profile_id,
+            partner_id: partner_id,
+          },
+        });
+        const partner = await prismaClient.partner.findUnique({
+          where: {
+            id: partner_id,
+          },
+        });
+        if (!partnerProfile && partner) {
+          await prismaClient.partnerProfile.create({
+            data: {
+              profile_id: profile_id,
+              partner_id: partner_id,
+            },
+          });
+        }
       }
 
       await prismaClient.profile.update({
@@ -155,7 +173,25 @@ class RescueCouponService {
         plan_name: plan_name,
       };
       if (partner_id) {
-        data["partner_id"] = partner_id;
+        const partnerProfile = await prismaClient.partnerProfile.findFirst({
+          where: {
+            profile_id: profile_id,
+            partner_id: partner_id,
+          },
+        });
+        const partner = await prismaClient.partner.findUnique({
+          where: {
+            id: partner_id,
+          },
+        });
+        if (!partnerProfile && partner) {
+          await prismaClient.partnerProfile.create({
+            data: {
+              profile_id: profile_id,
+              partner_id: partner_id,
+            },
+          });
+        }
       }
 
       await prismaClient.profile.update({

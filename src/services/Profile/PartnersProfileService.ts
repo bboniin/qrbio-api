@@ -12,13 +12,18 @@ class PartnersProfileService {
 
     await Promise.all(
       partnersEdit.map(async (item) => {
-        let partner = await prismaClient.partnerProfile.findFirst({
+        const partnerProfile = await prismaClient.partnerProfile.findFirst({
           where: {
             profile_id: profile_id,
             partner_id: item.partner_id,
           },
         });
-        if (!partner) {
+        const partner = await prismaClient.partner.findUnique({
+          where: {
+            id: item.partner_id,
+          },
+        });
+        if (!partnerProfile && partner) {
           await prismaClient.partnerProfile.create({
             data: {
               profile_id: profile_id,
@@ -49,12 +54,9 @@ class PartnersProfileService {
       }
     });
 
-    const profile = await prismaClient.profile.update({
+    const profile = await prismaClient.profile.findUnique({
       where: {
         id: profile_id,
-      },
-      data: {
-        partner_id: partner || null,
       },
     });
 

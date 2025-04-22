@@ -105,6 +105,8 @@ import { CreateMessageController } from "./controllers/Message/CreateMessageCont
 import { EditMessageController } from "./controllers/Message/EditMessageController";
 import { DeleteMessageController } from "./controllers/Message/DeleteMessageController";
 import { CreateUserWebController } from "./controllers/User/CreateUserWebController";
+import { AuthPartnerController } from "./controllers/Partner/AuthPartnerController";
+import { ListProfilesPartnersController } from "./controllers/Profile/ListProfilesPartnersController";
 
 const upload = multer(uploadConfig);
 
@@ -114,6 +116,7 @@ const router = Router();
 
 router.get("/email-confirmation/:id", new EmailConfirmController().handle);
 router.post("/user", new CreateUserController().handle);
+router.get("/user/partners", new ListProfilesPartnersController().handle);
 router.post(
   "/user-web",
   upload.single("file"),
@@ -121,6 +124,7 @@ router.post(
 );
 router.post("/session", new AuthUserController().handle);
 router.post("/session-admin", new AuthAdminController().handle);
+router.post("/session-partner", new AuthPartnerController().handle);
 
 router.get("/profile/:id", new ViewProfilePublicController().handle);
 router.post("/password-forgot", new PasswordForgotController().handle);
@@ -242,7 +246,7 @@ router.post(
 );
 router.get("/admin/all-partners", new ListAllPartnersController().handle);
 router.get("/admin/partners", new ListPartnersController().handle);
-router.get("/admin/partner/:id", new GetPartnerController().handle);
+router.get("/partner/:id", new GetPartnerController().handle);
 router.put(
   "/admin/partner/:id",
   upload.single("file"),

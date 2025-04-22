@@ -186,6 +186,8 @@ model Partner {
   photo     String?
   url       String?   @default("")
   label     String?   @default("")
+  email     String?   @unique
+  password  String?   @default("")
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 

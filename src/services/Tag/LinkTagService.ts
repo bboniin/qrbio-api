@@ -46,14 +46,30 @@ class LinkTagService {
     });
 
     if (tagLinked.batch.partner_id) {
-      await prismaClient.profile.update({
-        where: {
-          id: profile_id,
-        },
-        data: {
-          partner_id: tagLinked.batch.partner_id,
-        },
-      });
+      const partners = tagLinked.batch.partner_id.split(",");
+      await Promise.all(
+        await partners.map(async (partner_id) => {
+          const partnerProfile = await prismaClient.partnerProfile.findFirst({
+            where: {
+              profile_id: profile_id,
+              partner_id: partner_id,
+            },
+          });
+          const partner = await prismaClient.partner.findUnique({
+            where: {
+              id: partner_id,
+            },
+          });
+          if (!partnerProfile && partner) {
+            await prismaClient.partnerProfile.create({
+              data: {
+                profile_id: profile_id,
+                partner_id: partner_id,
+              },
+            });
+          }
+        })
+      );
     }
 
     if (!profile.promotional && profile.plan_name == "free") {

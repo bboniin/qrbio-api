@@ -74,6 +74,7 @@ class ViewProfilePublicService {
         if (tag.batch.partner_id) {
           let profiles = tag.batch.partner_id.split(",");
           let filter = [];
+          partners = [];
           profiles.map((item) => {
             filter.push({
               id: item,
@@ -93,46 +94,14 @@ class ViewProfilePublicService {
             }
             partners.push({ partner: item });
           });
-        } else {
-          if (viewProfilePublic.partner_id) {
-            let partner = await prismaClient.partner.findUnique({
-              where: { id: viewProfilePublic.partner_id },
-            });
-            if (partner) {
-              if (partner.photo) {
-                partner["photo_url"] =
-                  "https://qrbio-api.s3.amazonaws.com/" + partner.photo;
-              }
-              viewProfilePublic["partner"] = partner;
-            } else {
-              viewProfilePublic["partner"] = null;
-            }
-          } else {
-            viewProfilePublic["partner"] = null;
-          }
-        }
-      } else {
-        if (viewProfilePublic.partner_id) {
-          let partner = await prismaClient.partner.findUnique({
-            where: { id: viewProfilePublic.partner_id },
-          });
-          if (partner) {
-            if (partner.photo) {
-              partner["photo_url"] =
-                "https://qrbio-api.s3.amazonaws.com/" + partner.photo;
-            }
-            viewProfilePublic["partner"] = partner;
-          } else {
-            viewProfilePublic["partner"] = null;
-          }
-        } else {
-          viewProfilePublic["partner"] = null;
         }
       }
+
       if (viewProfilePublic.photo) {
         viewProfilePublic["photo_url"] =
           "https://qrbio-api.s3.amazonaws.com/" + viewProfilePublic.photo;
       }
+
       if (viewProfilePublic.background_image) {
         viewProfilePublic["background_image_url"] =
           "https://qrbio-api.s3.amazonaws.com/" +

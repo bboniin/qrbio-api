@@ -1,19 +1,34 @@
-import { Request, Response } from 'express';
-import { GetPartnerService } from '../../services/Partner/GetPartnerService';
+import { Request, Response } from "express";
+import { GetPartnerService } from "../../services/Partner/GetPartnerService";
 
 class GetPartnerController {
-    async handle(req: Request, res: Response) {
+  async handle(req: Request, res: Response) {
+    const { id } = req.params;
 
-        const { id } = req.params
+    const { page, search } = req.query;
 
-        const getPartnerService = new GetPartnerService
+    const userId = req.userId;
 
-        const partner = await getPartnerService.execute({
-            id
-        })
+    const getPartnerService = new GetPartnerService();
 
-        return res.json(partner)
+    const partner = await getPartnerService.execute({
+      id: id == "auth" ? userId : id,
+      auth: id == "auth",
+      page: Number(page) || 0,
+      search: search ? String(search) : "",
+    });
+
+    if (id == "auth") {
+      partner["profiles"].map(async (item) => {
+        if (item.photo) {
+          item["photo_url"] =
+            "https://qrbio-api.s3.amazonaws.com/" + item.photo;
+        }
+      });
     }
+
+    return res.json(partner);
+  }
 }
 
-export { GetPartnerController }
+export { GetPartnerController };
