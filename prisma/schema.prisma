@@ -61,7 +61,6 @@ model Profile {
   background_visible     Boolean?      @default(true)
   button_opacity         Float?        @default(100)
   redirect               String?
-  partner_id             String?       @default("")
   user                   User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
   links                  Link[]
   texts                  Text[]

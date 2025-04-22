@@ -92,7 +92,6 @@ class ListAdminProfilesService {
           },
         },
         sociais: true,
-        partner_id: true,
         user_id: true,
       },
     });

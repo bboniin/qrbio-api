@@ -34,6 +34,9 @@ class CreatePartnerService {
     }
 
     if (email) {
+      if (!password) {
+        throw new Error("Email e Senha são obrigatórios");
+      }
       const partnerEmail = await prismaClient.partner.findUnique({
         where: {
           email: email,
@@ -58,7 +61,7 @@ class CreatePartnerService {
         latitude: latitude,
         longitude: longitude,
         email: email,
-        password: password,
+        password: email ? password : "",
       },
     });
 

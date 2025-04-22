@@ -106,7 +106,6 @@ import { EditMessageController } from "./controllers/Message/EditMessageControll
 import { DeleteMessageController } from "./controllers/Message/DeleteMessageController";
 import { CreateUserWebController } from "./controllers/User/CreateUserWebController";
 import { AuthPartnerController } from "./controllers/Partner/AuthPartnerController";
-import { ListProfilesPartnersController } from "./controllers/Profile/ListProfilesPartnersController";
 
 const upload = multer(uploadConfig);
 
@@ -116,7 +115,6 @@ const router = Router();
 
 router.get("/email-confirmation/:id", new EmailConfirmController().handle);
 router.post("/user", new CreateUserController().handle);
-router.get("/user/partners", new ListProfilesPartnersController().handle);
 router.post(
   "/user-web",
   upload.single("file"),
