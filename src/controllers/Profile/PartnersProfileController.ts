@@ -3,9 +3,7 @@ import { PartnersProfileService } from "../../services/Profile/PartnersProfileSe
 
 class PartnersProfileController {
   async handle(req: Request, res: Response) {
-    const { id } = req.params;
-
-    const { partners, partner } = req.body;
+    const { partners } = req.body;
 
     const { profile_id } = req.params;
 
@@ -13,7 +11,6 @@ class PartnersProfileController {
 
     await partnersProfileService.execute({
       partners,
-      partner,
       profile_id,
     });
 

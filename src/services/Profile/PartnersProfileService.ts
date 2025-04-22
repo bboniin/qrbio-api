@@ -2,12 +2,11 @@ import prismaClient from "../../prisma";
 
 interface PartnerRequest {
   partners: object;
-  partner: string;
   profile_id: string;
 }
 
 class PartnersProfileService {
-  async execute({ partners, profile_id, partner }: PartnerRequest) {
+  async execute({ partners, profile_id }: PartnerRequest) {
     const partnersEdit = Object.values(partners);
 
     await Promise.all(
