@@ -76,6 +76,9 @@ class GetPartnerService {
               }
             : {}),
         },
+        orderBy: {
+          create_at: "desc",
+        },
         include: {
           sociais: true,
         },
