@@ -39,6 +39,9 @@ class EditPartnerService {
     }
 
     if (email) {
+      if (!password && !getPartner.email) {
+        throw new Error("Email e Senha são obrigatórios");
+      }
       const partnerEmail = await prismaClient.partner.findUnique({
         where: {
           email: email,
