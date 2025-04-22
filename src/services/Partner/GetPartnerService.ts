@@ -79,8 +79,8 @@ class GetPartnerService {
         include: {
           sociais: true,
         },
-        skip: page * 1,
-        take: 1,
+        skip: page * 30,
+        take: 30,
       });
     }
 
