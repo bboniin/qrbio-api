@@ -5,7 +5,26 @@ class EditPartnerController {
   async handle(req: Request, res: Response) {
     const { id } = req.params;
 
-    const { name, latitude, longitude, url, label, email, password } = req.body;
+    const {
+      name,
+      latitude,
+      longitude,
+      url,
+      label,
+      email,
+      password,
+      street,
+      number,
+      postal_code,
+      complement,
+      neighborhood,
+      city,
+      state,
+      description,
+      whatsapp,
+      instagram,
+      map_visible,
+    } = req.body;
 
     let userId = req.userId;
 
@@ -28,6 +47,17 @@ class EditPartnerController {
       label,
       email,
       password,
+      street,
+      number,
+      postal_code,
+      complement,
+      neighborhood,
+      city,
+      state,
+      description,
+      whatsapp,
+      instagram,
+      map_visible,
     });
 
     return res.json(partnerEdited);

@@ -178,17 +178,28 @@ model Batch {
 }
 
 model Partner {
-  id        String    @id @default(uuid())
-  name      String
-  latitude  String?
-  longitude String?
-  photo     String?
-  url       String?   @default("")
-  label     String?   @default("")
-  email     String?   @unique
-  password  String?   @default("")
-  create_at DateTime? @default(now())
-  update_at DateTime? @default(now())
+  id            String    @id @default(uuid())
+  name          String
+  latitude      Float?
+  longitude     Float?
+  photo         String?
+  url           String?   @default("")
+  street        String?   @default("")
+  number        String?   @default("")
+  postal_code   String?   @default("")
+  complement    String?   @default("")
+  neighborhood  String?   @default("")
+  city          String?   @default("")
+  state         String?   @default("")
+  description   String?   @default("")
+  whatsapp      String?   @default("")
+  instagram     String?   @default("")
+  label         String?   @default("")
+  email         String?   @unique
+  password      String?   @default("")
+  map_visible   Boolean   @default(false)
+  create_at     DateTime? @default(now())
+  update_at     DateTime? @default(now())
 
   BatchCoupon BatchCoupon[]
   partners    PartnerProfile[]

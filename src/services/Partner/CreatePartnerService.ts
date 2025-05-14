@@ -4,14 +4,25 @@ import S3Storage from "../../utils/S3Storage";
 
 interface PartnerRequest {
   name: string;
-  latitude: string;
+  latitude: number;
   photo: string;
   url: string;
   userId: string;
-  longitude: string;
+  longitude: number;
   label: string;
   email: string;
   password: string;
+  street: string;
+  number: string;
+  postal_code: string;
+  complement: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  description: string;
+  whatsapp: string;
+  instagram: string;
+  map_visible: boolean;
 }
 
 class CreatePartnerService {
@@ -24,7 +35,17 @@ class CreatePartnerService {
     longitude,
     photo,
     url,
-    userId,
+    street,
+    number,
+    postal_code,
+    complement,
+    neighborhood,
+    city,
+    state,
+    description,
+    whatsapp,
+    map_visible,
+    instagram,
   }: PartnerRequest) {
     if (photo) {
       const s3Storage = new S3Storage();
@@ -52,6 +73,22 @@ class CreatePartnerService {
       password = await hash(password, 8);
     }
 
+    if (map_visible) {
+      if (
+        !street ||
+        !number ||
+        !postal_code ||
+        !street ||
+        !complement ||
+        !neighborhood ||
+        !city ||
+        !state ||
+        !description
+      ) {
+        throw new Error("Preencha todos os campos do endereço");
+      }
+    }
+
     const partnerCreated = await prismaClient.partner.create({
       data: {
         name: name,
@@ -60,6 +97,17 @@ class CreatePartnerService {
         label: label,
         latitude: latitude,
         longitude: longitude,
+        street: street,
+        number: number,
+        postal_code: postal_code,
+        complement: complement,
+        neighborhood: neighborhood,
+        city: city,
+        state: state,
+        description: description,
+        whatsapp: whatsapp,
+        instagram: instagram,
+        map_visible: map_visible,
         email: email,
         password: email ? password : "",
       },

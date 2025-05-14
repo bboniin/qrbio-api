@@ -3,7 +3,26 @@ import { CreatePartnerService } from "../../services/Partner/CreatePartnerServic
 
 class CreatePartnerController {
   async handle(req: Request, res: Response) {
-    const { name, latitude, longitude, email, password, url, label } = req.body;
+    const {
+      name,
+      latitude,
+      longitude,
+      email,
+      password,
+      url,
+      label,
+      street,
+      number,
+      postal_code,
+      complement,
+      neighborhood,
+      city,
+      state,
+      description,
+      whatsapp,
+      instagram,
+      map_visible,
+    } = req.body;
 
     let userId = req.userId;
 
@@ -25,6 +44,17 @@ class CreatePartnerController {
       email,
       password,
       userId,
+      street,
+      number,
+      postal_code,
+      complement,
+      neighborhood,
+      city,
+      state,
+      description,
+      whatsapp,
+      instagram,
+      map_visible,
     });
 
     return res.json(PartnerCreated);

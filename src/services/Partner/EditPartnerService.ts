@@ -5,14 +5,25 @@ import S3Storage from "../../utils/S3Storage";
 interface PartnerRequest {
   id: string;
   name: string;
-  latitude: string;
+  latitude: number;
   photo: string;
   userId: string;
-  longitude: string;
+  longitude: number;
   url: string;
   label: string;
   email: string;
   password: string;
+  street: string;
+  number: string;
+  postal_code: string;
+  complement: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  description: string;
+  whatsapp: string;
+  instagram: string;
+  map_visible: boolean;
 }
 
 class EditPartnerService {
@@ -25,7 +36,17 @@ class EditPartnerService {
     latitude,
     longitude,
     photo,
-    userId,
+    street,
+    number,
+    postal_code,
+    complement,
+    neighborhood,
+    city,
+    state,
+    description,
+    whatsapp,
+    instagram,
+    map_visible,
     url,
   }: PartnerRequest) {
     const getPartner = await prismaClient.partner.findUnique({
@@ -57,6 +78,22 @@ class EditPartnerService {
       password = await hash(password, 8);
     }
 
+    if (map_visible) {
+      if (
+        !street ||
+        !number ||
+        !postal_code ||
+        !street ||
+        !complement ||
+        !neighborhood ||
+        !city ||
+        !state ||
+        !description
+      ) {
+        throw new Error("Preencha todos os campos do endereço");
+      }
+    }
+
     let data = {
       name: name,
       latitude: latitude,
@@ -64,6 +101,17 @@ class EditPartnerService {
       longitude: longitude,
       url: url,
       email: email,
+      street: street,
+      number: number,
+      postal_code: postal_code,
+      complement: complement,
+      neighborhood: neighborhood,
+      city: city,
+      state: state,
+      description: description,
+      whatsapp: whatsapp,
+      instagram: instagram,
+      map_visible: map_visible,
       password: email ? password || getPartner.password : "",
     };
 
