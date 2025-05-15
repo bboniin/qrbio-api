@@ -16,6 +16,7 @@ class ListMapPartnersService {
   }: MapRequest) {
     const partners = await prismaClient.partner.findMany({
       where: {
+        map_visible: true,
         latitude: {
           gte: minLatitude,
           lte: maxLatitude,
