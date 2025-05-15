@@ -36,8 +36,6 @@ class CreatePartnerController {
 
     const PartnerCreated = await createPartnerService.execute({
       name,
-      latitude,
-      longitude,
       photo,
       url,
       label,
@@ -54,7 +52,9 @@ class CreatePartnerController {
       description,
       whatsapp,
       instagram,
-      map_visible,
+      latitude: Number(latitude) || 0,
+      longitude: Number(longitude) || 0,
+      map_visible: map_visible == "true",
     });
 
     return res.json(PartnerCreated);

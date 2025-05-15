@@ -39,8 +39,6 @@ class EditPartnerController {
     const partnerEdited = await editPartnerService.execute({
       name,
       id,
-      latitude,
-      longitude,
       url,
       photo,
       userId,
@@ -57,7 +55,9 @@ class EditPartnerController {
       description,
       whatsapp,
       instagram,
-      map_visible,
+      latitude: Number(latitude) || 0,
+      longitude: Number(longitude) || 0,
+      map_visible: map_visible == "true",
     });
 
     return res.json(partnerEdited);
