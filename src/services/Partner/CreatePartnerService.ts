@@ -108,7 +108,7 @@ class CreatePartnerService {
         whatsapp: whatsapp,
         instagram: instagram,
         map_visible: map_visible,
-        email: email,
+        email: email || null,
         password: email ? password : "",
       },
     });

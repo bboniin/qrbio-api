@@ -100,7 +100,7 @@ class EditPartnerService {
       label: label,
       longitude: longitude,
       url: url,
-      email: email,
+      email: email || null,
       street: street,
       number: number,
       postal_code: postal_code,
