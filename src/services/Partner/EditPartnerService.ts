@@ -90,7 +90,9 @@ class EditPartnerService {
         !state ||
         !description
       ) {
-        throw new Error("Preencha todos os campos do endereço");
+        throw new Error(
+          "Preencha todos os campos do endereço e descrição do parceiro"
+        );
       }
     }
 
