@@ -13,7 +13,7 @@ class VerifyNicknameService {
     });
 
     if (profile) {
-      return { message: "Nickname já está sendo usado" };
+      throw new Error("Nickname já está sendo usado");
     } else {
       return { message: "Nickname disponivel" };
     }

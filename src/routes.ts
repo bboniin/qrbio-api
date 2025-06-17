@@ -107,6 +107,7 @@ import { DeleteMessageController } from "./controllers/Message/DeleteMessageCont
 import { CreateUserWebController } from "./controllers/User/CreateUserWebController";
 import { AuthPartnerController } from "./controllers/Partner/AuthPartnerController";
 import { ListMapPartnersController } from "./controllers/Partner/ListMapPartnersController";
+import { VerifyEmailController } from "./controllers/Profile/VerifyEmailController";
 
 const upload = multer(uploadConfig);
 
@@ -131,6 +132,7 @@ router.post("/password-forgot", new PasswordForgotController().handle);
 router.post("/password-reset", new PasswordResetController().handle);
 router.post("/copy/profile", new CopyProfileController().handle);
 router.get("/verify-nickname/:nickname", new VerifyNicknameController().handle);
+router.get("/verify-email/:email", new VerifyEmailController().handle);
 
 router.use(isAuthenticated);
 
