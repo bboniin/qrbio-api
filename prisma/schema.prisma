@@ -163,6 +163,19 @@ model PartnerProfile {
   @@map("partnersProfile")
 }
 
+model PartnerCategory {
+  id          String    @id @default(uuid())
+  category_id String
+  partner_id  String
+  create_at   DateTime? @default(now())
+  update_at   DateTime? @default(now())
+  partner     Partner   @relation(fields: [partner_id], references: [id], onDelete: Cascade)
+  category    Category   @relation(fields: [category_id], references: [id], onDelete: Cascade)
+
+  @@map("partnersCategory")
+}
+
+
 model Batch {
   id        String    @id @default(uuid())
   name      String?
@@ -197,9 +210,12 @@ model Partner {
   label         String?   @default("")
   email         String?   @unique
   password      String?   @default("")
+  keywords      String?   @default("")
   map_visible   Boolean   @default(false)
   create_at     DateTime? @default(now())
   update_at     DateTime? @default(now())
+
+  categories    PartnerCategory[]
 
   BatchCoupon BatchCoupon[]
   partners    PartnerProfile[]
@@ -343,6 +359,16 @@ model Coupon {
 
   @@map("coupons")
 }
+
+model Category {
+  id                  String    @id @default(uuid())
+  name                String
+
+  partners           PartnerCategory[]
+
+  @@map("categories")
+}
+
 
 
 model Message {

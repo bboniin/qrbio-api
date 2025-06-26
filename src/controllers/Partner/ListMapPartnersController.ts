@@ -3,7 +3,14 @@ import { ListMapPartnersService } from "../../services/Partner/ListMapPartnersSe
 
 class ListMapPartnersController {
   async handle(req: Request, res: Response) {
-    const { minLatitude, minLongitude, maxLatitude, maxLongitude } = req.query;
+    const {
+      minLatitude,
+      minLongitude,
+      maxLatitude,
+      maxLongitude,
+      keywords,
+      categories,
+    } = req.query;
 
     const listMapPartnersService = new ListMapPartnersService();
 
@@ -12,6 +19,8 @@ class ListMapPartnersController {
       minLongitude: Number(minLongitude),
       maxLatitude: Number(maxLatitude),
       maxLongitude: Number(maxLongitude),
+      categories: categories ? String(categories) : "",
+      keywords: keywords ? String(keywords) : "",
     });
 
     partners.map((item) => {

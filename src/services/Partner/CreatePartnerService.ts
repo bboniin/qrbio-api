@@ -23,6 +23,8 @@ interface PartnerRequest {
   whatsapp: string;
   instagram: string;
   map_visible: boolean;
+  categories: Array<string>;
+  keywords: string;
 }
 
 class CreatePartnerService {
@@ -46,6 +48,8 @@ class CreatePartnerService {
     whatsapp,
     map_visible,
     instagram,
+    categories,
+    keywords,
   }: PartnerRequest) {
     if (photo) {
       const s3Storage = new S3Storage();
@@ -79,7 +83,6 @@ class CreatePartnerService {
         !number ||
         !postal_code ||
         !street ||
-        !complement ||
         !neighborhood ||
         !city ||
         !state ||
@@ -112,8 +115,20 @@ class CreatePartnerService {
         map_visible: map_visible,
         email: email || null,
         password: email ? password : "",
+        keywords: keywords,
       },
     });
+
+    await Promise.all(
+      categories.map(async (category) => {
+        await prismaClient.partnerCategory.create({
+          data: {
+            category_id: category,
+            partner_id: partnerCreated.id,
+          },
+        });
+      })
+    );
 
     return partnerCreated;
   }

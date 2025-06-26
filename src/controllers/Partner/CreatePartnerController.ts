@@ -22,6 +22,8 @@ class CreatePartnerController {
       whatsapp,
       instagram,
       map_visible,
+      categories,
+      keywords,
     } = req.body;
 
     let userId = req.userId;
@@ -55,6 +57,8 @@ class CreatePartnerController {
       latitude: Number(latitude) || 0,
       longitude: Number(longitude) || 0,
       map_visible: map_visible == "true",
+      categories,
+      keywords,
     });
 
     return res.json(PartnerCreated);

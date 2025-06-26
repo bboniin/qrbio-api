@@ -23,6 +23,8 @@ interface PartnerRequest {
   description: string;
   whatsapp: string;
   instagram: string;
+  categories: Array<string>;
+  keywords: string;
   map_visible: boolean;
 }
 
@@ -47,11 +49,16 @@ class EditPartnerService {
     whatsapp,
     instagram,
     map_visible,
+    categories,
+    keywords,
     url,
   }: PartnerRequest) {
     const getPartner = await prismaClient.partner.findUnique({
       where: {
         id: id,
+      },
+      include: {
+        categories: true,
       },
     });
 
@@ -84,7 +91,6 @@ class EditPartnerService {
         !number ||
         !postal_code ||
         !street ||
-        !complement ||
         !neighborhood ||
         !city ||
         !state ||
@@ -114,6 +120,7 @@ class EditPartnerService {
       whatsapp: whatsapp,
       instagram: instagram,
       map_visible: map_visible,
+      keywords: keywords,
       password: email ? password || getPartner.password : "",
     };
 
@@ -128,6 +135,36 @@ class EditPartnerService {
 
       data["photo"] = photo;
     }
+
+    const objetosNaoContidos = getPartner.categories.filter(
+      (obj) => !categories.includes(obj.category_id)
+    );
+
+    const idsParaExcluir = objetosNaoContidos.map((obj) => obj.id);
+
+    await prismaClient.partnerCategory.deleteMany({
+      where: {
+        id: {
+          in: idsParaExcluir,
+        },
+      },
+    });
+
+    await Promise.all(
+      categories.map(async (category) => {
+        const categoryExist = getPartner.categories.find(
+          (obj) => obj.category_id === category
+        );
+        if (!categoryExist) {
+          await prismaClient.partnerCategory.create({
+            data: {
+              category_id: category,
+              partner_id: id,
+            },
+          });
+        }
+      })
+    );
 
     const partnerEdited = await prismaClient.partner.update({
       where: {

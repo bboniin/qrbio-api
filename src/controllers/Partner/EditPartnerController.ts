@@ -24,6 +24,8 @@ class EditPartnerController {
       whatsapp,
       instagram,
       map_visible,
+      categories,
+      keywords,
     } = req.body;
 
     let userId = req.userId;
@@ -55,6 +57,8 @@ class EditPartnerController {
       description,
       whatsapp,
       instagram,
+      categories: categories || [],
+      keywords,
       latitude: Number(latitude) || 0,
       longitude: Number(longitude) || 0,
       map_visible: map_visible == "true",
