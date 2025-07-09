@@ -27,7 +27,7 @@ class ListMapPartnersService {
         .filter(Boolean);
 
       filter["OR"] = palavrasFiltro.flatMap((palavra) => [
-        { name: { contains: palavra, mode: "insensitive" } },
+        { label: { contains: palavra, mode: "insensitive" } },
         { keywords: { contains: palavra, mode: "insensitive" } },
       ]);
     }
