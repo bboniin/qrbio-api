@@ -1,10 +1,13 @@
 import prismaClient from "../../prisma";
 
-class ListCategoriesService {
+class ListAdminCategoriesService {
   async execute() {
     const categories = await prismaClient.category.findMany({
       orderBy: {
         name: "asc",
+      },
+      include: {
+        partners: true,
       },
     });
 
@@ -12,4 +15,4 @@ class ListCategoriesService {
   }
 }
 
-export { ListCategoriesService };
+export { ListAdminCategoriesService };

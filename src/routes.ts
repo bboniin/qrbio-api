@@ -109,6 +109,10 @@ import { AuthPartnerController } from "./controllers/Partner/AuthPartnerControll
 import { ListMapPartnersController } from "./controllers/Partner/ListMapPartnersController";
 import { VerifyEmailController } from "./controllers/Profile/VerifyEmailController";
 import { ListCategoriesController } from "./controllers/Partner/ListCategoriesController";
+import { ListAdminCategoriesController } from "./controllers/Partner/ListAdminCategoriesController";
+import { CreateCategoryController } from "./controllers/Partner/CreateCategoryController";
+import { EditCategoryController } from "./controllers/Partner/EditCategoryController";
+import { DeleteCategoryController } from "./controllers/Partner/DeleteCategoryController";
 
 const upload = multer(uploadConfig);
 
@@ -297,6 +301,11 @@ router.get("/admin/batchs-coupons", new ListBatchCouponController().handle);
 router.get("/admin/batch-coupons/:id", new GetBatchCouponController().handle);
 router.post("/admin/batch-coupons", new CreateBatchCouponController().handle);
 router.put("/admin/batch-coupons/:id", new EditBatchCouponController().handle);
+
+router.get("/admin/categories", new ListAdminCategoriesController().handle);
+router.post("/admin/category", new CreateCategoryController().handle);
+router.put("/admin/category/:id", new EditCategoryController().handle);
+router.delete("/admin/category/:id", new DeleteCategoryController().handle);
 
 router.get("/admin/messages", new ListMessagesController().handle);
 router.post("/admin/message", new CreateMessageController().handle);
