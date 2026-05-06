@@ -68,7 +68,7 @@ class CreatePartnerNotificationService {
         title,
         message,
         url,
-        send_at,
+        send_at: send_at || new Date(),
         partner_id: userId,
         status: "pendente",
       },
