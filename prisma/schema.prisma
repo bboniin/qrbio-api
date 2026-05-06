@@ -191,34 +191,38 @@ model Batch {
 }
 
 model Partner {
-  id            String    @id @default(uuid())
-  name          String
-  latitude      Float?
-  longitude     Float?
-  photo         String?
-  url           String?   @default("")
-  street        String?   @default("")
-  number        String?   @default("")
-  postal_code   String?   @default("")
-  complement    String?   @default("")
-  neighborhood  String?   @default("")
-  city          String?   @default("")
-  state         String?   @default("")
-  description   String?   @default("")
-  whatsapp      String?   @default("")
-  instagram     String?   @default("")
-  label         String?   @default("")
-  email         String?   @unique
-  password      String?   @default("")
-  keywords      String?   @default("")
-  map_visible   Boolean   @default(false)
-  create_at     DateTime? @default(now())
-  update_at     DateTime? @default(now())
+  id               String    @id @default(uuid())
+  name             String
+  latitude         Float?
+  longitude        Float?
+  photo            String?
+  sends_week       Int?      @default(0)
+  number_sends     Int?      @default(0)
+  interval_send    Int?      @default(0)
+  url              String?   @default("")
+  street           String?   @default("")
+  number           String?   @default("")
+  postal_code      String?   @default("")
+  complement       String?   @default("")
+  neighborhood     String?   @default("")
+  city             String?   @default("")
+  state            String?   @default("")
+  description      String?   @default("")
+  whatsapp         String?   @default("")
+  instagram        String?   @default("")
+  label            String?   @default("")
+  email            String?   @unique
+  password         String?   @default("")
+  keywords         String?   @default("")
+  map_visible      Boolean   @default(false)
+  create_at        DateTime? @default(now())
+  update_at        DateTime? @default(now())
 
-  categories    PartnerCategory[]
+  categories       PartnerCategory[]
 
-  BatchCoupon BatchCoupon[]
-  partners    PartnerProfile[]
+  BatchCoupon      BatchCoupon[]
+  partners         PartnerProfile[]
+  notifications    Notification[]
 
   @@map("partners")
 }
@@ -369,7 +373,21 @@ model Category {
   @@map("categories")
 }
 
+model Notification {
+  id                  String    @id @default(uuid())
+  title               String
+  message             String
+  url                 String?   
+  status              String    @default("pendente")
+  create_at           DateTime? @default(now())
+  send_at             DateTime? @default(now())
+  update_at           DateTime? @default(now())
 
+  partner_id          String?
+  partner             Partner? @relation(fields: [partner_id], references: [id])
+
+  @@map("notifications")
+}
 
 model Message {
   id                  String    @id @default(uuid())

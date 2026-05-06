@@ -113,6 +113,14 @@ import { ListAdminCategoriesController } from "./controllers/Partner/ListAdminCa
 import { CreateCategoryController } from "./controllers/Partner/CreateCategoryController";
 import { EditCategoryController } from "./controllers/Partner/EditCategoryController";
 import { DeleteCategoryController } from "./controllers/Partner/DeleteCategoryController";
+import { CreateNotificationController } from "./controllers/Notification/CreateNotificationController";
+import { ListNotificationsController } from "./controllers/Notification/ListNotificationsController";
+import { EditNotificationController } from "./controllers/Notification/EditNotificationController";
+import { ApprovedNotificationController } from "./controllers/Notification/ApprovedNotificationController";
+import { ReprovedNotificationController } from "./controllers/Notification/ReprovedNotificationController";
+import { CreatePartnerNotificationController } from "./controllers/Notification/CreatePartnerNotificationController";
+import { ListPartnerNotificationsController } from "./controllers/Notification/ListPartnerNotificationsController";
+import { ListUserNotificationsController } from "./controllers/Notification/ListUserNotificationsController";
 
 const upload = multer(uploadConfig);
 
@@ -127,7 +135,7 @@ router.post("/user", new CreateUserController().handle);
 router.post(
   "/user-web",
   upload.single("file"),
-  new CreateUserWebController().handle
+  new CreateUserWebController().handle,
 );
 router.post("/session", new AuthUserController().handle);
 router.post("/session-admin", new AuthAdminController().handle);
@@ -148,7 +156,7 @@ router.use(isAuthenticated);
 
 router.post(
   "/send-email-confirmation",
-  new SendEmailConfirmController().handle
+  new SendEmailConfirmController().handle,
 );
 router.post("/plan", new AddPlanController().handle);
 router.get("/plan/:id", new GetPlanController().handle);
@@ -189,19 +197,19 @@ router.delete("/emergency/:id", new DeleteEmergencyController().handle);
 
 router.put(
   "/active-emergency-contacts/:id",
-  new ActiveEmergencyContactController().handle
+  new ActiveEmergencyContactController().handle,
 );
 router.post(
   "/emergency-contacts",
-  new CreateEmergencyContactController().handle
+  new CreateEmergencyContactController().handle,
 );
 router.put(
   "/emergency-contacts/:id",
-  new EditEmergencyContactController().handle
+  new EditEmergencyContactController().handle,
 );
 router.delete(
   "/emergency-contacts/:id",
-  new DeleteEmergencyContactController().handle
+  new DeleteEmergencyContactController().handle,
 );
 
 router.get("/sociais/:id", new ListSociaisController().handle);
@@ -214,24 +222,24 @@ router.delete("/social/:id", new DeleteSocialController().handle);
 router.get("/profile-views/:profile_id", new ShowCountViewController().handle);
 router.get(
   "/views-month/:profile_id",
-  new CountProfileMonthController().handle
+  new CountProfileMonthController().handle,
 );
 router.get("/profiles", new ListProfilesController().handle);
 router.post(
   "/profile",
   upload.single("file"),
-  new CreateProfileController().handle
+  new CreateProfileController().handle,
 );
 router.get("/my-profile/:id", new GetProfileController().handle);
 router.put(
   "/profile/:id",
   upload.single("file"),
-  new EditProfileController().handle
+  new EditProfileController().handle,
 );
 router.put(
   "/design-profile/:id",
   upload.single("file"),
-  new EditDesignProfileController().handle
+  new EditDesignProfileController().handle,
 );
 router.delete("/profile/:id", new DeleteProfileController().handle);
 
@@ -250,7 +258,7 @@ router.get("/admin/tag-batch/:id", new GetTagController().handle);
 router.post(
   "/admin/partner",
   upload.single("file"),
-  new CreatePartnerController().handle
+  new CreatePartnerController().handle,
 );
 router.get("/admin/all-partners", new ListAllPartnersController().handle);
 router.get("/admin/partners", new ListPartnersController().handle);
@@ -258,7 +266,7 @@ router.get("/partner/:id", new GetPartnerController().handle);
 router.put(
   "/admin/partner/:id",
   upload.single("file"),
-  new EditPartnerController().handle
+  new EditPartnerController().handle,
 );
 router.put("/admin/association/:batch_id", new LinkPartnerController().handle);
 router.delete("/admin/partner/:id", new DeletePartnerController().handle);
@@ -266,27 +274,27 @@ router.delete("/admin/partner/:id", new DeletePartnerController().handle);
 router.get("/admin/users", new ListUsersController().handle);
 router.delete(
   "/admin/delete-user/:user_id",
-  new AdminDeleteUserController().handle
+  new AdminDeleteUserController().handle,
 );
 router.get("/admin/profiles", new ListAdminProfilesController().handle);
 router.post(
   "/admin/partner-profile/:profile_id",
-  new PartnersProfileController().handle
+  new PartnersProfileController().handle,
 );
 router.put(
   "/admin/profile-relocate/:nickname",
-  new RelocateProfileController().handle
+  new RelocateProfileController().handle,
 );
 router.post(
   "/admin/plan-profile/:profile_id",
-  new PlanProfileController().handle
+  new PlanProfileController().handle,
 );
 router.get("/admin/user/:id", new GetAdminUserController().handle);
 router.get("/admin/batchs", new ListBatchsController().handle);
 router.get("/admin/batch/:id", new GetBatchController().handle);
 router.put(
   "/admin/change-nickname/:id",
-  new NicknameProfileController().handle
+  new NicknameProfileController().handle,
 );
 router.post("/admin/batch", new CreateBatchController().handle);
 router.put("/admin/batch/:id", new EditBatchController().handle);
@@ -306,6 +314,21 @@ router.get("/admin/categories", new ListAdminCategoriesController().handle);
 router.post("/admin/category", new CreateCategoryController().handle);
 router.put("/admin/category/:id", new EditCategoryController().handle);
 router.delete("/admin/category/:id", new DeleteCategoryController().handle);
+
+router.post("/admin/notifications", new CreateNotificationController().handle);
+router.get("/admin/notifications", new ListNotificationsController().handle);
+router.put("/admin/notifications/:id", new EditNotificationController().handle);
+router.patch(
+  "/approved/notification/:id",
+  new ApprovedNotificationController().handle,
+);
+router.patch(
+  "/reproved/notification/:id",
+  new ReprovedNotificationController().handle,
+);
+router.post("/notifications", new CreatePartnerNotificationController().handle);
+router.get("/notifications", new ListPartnerNotificationsController().handle);
+router.get("/user/notifications", new ListUserNotificationsController().handle);
 
 router.get("/admin/messages", new ListMessagesController().handle);
 router.post("/admin/message", new CreateMessageController().handle);

@@ -23,6 +23,9 @@ class CreatePartnerController {
       instagram,
       map_visible,
       categories,
+      number_sends,
+      sends_week,
+      interval_send,
       keywords,
     } = req.body;
 
@@ -54,6 +57,9 @@ class CreatePartnerController {
       description,
       whatsapp,
       instagram,
+      number_sends: Number(number_sends) || 0,
+      sends_week: Number(sends_week) || 0,
+      interval_send: Number(interval_send) || 0,
       latitude: Number(latitude) || 0,
       longitude: Number(longitude) || 0,
       map_visible: map_visible == "true",

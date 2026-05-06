@@ -26,6 +26,9 @@ interface PartnerRequest {
   categories: Array<string>;
   keywords: string;
   map_visible: boolean;
+  number_sends: number;
+  sends_week: number;
+  interval_send: number;
 }
 
 class EditPartnerService {
@@ -51,6 +54,9 @@ class EditPartnerService {
     map_visible,
     categories,
     keywords,
+    number_sends,
+    sends_week,
+    interval_send,
     url,
   }: PartnerRequest) {
     const getPartner = await prismaClient.partner.findUnique({
@@ -97,7 +103,7 @@ class EditPartnerService {
         !description
       ) {
         throw new Error(
-          "Preencha todos os campos do endereço e descrição do parceiro"
+          "Preencha todos os campos do endereço e descrição do parceiro",
         );
       }
     }
@@ -118,6 +124,9 @@ class EditPartnerService {
       state: state,
       description: description,
       whatsapp: whatsapp,
+      number_sends: number_sends,
+      sends_week: sends_week,
+      interval_send: interval_send,
       instagram: instagram,
       map_visible: map_visible,
       keywords: keywords,
@@ -137,7 +146,7 @@ class EditPartnerService {
     }
 
     const objetosNaoContidos = getPartner.categories.filter(
-      (obj) => !categories.includes(obj.category_id)
+      (obj) => !categories.includes(obj.category_id),
     );
 
     const idsParaExcluir = objetosNaoContidos.map((obj) => obj.id);
@@ -153,7 +162,7 @@ class EditPartnerService {
     await Promise.all(
       categories.map(async (category) => {
         const categoryExist = getPartner.categories.find(
-          (obj) => obj.category_id === category
+          (obj) => obj.category_id === category,
         );
         if (!categoryExist) {
           await prismaClient.partnerCategory.create({
@@ -163,7 +172,7 @@ class EditPartnerService {
             },
           });
         }
-      })
+      }),
     );
 
     const partnerEdited = await prismaClient.partner.update({

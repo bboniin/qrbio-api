@@ -25,6 +25,9 @@ interface PartnerRequest {
   map_visible: boolean;
   categories: Array<string>;
   keywords: string;
+  number_sends: number;
+  sends_week: number;
+  interval_send: number;
 }
 
 class CreatePartnerService {
@@ -50,6 +53,9 @@ class CreatePartnerService {
     instagram,
     categories,
     keywords,
+    number_sends,
+    sends_week,
+    interval_send,
   }: PartnerRequest) {
     if (photo) {
       const s3Storage = new S3Storage();
@@ -89,7 +95,7 @@ class CreatePartnerService {
         !description
       ) {
         throw new Error(
-          "Preencha todos os campos do endereço e descrição do parceiro"
+          "Preencha todos os campos do endereço e descrição do parceiro",
         );
       }
     }
@@ -113,6 +119,9 @@ class CreatePartnerService {
         whatsapp: whatsapp,
         instagram: instagram,
         map_visible: map_visible,
+        number_sends: number_sends,
+        sends_week: sends_week,
+        interval_send: interval_send,
         email: email || null,
         password: email ? password : "",
         keywords: keywords,
@@ -127,7 +136,7 @@ class CreatePartnerService {
             partner_id: partnerCreated.id,
           },
         });
-      })
+      }),
     );
 
     return partnerCreated;
