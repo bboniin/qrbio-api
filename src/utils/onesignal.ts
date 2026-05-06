@@ -16,7 +16,9 @@ export default async function sendNotification({
   large_icon,
 }) {
   try {
-    const scheduledDate = isBefore(send_at, new Date()) ? new Date() : send_at;
+    const scheduledDate = isBefore(send_at, addSeconds(new Date(), 10))
+      ? addSeconds(new Date(), 10)
+      : send_at;
     const send_after = format(scheduledDate, "yyyy-MM-dd HH:mm:ss 'GMT-0300'");
     console.log({
       headings: {
