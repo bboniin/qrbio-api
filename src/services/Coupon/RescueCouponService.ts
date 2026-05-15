@@ -9,7 +9,7 @@ interface CouponRequest {
 class RescueCouponService {
   async execute({ id, profile_id }: CouponRequest) {
     if (!id || !profile_id) {
-      throw new Error("Id da tag e do perfil é obrigátorio");
+      throw new Error("Id da tag e do perfil é obrigatório");
     }
 
     const coupon = await prismaClient.coupon.findFirst({
@@ -47,8 +47,8 @@ class RescueCouponService {
         throw new Error(
           `Esse cupom expirou dia ${format(
             batch.expiration_date,
-            "dd/MM/yyyy"
-          )}`
+            "dd/MM/yyyy",
+          )}`,
         );
       }
     }

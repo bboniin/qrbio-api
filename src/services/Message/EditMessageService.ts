@@ -9,7 +9,7 @@ interface MessageRequest {
 class EditMessageService {
   async execute({ title, id, message }: MessageRequest) {
     if (!title || !message) {
-      throw new Error("Nome e mensagem são obrigátorios");
+      throw new Error("Nome e mensagem são obrigatórios");
     }
 
     const messageEdited = await prismaClient.message.update({

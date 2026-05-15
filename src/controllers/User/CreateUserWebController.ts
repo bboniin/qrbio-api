@@ -14,6 +14,7 @@ class CreateUserWebController {
       partner_id,
       qrcode,
       instagram,
+      cpf,
     } = req.body;
 
     let photo = "";
@@ -35,6 +36,7 @@ class CreateUserWebController {
       instagram,
       partner_id,
       photo,
+      cpf,
     });
 
     return res.json(user);

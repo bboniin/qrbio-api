@@ -8,7 +8,7 @@ interface CouponRequest {
 class GetCouponService {
   async execute({ id }: CouponRequest) {
     if (!id) {
-      throw new Error("ID é obrigátorio");
+      throw new Error("ID é obrigatório");
     }
 
     const getCoupon = await prismaClient.coupon.findFirst({
@@ -33,7 +33,7 @@ class GetCouponService {
       if (
         isBefore(
           startOfDay(getCoupon["expiration_date"]),
-          startOfDay(new Date())
+          startOfDay(new Date()),
         )
       ) {
         getCoupon["expiration"] = true;

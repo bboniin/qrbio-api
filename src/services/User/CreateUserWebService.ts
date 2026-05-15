@@ -5,7 +5,7 @@ import { resolve } from "path";
 import fs from "fs";
 import nodemailer from "nodemailer";
 import handlebars from "handlebars";
-import { validateEmail } from "../../config/functions";
+import { validateCpf, validateEmail } from "../../config/functions";
 import S3Storage from "../../utils/S3Storage";
 
 interface UserRequest {
@@ -20,6 +20,7 @@ interface UserRequest {
   instagram: string;
   photo: string;
   partner_id: string;
+  cpf: string;
 }
 
 class CreateUserWebService {
@@ -35,9 +36,10 @@ class CreateUserWebService {
     description,
     photo,
     partner_id,
+    cpf,
   }: UserRequest) {
-    if (!email || !name || !phone_number || !password || !nickname) {
-      throw new Error("Preencha todos os campos obrigátorios");
+    if (!email || !name || !phone_number || !cpf || !password || !nickname) {
+      throw new Error("Preencha todos os campos obrigatórios");
     }
 
     if (!validateEmail(email)) {
@@ -59,6 +61,20 @@ class CreateUserWebService {
         nickname: nickname,
       },
     });
+
+    if (!validateCpf(cpf)) {
+      throw new Error("CPF é inválido");
+    }
+
+    const cpfAlreadyExists = await prismaClient.user.findFirst({
+      where: {
+        cpf: cpf,
+      },
+    });
+
+    if (cpfAlreadyExists) {
+      throw new Error("CPF já cadastrado");
+    }
 
     if (photo) {
       const s3Storage = new S3Storage();
@@ -102,8 +118,8 @@ class CreateUserWebService {
           throw new Error(
             `Esse cupom expirou dia ${format(
               batch.expiration_date,
-              "dd/MM/yyyy"
-            )}`
+              "dd/MM/yyyy",
+            )}`,
           );
         }
       }
@@ -122,7 +138,7 @@ class CreateUserWebService {
 
       if (!tag) {
         throw new Error(
-          "Essa tag não existe no nosso sistema ou já foi apagada"
+          "Essa tag não existe no nosso sistema ou já foi apagada",
         );
       }
 
@@ -139,6 +155,7 @@ class CreateUserWebService {
         email: email,
         password: passwordHash,
         phone_number: phone_number,
+        cpf: cpf,
         profiles: {
           create: {
             name: name,
@@ -229,7 +246,7 @@ class CreateUserWebService {
                 },
               });
             }
-          })
+          }),
         );
       }
 

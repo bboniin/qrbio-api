@@ -8,7 +8,7 @@ interface BatchCouponRequest {
 class GetBatchCouponService {
   async execute({ id }: BatchCouponRequest) {
     if (!id) {
-      throw new Error("ID é obrigátorio");
+      throw new Error("ID é obrigatório");
     }
 
     const getBatchCoupon = await prismaClient.batchCoupon.findUnique({
@@ -27,7 +27,7 @@ class GetBatchCouponService {
       if (
         isBefore(
           startOfDay(getBatchCoupon.expiration_date),
-          startOfDay(new Date())
+          startOfDay(new Date()),
         )
       ) {
         getBatchCoupon["expiration"] = true;

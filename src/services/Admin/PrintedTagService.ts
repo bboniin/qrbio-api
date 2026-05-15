@@ -1,26 +1,25 @@
-import prismaClient from '../../prisma'
+import prismaClient from "../../prisma";
 
 interface TagRequest {
-    id: string;
+  id: string;
 }
 
 class PrintedTagService {
-    async execute({ id }: TagRequest) {
-
-        if (!id) {
-            throw new Error("Id da tag é obrigátorio")
-        }
-        const tagPrinted = await prismaClient.tag.update({
-            where: {
-                id: id
-            },
-            data: {
-                printed: true,
-            }
-        })
-
-        return (tagPrinted)
+  async execute({ id }: TagRequest) {
+    if (!id) {
+      throw new Error("Id da tag é obrigatório");
     }
+    const tagPrinted = await prismaClient.tag.update({
+      where: {
+        id: id,
+      },
+      data: {
+        printed: true,
+      },
+    });
+
+    return tagPrinted;
+  }
 }
 
-export { PrintedTagService }
+export { PrintedTagService };

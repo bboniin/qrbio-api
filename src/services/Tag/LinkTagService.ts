@@ -9,7 +9,7 @@ interface TagRequest {
 class LinkTagService {
   async execute({ name, id, profile_id }: TagRequest) {
     if (!id || !profile_id) {
-      throw new Error("Id da tag e do perfil é obrigátorio");
+      throw new Error("Id da tag e do perfil é obrigatório");
     }
 
     const tag = await prismaClient.tag.findFirst({
@@ -68,7 +68,7 @@ class LinkTagService {
               },
             });
           }
-        })
+        }),
       );
     }
 

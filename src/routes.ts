@@ -121,6 +121,14 @@ import { ReprovedNotificationController } from "./controllers/Notification/Repro
 import { CreatePartnerNotificationController } from "./controllers/Notification/CreatePartnerNotificationController";
 import { ListPartnerNotificationsController } from "./controllers/Notification/ListPartnerNotificationsController";
 import { ListUserNotificationsController } from "./controllers/Notification/ListUserNotificationsController";
+import { ListContactsController } from "./controllers/Contacts/ListContactsController";
+import { ListGroupsController } from "./controllers/Contacts/ListGroupsController";
+import { EditGroupController } from "./controllers/Contacts/EditGroupController";
+import { EditContactController } from "./controllers/Contacts/EditContactController";
+import { DeleteContactController } from "./controllers/Contacts/DeleteContactController";
+import { DeleteGroupController } from "./controllers/Contacts/DeleteGroupController";
+import { CreateGroupController } from "./controllers/Contacts/CreateGroupController";
+import { AddContactController } from "./controllers/Contacts/AddContactController";
 
 const upload = multer(uploadConfig);
 
@@ -248,6 +256,15 @@ router.put("/tag/:id", new EditTagController().handle);
 router.put("/link-tag/:id", new LinkTagController().handle);
 router.put("/clear-tag/:id", new ClearTagController().handle);
 router.delete("/tag/:id", new DeleteTagController().handle);
+
+router.get("/contacts", new ListContactsController().handle);
+router.get("/groups", new ListGroupsController().handle);
+router.put("/group/:id", new EditGroupController().handle);
+router.put("/contact/:id", new EditContactController().handle);
+router.delete("/group/:id", new DeleteGroupController().handle);
+router.delete("/contact/:id", new DeleteContactController().handle);
+router.post("/group", new CreateGroupController().handle);
+router.post("/contact", new AddContactController().handle);
 
 router.get("/coupon/:id", new GetCouponController().handle);
 router.post("/rescue-coupon/:id", new RescueCouponController().handle);

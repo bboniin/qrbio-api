@@ -15,10 +15,13 @@ model User {
   phone_number       String    @default("")
   password           String
   message            String?   @default("")
+  cpf                String?   @default("")
   observation        String?   @default("")
   create_at          DateTime? @default(now())
   update_at          DateTime? @default(now())
   profiles           Profile[]
+  contacts           Contact[]
+  groups             Group[]
 
   @@map("users")
 }
@@ -70,8 +73,41 @@ model Profile {
   partners               PartnerProfile[]
   pix                    Pix[]
   emergency              Emergency[]
+  contacts               Contact[]
 
   @@map("profiles")
+}
+
+
+model Group {
+  id                     String        @id @default(uuid())
+  name                   String
+  restricted_user        Boolean       @default(false)
+  description            String?
+  create_at              DateTime?     @default(now())
+  update_at              DateTime?     @default(now())
+  user_id                String
+  user                   User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  contacts               Contact[]
+
+  @@map("groups")
+}
+
+
+model Contact {
+  id                     String        @id @default(uuid())
+  name                   String
+  create_at              DateTime?     @default(now())
+  update_at              DateTime?     @default(now())
+  profile_id             String
+  profile                Profile       @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+  user_id                String
+  user                   User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  group_id               String?
+  group                  Group?        @relation(fields: [group_id], references: [id], onDelete: SetNull)
+
+  @@map("contacts")
 }
 
 model Tag {
