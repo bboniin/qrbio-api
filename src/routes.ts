@@ -129,6 +129,7 @@ import { DeleteContactController } from "./controllers/Contacts/DeleteContactCon
 import { DeleteGroupController } from "./controllers/Contacts/DeleteGroupController";
 import { CreateGroupController } from "./controllers/Contacts/CreateGroupController";
 import { AddContactController } from "./controllers/Contacts/AddContactController";
+import { GetPartnerPublicController } from "./controllers/Partner/GetPartnerPublicController";
 
 const upload = multer(uploadConfig);
 
@@ -155,6 +156,7 @@ router.post("/password-reset", new PasswordResetController().handle);
 router.post("/copy/profile", new CopyProfileController().handle);
 router.get("/verify-nickname/:nickname", new VerifyNicknameController().handle);
 router.get("/verify-email/:email", new VerifyEmailController().handle);
+router.get("/partner/p/:id", new GetPartnerPublicController().handle);
 
 router.use(isAuthenticated);
 

@@ -6,6 +6,7 @@ import cron from "node-cron";
 
 import { router } from "./routes";
 import { ExpirePlanService } from "./services/Plan/ExpirePlanService";
+import { SendsWeekParnetService } from "./services/Notification/SendsWeekParnetService";
 
 const app = express();
 
@@ -27,7 +28,12 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 cron.schedule("0 8 * * *", () => {
   const expirePlanService = new ExpirePlanService();
-  expirePlanService.execute({});
+  expirePlanService.execute();
 });
 
-app.listen(3333, () => console.log("rodando v71"));
+cron.schedule("0 1 * * 1", () => {
+  const sendsWeekPartner = new SendsWeekParnetService();
+  sendsWeekPartner.execute();
+});
+
+app.listen(3333, () => console.log("rodando v72"));

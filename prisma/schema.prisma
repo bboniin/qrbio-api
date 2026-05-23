@@ -232,6 +232,7 @@ model Partner {
   latitude         Float?
   longitude        Float?
   photo            String?
+  enabled_cpf      Boolean   @default(false)
   sends_week       Int?      @default(0)
   number_sends     Int?      @default(0)
   interval_send    Int?      @default(0)

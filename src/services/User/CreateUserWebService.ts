@@ -38,7 +38,7 @@ class CreateUserWebService {
     partner_id,
     cpf,
   }: UserRequest) {
-    if (!email || !name || !phone_number || !cpf || !password || !nickname) {
+    if (!email || !name || !phone_number || !password || !nickname) {
       throw new Error("Preencha todos os campos obrigatórios");
     }
 
@@ -62,18 +62,20 @@ class CreateUserWebService {
       },
     });
 
-    if (!validateCpf(cpf)) {
-      throw new Error("CPF é inválido");
-    }
+    if (cpf) {
+      if (!validateCpf(cpf)) {
+        throw new Error("CPF é inválido");
+      }
 
-    const cpfAlreadyExists = await prismaClient.user.findFirst({
-      where: {
-        cpf: cpf,
-      },
-    });
+      const cpfAlreadyExists = await prismaClient.user.findFirst({
+        where: {
+          cpf: cpf,
+        },
+      });
 
-    if (cpfAlreadyExists) {
-      throw new Error("CPF já cadastrado");
+      if (cpfAlreadyExists) {
+        throw new Error("CPF já cadastrado");
+      }
     }
 
     if (photo) {

@@ -28,6 +28,7 @@ interface PartnerRequest {
   number_sends: number;
   sends_week: number;
   interval_send: number;
+  enabled_cpf: boolean;
 }
 
 class CreatePartnerService {
@@ -56,6 +57,7 @@ class CreatePartnerService {
     number_sends,
     sends_week,
     interval_send,
+    enabled_cpf,
   }: PartnerRequest) {
     if (photo) {
       const s3Storage = new S3Storage();
@@ -125,6 +127,7 @@ class CreatePartnerService {
         email: email || null,
         password: email ? password : "",
         keywords: keywords,
+        enabled_cpf: enabled_cpf,
       },
     });
 

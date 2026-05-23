@@ -29,6 +29,7 @@ class EditPartnerController {
       sends_week,
       interval_send,
       keywords,
+      enabled_cpf,
     } = req.body;
 
     let userId = req.userId;
@@ -68,6 +69,7 @@ class EditPartnerController {
       sends_week: Number(sends_week) || 0,
       interval_send: Number(interval_send) || 0,
       map_visible: map_visible == "true",
+      enabled_cpf: enabled_cpf == "true",
     });
 
     return res.json(partnerEdited);

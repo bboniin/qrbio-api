@@ -27,6 +27,7 @@ class CreatePartnerController {
       sends_week,
       interval_send,
       keywords,
+      enabled_cpf,
     } = req.body;
 
     let userId = req.userId;
@@ -65,6 +66,7 @@ class CreatePartnerController {
       map_visible: map_visible == "true",
       categories,
       keywords,
+      enabled_cpf: enabled_cpf == "true",
     });
 
     return res.json(PartnerCreated);

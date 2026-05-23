@@ -26,6 +26,7 @@ interface PartnerRequest {
   categories: Array<string>;
   keywords: string;
   map_visible: boolean;
+  enabled_cpf: boolean;
   number_sends: number;
   sends_week: number;
   interval_send: number;
@@ -58,6 +59,7 @@ class EditPartnerService {
     sends_week,
     interval_send,
     url,
+    enabled_cpf,
   }: PartnerRequest) {
     const getPartner = await prismaClient.partner.findUnique({
       where: {
@@ -122,6 +124,7 @@ class EditPartnerService {
       neighborhood: neighborhood,
       city: city,
       state: state,
+      enabled_cpf: enabled_cpf,
       description: description,
       whatsapp: whatsapp,
       number_sends: number_sends,
