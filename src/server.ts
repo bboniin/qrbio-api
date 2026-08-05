@@ -36,4 +36,4 @@ cron.schedule("0 1 * * 1", () => {
   sendsWeekPartner.execute();
 });
 
-app.listen(3333, () => console.log("rodando v72"));
+app.listen(3333, () => console.log("rodando v73"));

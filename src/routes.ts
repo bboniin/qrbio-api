@@ -130,6 +130,7 @@ import { DeleteGroupController } from "./controllers/Contacts/DeleteGroupControl
 import { CreateGroupController } from "./controllers/Contacts/CreateGroupController";
 import { AddContactController } from "./controllers/Contacts/AddContactController";
 import { GetPartnerPublicController } from "./controllers/Partner/GetPartnerPublicController";
+import { OrderCategoriesController } from "./controllers/Partner/OrderCategoriesController";
 
 const upload = multer(uploadConfig);
 
@@ -159,10 +160,6 @@ router.get("/verify-email/:email", new VerifyEmailController().handle);
 router.get("/partner/p/:id", new GetPartnerPublicController().handle);
 
 router.use(isAuthenticated);
-
-// Routes Users
-// router.post('/admin', new CreateAdminController().handle)
-//router.post('/tag', new CreateTagController().handle)
 
 router.post(
   "/send-email-confirmation",
@@ -332,6 +329,7 @@ router.put("/admin/batch-coupons/:id", new EditBatchCouponController().handle);
 router.get("/admin/categories", new ListAdminCategoriesController().handle);
 router.post("/admin/category", new CreateCategoryController().handle);
 router.put("/admin/category/:id", new EditCategoryController().handle);
+router.put("/admin/categories/order", new OrderCategoriesController().handle);
 router.delete("/admin/category/:id", new DeleteCategoryController().handle);
 
 router.post("/admin/notifications", new CreateNotificationController().handle);

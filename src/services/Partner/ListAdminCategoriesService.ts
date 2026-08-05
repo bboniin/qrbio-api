@@ -4,7 +4,7 @@ class ListAdminCategoriesService {
   async execute() {
     const categories = await prismaClient.category.findMany({
       orderBy: {
-        name: "asc",
+        order: "asc",
       },
       include: {
         partners: true,

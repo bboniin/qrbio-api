@@ -28,6 +28,7 @@ class ListMapPartnersController {
         item["photo_url"] =
           "https://qrbio-api.s3.amazonaws.com/" + item["photo"];
       }
+      item["color"] = item.categories?.[0]?.category?.color ?? "";
     });
 
     return res.json(partners);

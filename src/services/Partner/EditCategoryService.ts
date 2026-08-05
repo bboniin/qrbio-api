@@ -3,12 +3,15 @@ import prismaClient from "../../prisma";
 interface PartnerRequest {
   name: string;
   id: string;
+  color: string;
+  order: number;
+  visible_app: boolean;
 }
 
 class EditCategoryService {
-  async execute({ name, id }: PartnerRequest) {
-    if (!name || !id) {
-      throw new Error("Nome e id da categoria são obrigatórios");
+  async execute({ name, color, order, visible_app, id }: PartnerRequest) {
+    if (!name || !id || !color) {
+      throw new Error("Nome, cor e id da categoria são obrigatórios");
     }
 
     const category = await prismaClient.category.findUnique({
@@ -37,6 +40,9 @@ class EditCategoryService {
       },
       data: {
         name: name,
+        color: color,
+        order: order,
+        visible_app: visible_app,
       },
     });
 

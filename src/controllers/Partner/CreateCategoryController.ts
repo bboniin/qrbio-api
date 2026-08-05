@@ -3,20 +3,15 @@ import { CreateCategoryService } from "../../services/Partner/CreateCategoryServ
 
 class CreateCategoryController {
   async handle(req: Request, res: Response) {
-    const { name } = req.body;
-
-    let userId = req.userId;
-
-    let photo = "";
-
-    if (req.file) {
-      photo = req.file.filename;
-    }
+    const { name, color, order, visible_app } = req.body;
 
     const createCategoryService = new CreateCategoryService();
 
     const categoryCreated = await createCategoryService.execute({
       name,
+      color,
+      order,
+      visible_app,
     });
 
     return res.json(categoryCreated);

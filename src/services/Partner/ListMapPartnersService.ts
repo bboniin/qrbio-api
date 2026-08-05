@@ -58,7 +58,11 @@ class ListMapPartnersService {
         ...filter,
       },
       include: {
-        categories: true,
+        categories: {
+          include: {
+            category: true,
+          },
+        },
       },
     });
 

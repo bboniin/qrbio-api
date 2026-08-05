@@ -2,12 +2,15 @@ import prismaClient from "../../prisma";
 
 interface PartnerRequest {
   name: string;
+  color: string;
+  order: number;
+  visible_app: boolean;
 }
 
 class CreateCategoryService {
-  async execute({ name }: PartnerRequest) {
-    if (!name) {
-      throw new Error("Nome da categoria é obrigatório");
+  async execute({ name, color, order, visible_app }: PartnerRequest) {
+    if (!name || !color) {
+      throw new Error("Nome da categoria e cor são obrigatórios");
     }
 
     const category = await prismaClient.category.findFirst({
@@ -23,6 +26,9 @@ class CreateCategoryService {
     const categoryCreated = await prismaClient.category.create({
       data: {
         name: name,
+        color: color,
+        order: order,
+        visible_app: visible_app,
       },
     });
 
